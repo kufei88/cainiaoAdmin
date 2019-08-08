@@ -16,7 +16,6 @@ public class BuildingService {
     public List<Building> getBuildingList(){
         return buildingMapper.getBuildingList();
     }
-<<<<<<< HEAD
 
     public List<Building> updateBuildingList(Building building){
         buildingMapper.updateBuildingInfo(building);
@@ -39,6 +38,4 @@ public class BuildingService {
         }
         return buildingMapper.getBuildingList();
     }
-=======
->>>>>>> 9f07f288bd3fe2e3312284a8dfc4e6dbd4c3250c
 }
