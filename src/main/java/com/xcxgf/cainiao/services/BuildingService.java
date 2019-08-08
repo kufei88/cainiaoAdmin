@@ -36,7 +36,6 @@ public class BuildingService {
         for (Building building: buildingList) {
             buildingMapper.insertBuildingInfo(building);
         }
-//        buildingMapper.insertBuildingInfo(building);
         return buildingMapper.getBuildingList();
     }
 }

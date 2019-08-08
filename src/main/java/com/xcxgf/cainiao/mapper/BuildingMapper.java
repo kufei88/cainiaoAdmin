@@ -12,12 +12,12 @@ public interface BuildingMapper {
     @Select("select * from buildingInfo where state !=-1")
     public List<Building> getBuildingList();
 
-    @Update("UPDATE buildingInfo SET buildingNumber=#{buildingNumber},buildingName=#{buildingName},roomArea=#{roomArea},hardwareSituation=#{hardwareSituation},rent=#{rent},additionalConditions=#{additionalConditions} WHERE id =#{id}")
+    @Update("UPDATE buildingInfo SET buildingNumber=#{buildingNumber},buildingName=#{buildingName} WHERE id =#{id}")
     public void updateBuildingInfo(Building building);
 
     @Update("UPDATE buildingInfo SET state=-1 WHERE id =#{id}")
     public void deleteBuildingInfo(Building building);
 
-    @Insert("INSERT INTO buildingInfo(buildingNumber,buildingName,roomArea,hardwareSituation,rent,additionalConditions) VALUES(#{buildingNumber}, #{buildingName}, #{roomArea},#{hardwareSituation},#{rent},#{additionalConditions})")
+    @Insert("INSERT INTO buildingInfo(buildingNumber,buildingName) VALUES(#{buildingNumber}, #{buildingName})")
     public void insertBuildingInfo(Building building);
 }
