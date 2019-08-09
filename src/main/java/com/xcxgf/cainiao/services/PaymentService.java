@@ -31,7 +31,7 @@ public class PaymentService {
 
     public void delete(HttpServletRequest request){
         String id = request.getParameter("id");
-        System.out.println(paymentMapper.deletePaymentInfo(Integer.parseInt(id)));
+        paymentMapper.deletePaymentInfo(Integer.parseInt(id));
     }
 
     public void update(String id,String water,String electricity){
