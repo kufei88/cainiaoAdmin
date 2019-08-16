@@ -14,6 +14,10 @@ public class AccountService {
     AccountMapper accountMapper;
     public List<Account> getAccountList(){return accountMapper.getAccountList();}
 
+    public List<Account> getAccountNameList(HttpServletRequest request){
+        String name=request.getParameter("name");
+        return accountMapper.getAccountNameList(name);
+    }
     //数据更新
     public int updateAccount(HttpServletRequest request){
         Account entityAccount=new Account();
@@ -21,7 +25,7 @@ public class AccountService {
         entityAccount.setCompanyName(request.getParameter("companyName"));
         entityAccount.setContact(request.getParameter("contact"));
         entityAccount.setContactNumber(request.getParameter("contactNumber"));
-        entityAccount.setVenueNumber(request.getParameter("venueNumber"));
+        entityAccount.setDormitoryNum(request.getParameter("dormitoryNum"));
         entityAccount.setContractSigning(request.getParameter("contractSigning"));
         entityAccount.setLeasePeriod(request.getParameter("leasePeriod"));
         entityAccount.setRemark(request.getParameter("remark"));
@@ -34,7 +38,7 @@ public class AccountService {
         entityAccount.setCompanyName(request.getParameter("companyName"));
         entityAccount.setContact(request.getParameter("contact"));
         entityAccount.setContactNumber(request.getParameter("contactNumber"));
-        entityAccount.setVenueNumber(request.getParameter("venueNumber"));
+        entityAccount.setDormitoryNum(request.getParameter("dormitoryNum"));
         entityAccount.setContractSigning(request.getParameter("contractSigning"));
         entityAccount.setLeasePeriod(request.getParameter("leasePeriod"));
         entityAccount.setRemark(request.getParameter("remark"));
@@ -47,5 +51,17 @@ public class AccountService {
         return accountMapper.deleteAccount(id);
     }
 
+    //上传数据
+    public int uploadAccount(HttpServletRequest request){
+        Account entityAccount=new Account();
+        entityAccount.setCompanyName(request.getParameter("公司名称"));
+        entityAccount.setContact(request.getParameter("联系人"));
+        entityAccount.setContactNumber(request.getParameter("联系电话"));
+        entityAccount.setDormitoryNum(request.getParameter("租赁场地门牌号"));
+        entityAccount.setContractSigning(request.getParameter("租赁合同签署情况"));
+        entityAccount.setLeasePeriod(request.getParameter("租期"));
+        entityAccount.setRemark(request.getParameter("备注"));
+        return accountMapper.insertAccount(entityAccount);
+    }
 
 }

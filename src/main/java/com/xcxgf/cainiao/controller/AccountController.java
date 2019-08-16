@@ -28,8 +28,14 @@ public class AccountController {
     @RequestMapping(method = RequestMethod.POST,value="/deleteAccount")
     public int deleteAccount(HttpServletRequest request){ return accountService.deleteAccount(request);}
 
-    @RequestMapping(method = RequestMethod.POST,value="/upload")
-    public void upload(HttpServletRequest request){
+    @RequestMapping(method = RequestMethod.POST,value="/uploadAccount")
+    public int uploadAccount(HttpServletRequest request){
+        return accountService.uploadAccount(request);
+    }
 
+
+    @RequestMapping(method = RequestMethod.GET,value="/getNameList")
+    public List<Account> getAccountNameList(HttpServletRequest request){
+        return accountService.getAccountNameList(request);
     }
 }
