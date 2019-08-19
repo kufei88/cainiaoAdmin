@@ -37,4 +37,9 @@ public class EnterpriseController {
         return es.insertEnterpriseList(enterprise);
     }
 
+    @RequestMapping(method = RequestMethod.POST,value = "/uploadEnterpriseList")
+    public List<Enterprise> uploadEnterpriseList(@RequestBody List<Enterprise> enterpriseList){
+        return es.uploadEnterpriseList(enterpriseList);
+    }
+
 }

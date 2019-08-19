@@ -38,4 +38,11 @@ public class RoomController {
         rs.updateRoomList(room);
         return rs.getRoomList();
     }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/uploadRoomList")
+    public List<Room> uploadRoomList(@RequestBody List<Room> roomList){
+        rs.uploadRoomList(roomList);
+        return rs.getRoomList();
+    }
+
 }

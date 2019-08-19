@@ -10,24 +10,22 @@ import java.util.List;
 
 public interface AccountMapper {
     //查询
-    @Select("select * from dormitorymanage where isdelete=false")
+    @Select("select * from businessaccount where isdelete=false")
     public List<Account> getAccountList();
 
-    @Select("select * from dormitorymanage where isdelete=false and companyName like CONCAT('%',#{name},'%')")
-    public List<Account> getAccountNameList(String companyName);
     //更新
-    @Update("update dormitorymanage set companyName=#{companyName},contact=#{contact}," +
-            "contactNumber=#{contactNumber},dormitoryNum=#{dormitoryNum},contractSigning=#{contractSigning}," +
+    @Update("update businessaccount set companyName=#{companyName},contact=#{contact}," +
+            "contactNumber=#{contactNumber},venueNumber=#{venueNumber},contractSigning=#{contractSigning}," +
             "leasePeriod=#{leasePeriod},remark=#{remark} where id=#{id}")
     public int updateAccount(Account entityAccount);
 
     //插入
-    @Insert("insert into dormitorymanage(companyName,contact,contactNumber," +
-            "dormitoryNum,leasePeriod,remark) values(#{companyName}," +
-            "#{contact},#{contactNumber},#{dormitoryNum}," +
-            "#{leasePeriod},#{remark})")
+    @Insert("insert into businessaccount(companyName,contact,contactNumber," +
+            "venueNumber,contractSigning,leasePeriod,remark) values(#{companyName}," +
+            "#{contact},#{contactNumber},#{venueNumber}," +
+            "#{contractSigning},#{leasePeriod},#{remark})")
     public int insertAccount(Account entityAccount);
 
-    @Update("update dormitorymanage set isdelete=true where id=#{id}")
+    @Update("update businessaccount set isdelete=true where id=#{id}")
     public int deleteAccount(int id);
 }

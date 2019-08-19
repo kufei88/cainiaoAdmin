@@ -30,4 +30,10 @@ public class RoomService {
         rm.updateRoomInfo(room);
         return rm.getRoomList();
     }
+    public List<Room> uploadRoomList(List<Room> roomList){
+        for (Room room:roomList) {
+            rm.insertRoomInfo(room);
+        }
+        return rm.getRoomList();
+    }
 }

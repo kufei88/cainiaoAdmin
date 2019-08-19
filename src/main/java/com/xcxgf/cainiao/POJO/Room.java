@@ -3,7 +3,7 @@ package com.xcxgf.cainiao.POJO;
 public class Room {
     private int id;
     private String roomNumber;
-    private String buildingNumber;
+    private String buildingName;
     private String rentArea;
     private String builtUpArea;
     private String owner;
@@ -25,12 +25,12 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public String getBuildingNumber() {
-        return buildingNumber;
+    public String getBuildingName() {
+        return buildingName;
     }
 
-    public void setBuildingNumber(String buildingNumber) {
-        this.buildingNumber = buildingNumber;
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
     }
 
     public String getRentArea() {

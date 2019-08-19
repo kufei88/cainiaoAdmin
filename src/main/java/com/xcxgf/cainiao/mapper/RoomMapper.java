@@ -14,10 +14,10 @@ public interface RoomMapper {
     @Update("UPDATE roomInfo SET state=-1 WHERE id =#{id}")
     public void deleteRoomInfo(Room room);
 
-    @Update("UPDATE roomInfo SET roomNumber=#{roomNumber},buildingNumber=#{buildingNumber},rentArea=#{rentArea},builtUpArea=#{builtUpArea},owner=#{owner} WHERE id =#{id}")
+    @Update("UPDATE roomInfo SET roomNumber=#{roomNumber},buildingName=#{buildingName},rentArea=#{rentArea},builtUpArea=#{builtUpArea},owner=#{owner} WHERE id =#{id}")
     public void updateRoomInfo(Room room);
 
-    @Insert("INSERT INTO roomInfo(roomNumber,buildingNumber,rentArea,builtUpArea,owner) VALUES(#{roomNumber}, #{buildingNumber}, #{rentArea}, #{builtUpArea}, #{owner})")
+    @Insert("INSERT INTO roomInfo(roomNumber,buildingName,rentArea,builtUpArea,owner) VALUES(#{roomNumber}, #{buildingName}, #{rentArea}, #{builtUpArea}, #{owner})")
     public void insertRoomInfo(Room room);
 
 }

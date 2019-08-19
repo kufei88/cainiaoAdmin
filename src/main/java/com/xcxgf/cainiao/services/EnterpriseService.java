@@ -30,4 +30,11 @@ public class EnterpriseService {
         em.insertEnterpriseInfo(enterprise);
         return em.getEnterpriseList();
     }
+
+    public List<Enterprise> uploadEnterpriseList(List<Enterprise> enterpriseList){
+        for (Enterprise enterprise: enterpriseList) {
+            em.insertEnterpriseInfo(enterprise);
+        }
+        return em.getEnterpriseList();
+    }
 }
