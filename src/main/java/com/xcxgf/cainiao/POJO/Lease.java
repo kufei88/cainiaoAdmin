@@ -2,8 +2,9 @@ package com.xcxgf.cainiao.POJO;
 
 public class Lease {
     private int id;
-    private String roomNumber;
     private String owner;
+    private String roomNumber;
+    private String buildingName;
     private String depositOnContracts;
     private String leaseTerm;
     private String startingLeasePeriod;
@@ -44,9 +45,9 @@ public class Lease {
     private String propertyFeeSix;
     private String energySharingSix;
     private String totalRentSix;
-    private int isPayBond;
-    private int isPayFirstRent;
-    private int isPaySecondRent;
+    private String isPayBond;
+    private String isPayFirstRent;
+    private String isPaySecondRent;
     private String rentalUnits;
     private String annualTurnoverInterval;
     private String dailyQuantityInterval;
@@ -61,6 +62,14 @@ public class Lease {
         this.id = id;
     }
 
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public String getRoomNumber() {
         return roomNumber;
     }
@@ -69,12 +78,12 @@ public class Lease {
         this.roomNumber = roomNumber;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getBuildingName() {
+        return buildingName;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
     }
 
     public String getDepositOnContracts() {
@@ -397,27 +406,27 @@ public class Lease {
         this.totalRentSix = totalRentSix;
     }
 
-    public int getIsPayBond() {
+    public String getIsPayBond() {
         return isPayBond;
     }
 
-    public void setIsPayBond(int isPayBond) {
+    public void setIsPayBond(String isPayBond) {
         this.isPayBond = isPayBond;
     }
 
-    public int getIsPayFirstRent() {
+    public String getIsPayFirstRent() {
         return isPayFirstRent;
     }
 
-    public void setIsPayFirstRent(int isPayFirstRent) {
+    public void setIsPayFirstRent(String isPayFirstRent) {
         this.isPayFirstRent = isPayFirstRent;
     }
 
-    public int getIsPaySecondRent() {
+    public String getIsPaySecondRent() {
         return isPaySecondRent;
     }
 
-    public void setIsPaySecondRent(int isPaySecondRent) {
+    public void setIsPaySecondRent(String isPaySecondRent) {
         this.isPaySecondRent = isPaySecondRent;
     }
 

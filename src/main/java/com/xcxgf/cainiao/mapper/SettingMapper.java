@@ -10,6 +10,6 @@ public interface SettingMapper {
     @Select("select * from settingInfo where state != -1")
     public List<Setting> getSettingList();
 
-    @Update("update settingInfo set rentUnitPrice=#{rentUnitPrice},manageExpense=#{manageExpense} where id=#{id}")
+    @Update("update settingInfo set manageExpense=#{manageExpense} where id=#{id}")
     public void updateSettingList(Setting setting);
 }

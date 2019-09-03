@@ -2,11 +2,29 @@ package com.xcxgf.cainiao.POJO;
 
 public class Room {
     private int id;
+    /**
+     * roomNumber 房间号
+     */
     private String roomNumber;
+    /**
+     * 办公楼名称
+     */
     private String buildingName;
+    /**
+     * 计租面积
+     */
     private String rentArea;
+    /**
+     * 建筑面积
+     */
     private String builtUpArea;
+    /**
+     * 业主
+     */
     private String owner;
+    /**
+     * 记录状态
+     */
     private int state;
 
     public int getId() {
