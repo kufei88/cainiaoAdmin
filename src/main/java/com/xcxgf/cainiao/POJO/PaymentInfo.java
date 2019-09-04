@@ -4,6 +4,16 @@ public class PaymentInfo {
     private int id;
     private String WaterNumber;
     private String ElectricityNumber;
+    private String EnterpriseNumber;
+    public String getEnterpriseNumber() {
+        return EnterpriseNumber;
+    }
+
+    public void setEnterpriseNumber(String enterpriseNumber) {
+        EnterpriseNumber = enterpriseNumber;
+    }
+
+
     public int getId() {
         return id;
     }
