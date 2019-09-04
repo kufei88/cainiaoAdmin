@@ -1,5 +1,8 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * 办公楼的实体类
+ */
 public class Building {
     private int id; // id标识
     private String buildingNumber; // 办公楼楼号

@@ -1,58 +1,62 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * 租赁信息的实体类
+ */
 public class Lease {
-    private int id;
-    private String owner;
-    private String roomNumber;
-    private String buildingName;
-    private String depositOnContracts;
-    private String leaseTerm;
-    private String startingLeasePeriod;
-    private String terminationPeriod;
-    private String unitRentOne;
-    private String leasePeriodOne;
-    private String totalAmountOne;
-    private String propertyFeeOne;
-    private String energySharingOne;
-    private String totalRentOne;
-    private String unitRentTwo;
-    private String leasePeriodTwo;
-    private String totalAmountTwo;
-    private String propertyFeeTwo;
-    private String energySharingTwo;
-    private String totalRentTwo;
-    private String unitRentThree;
-    private String leasePeriodThree;
-    private String totalAmountThree;
-    private String propertyFeeThree;
-    private String energySharingThree;
-    private String totalRentThree;
-    private String unitRentFour;
-    private String leasePeriodFour;
-    private String totalAmountFour;
-    private String propertyFeeFour;
-    private String energySharingFour;
-    private String totalRentFour;
-    private String unitRentFive;
-    private String leasePeriodFive;
-    private String totalAmountFive;
-    private String propertyFeeFive;
-    private String energySharingFive;
-    private String totalRentFive;
-    private String unitRentSix;
-    private String leasePeriodSix;
-    private String totalAmountSix;
-    private String propertyFeeSix;
-    private String energySharingSix;
-    private String totalRentSix;
-    private String isPayBond;
-    private String isPayFirstRent;
-    private String isPaySecondRent;
-    private String rentalUnits;
-    private String annualTurnoverInterval;
-    private String dailyQuantityInterval;
-    private String register;
-    private int state;
+    private int id; // id标识
+    private String owner; // 业主
+    private String roomNumber; // 办公室房号
+    private String buildingName; // 所属办公楼名称
+    private String depositOnContracts; // 合同保证金
+    private String leaseTerm; // 租期
+    private String startingLeasePeriod; // 起租期
+    private String terminationPeriod; // 终止期
+    private String unitRentOne; // 首期租金单价
+    private String leasePeriodOne; // 首期租期周期
+    private String totalAmountOne; // 首期租期应付总额
+    private String propertyFeeOne; // 首期租期应付物业费
+    private String energySharingOne; // 首期能耗公摊
+    private String totalRentOne; // 首期租费合计
+    private String unitRentTwo; // 第2期租金单价
+    private String leasePeriodTwo; // 第2期租期周期
+    private String totalAmountTwo; // 第2期租期应付总额
+    private String propertyFeeTwo; // 第2期租期应付物业费
+    private String energySharingTwo; // 第2期能耗公摊
+    private String totalRentTwo; // 第2期租费合计
+    private String unitRentThree; // 第3期租金单价
+    private String leasePeriodThree; // 第3期租期周期
+    private String totalAmountThree; // 第3期租期应付总额
+    private String propertyFeeThree; // 第3期租期应付物业费
+    private String energySharingThree; // 第3期能耗公摊
+    private String totalRentThree; // 第3期租费合计
+    private String unitRentFour; // 第4期租金单价
+    private String leasePeriodFour; // 第4期租期周期
+    private String totalAmountFour; // 第4期租期应付总额
+    private String propertyFeeFour; // 第4期租期应付物业费
+    private String energySharingFour; // 第4期能耗公摊
+    private String totalRentFour; // 第4期租费合计
+    private String unitRentFive; // 第5期租金单价
+    private String leasePeriodFive; // 第5期租期周期
+    private String totalAmountFive; // 第5期租期应付总额
+    private String propertyFeeFive; // 第5期租期应付物业费
+    private String energySharingFive; // 第5期能耗公摊
+    private String totalRentFive; // 第5期租费合计
+    private String unitRentSix; // 第6期租金单价
+    private String leasePeriodSix; // 第6期租期周期
+    private String totalAmountSix; // 第6期租期应付总额
+    private String propertyFeeSix; // 第6期租期应付物业费
+    private String energySharingSix; // 第6期能耗公摊
+    private String totalRentSix; // 第6期租费合计
+    private String isPayBond; // 保证金是否支付
+    private String isPayFirstRent; // 首年租金是否支付
+    private String isPaySecondRent; // 第二年租金是否支付
+    private String rentalUnits; // 出租单元数
+    private String annualTurnoverInterval; // 年成交额区间
+    private String dailyQuantityInterval; // 日均单量区间
+    private String register; // 注册
+    private String rentNumber; // 租期期数标识，仅用于前后端交互，不存入数据库
+    private int state; // 记录标识，1为可用，-1不可用
 
     public int getId() {
         return id;
@@ -460,6 +464,14 @@ public class Lease {
 
     public void setRegister(String register) {
         this.register = register;
+    }
+
+    public String getRentNumber() {
+        return rentNumber;
+    }
+
+    public void setRentNumber(String rentNumber) {
+        this.rentNumber = rentNumber;
     }
 
     public int getState() {

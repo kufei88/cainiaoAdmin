@@ -1,11 +1,14 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * 园区企业的实体类
+ */
 public class Enterprise {
-    private int Id;
-    private String enterpriseName;
-    private String enterprisePerson;
-    private String enterpriseTelphone;
-    private int state;
+    private int Id; // id标识
+    private String enterpriseName; // 公司名称
+    private String enterprisePerson; // 联系人
+    private String enterpriseTelphone; // 联系电话
+    private int state; // 记录状态，1为可用，-1为不可用
 
     public int getId() {
         return Id;

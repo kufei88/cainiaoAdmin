@@ -1,31 +1,16 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * 办公室的实体类
+ */
 public class Room {
-    private int id;
-    /**
-     * roomNumber 房间号
-     */
-    private String roomNumber;
-    /**
-     * 办公楼名称
-     */
-    private String buildingName;
-    /**
-     * 计租面积
-     */
-    private String rentArea;
-    /**
-     * 建筑面积
-     */
-    private String builtUpArea;
-    /**
-     * 业主
-     */
-    private String owner;
-    /**
-     * 记录状态
-     */
-    private int state;
+    private int id; // id标识
+    private String roomNumber; // 办公室房间号
+    private String buildingName; // 所属办公楼
+    private String rentArea; // 计租面积
+    private String builtUpArea; // 建筑面积
+    private String owner; // 业主
+    private int state; // 记录状态，1为可用，-1为不可用
 
     public int getId() {
         return id;

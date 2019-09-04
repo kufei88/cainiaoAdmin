@@ -1,9 +1,12 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * 系统设置的实体类
+ */
 public class Setting {
-    private int id;
-    private String manageExpense;
-    private int state;
+    private int id; // id标识
+    private String manageExpense; // 管理单价
+    private int state; // 记录状态，1为可用，-1为不可用
 
     public int getId() {
         return id;
