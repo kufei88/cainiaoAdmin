@@ -2,6 +2,7 @@ package com.xcxgf.cainiao.mapper;
 
 import com.xcxgf.cainiao.POJO.Account;
 import com.xcxgf.cainiao.POJO.Building;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -13,8 +14,8 @@ public interface AccountMapper {
    @Select("select * from dormitorymanage where isdelete=false limit 0,10")
    public List<Account> getAccountList0();
     //分页查询
-    @Select("select * from dormitorymanage where isdelete=false limit #{start},10")
-    public List<Account> getAccountList(int start);
+    @Select("select * from dormitorymanage where isdelete=false limit #{start},#{pagesize}")
+    public List<Account> getAccountList(int start,int pagesize);
 
     @Select("select * from dormitorymanage where isdelete=false and companyName like CONCAT('%',#{name},'%')")
     public List<Account> getAccountNameList(String companyName);
@@ -45,6 +46,6 @@ public interface AccountMapper {
             "#{leasePeriod},#{remark})")
     public int insertAccount(Account entityAccount);
 
-    @Update("update dormitorymanage set isdelete=true where id=#{id}")
+    @Delete("delete from dormitorymanage where id=#{id}")
     public int deleteAccount(int id);
 }

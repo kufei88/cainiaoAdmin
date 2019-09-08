@@ -26,4 +26,11 @@ public class DormService {
     public int Updatedroms( Dorms dorms){
         return dormMapper.Updatedroms(dorms);
     }
+
+    public List<Dorms>selectDroms(String htid,int domitoryId){
+        return dormMapper.selectDroms(htid,domitoryId);
+    }
+    public int AddDorms(int domitoryId,String dormNum){
+        return dormMapper.AddDorms(domitoryId,dormNum);
+    }
 }

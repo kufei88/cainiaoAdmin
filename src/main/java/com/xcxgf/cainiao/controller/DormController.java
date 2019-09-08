@@ -15,7 +15,7 @@ import java.util.List;
 public class DormController {
     @Autowired
     DormService dormService;
-    @RequestMapping(method = RequestMethod.POST,value = "/getDormsData")
+    @RequestMapping(method = RequestMethod.GET,value = "/getDormsData")
     public List<Dorms> getDormList(HttpServletRequest request){
         return dormService.getDormList(request);
     }

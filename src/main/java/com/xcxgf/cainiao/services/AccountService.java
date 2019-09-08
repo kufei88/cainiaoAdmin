@@ -1,7 +1,12 @@
 package com.xcxgf.cainiao.services;
 
 import com.xcxgf.cainiao.POJO.Account;
+import com.xcxgf.cainiao.POJO.Dormitory;
+import com.xcxgf.cainiao.POJO.ExcelData;
 import com.xcxgf.cainiao.mapper.AccountMapper;
+import com.xcxgf.cainiao.mapper.DormMapper;
+import com.xcxgf.cainiao.mapper.DormitoryMapper;
+import com.xcxgf.cainiao.mapper.RenewalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
@@ -16,6 +21,16 @@ import java.util.List;
 public class AccountService {
     @Autowired
     AccountMapper accountMapper;
+
+    @Autowired
+    DormMapper dormMapper;
+
+
+    @Autowired
+    DormitoryMapper dormitoryMapper;
+
+    @Autowired
+    RenewalMapper renewalMapper;
     //数据查询
     public List<Account> getAccountList0(){ return accountMapper.getAccountList0();}
 
@@ -23,7 +38,9 @@ public class AccountService {
     {
         int start=(Integer.parseInt(request.getParameter("startnum"))-1)*10;
         //System.out.println(start);
-        return accountMapper.getAccountList(start);
+        int pagesize=Integer.parseInt(request.getParameter("pagecount"));
+
+        return accountMapper.getAccountList(start,pagesize);
     }
 
     public List<Account> getAccountNameList(HttpServletRequest request){
@@ -53,24 +70,61 @@ public class AccountService {
     }
 
     //数据删除
-    public int deleteAccount(HttpServletRequest request){
-        int id=Integer.parseInt(request.getParameter("id"));
+    public int deleteAccount(Account account){
+        int id=account.getId();
+
+        String dormitoryName=account.getDormitoryNum();
+
+        int domitoryId=dormitoryMapper.Selectid(dormitoryName);
+
+        String htid=account.getCompanyName();
+
+        dormMapper.Updatedroms3(domitoryId,htid);
+
         return accountMapper.deleteAccount(id);
     }
 
     //上传数据
-    public int uploadAccount(HttpServletRequest request){
-        Account entityAccount=new Account();
-        entityAccount.setCompanyName(request.getParameter("公司名称"));
-        entityAccount.setContact(request.getParameter("联系人"));
-        entityAccount.setContactNumber(request.getParameter("联系电话"));
-        entityAccount.setDormitoryNum(request.getParameter("宿舍楼号"));
-        entityAccount.setContractSigning(request.getParameter("租赁合同签署日期"));
-        entityAccount.setStartDate(request.getParameter("起始日期"));
-        entityAccount.setEndDate(request.getParameter("结束日期"));
-        entityAccount.setLeasePeriod(request.getParameter("租期"));
-        entityAccount.setRemark(request.getParameter("租金"));
-        return accountMapper.insertAccount(entityAccount);
+    public int uploadAccount(List<ExcelData> excelDataList) throws ParseException {
+        funhelper fhp=new funhelper();
+        int status=1;
+        for(int i=0;i<excelDataList.toArray().length;i++){
+            Account entityAccount=new Account();
+            String [] strarr=excelDataList.get(i).getDromNum().split(",");
+            int dormitoryid=Integer.parseInt(excelDataList.get(i).getDormitoryId());
+            for(int j=0;j<strarr.length;j++){
+
+                int count=dormMapper.selectRepeat(dormitoryid,strarr[j]);
+                if(count==0){
+                    status=-1;
+                    return status;
+                }
+                if(count>1){
+                    status=-3;
+                    return status;
+                }
+
+            }
+            int lsp=Integer.parseInt(excelDataList.get(i).getLeasePeriod());
+            entityAccount.setCompanyName(excelDataList.get(i).getCompanyName());
+            entityAccount.setContact(excelDataList.get(i).getContact());
+            entityAccount.setContactNumber(excelDataList.get(i).getContactNumber());
+            entityAccount.setStartDate(excelDataList.get(i).getStartDate());
+            entityAccount.setLeasePeriod(excelDataList.get(i).getLeasePeriod());
+            entityAccount.setEndDate(fhp.addMounth(excelDataList.get(i).getStartDate(),lsp));
+            entityAccount.setDormitoryNum(dormitoryMapper.SelectName(dormitoryid));
+            entityAccount.setRemark(excelDataList.get(i).getRemark());
+            if(status==1){
+                accountMapper.insertAccount(entityAccount);
+                for(int n=0;n<strarr.length;n++){
+                    String htid=excelDataList.get(i).getCompanyName();
+                    String dromNum=strarr[n];
+                    dormMapper.Updatedroms2(htid,dormitoryid,dromNum);
+                }
+            }
+
+        }
+        return status;
     }
 
 

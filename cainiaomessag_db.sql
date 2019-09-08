@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2019-09-04 15:10:59
+Date: 2019-09-02 08:11:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,12 +27,12 @@ CREATE TABLE `buildinginfo` (
   PRIMARY KEY (`id`),
   KEY `buildingName` (`buildingName`),
   KEY `buildingNumber` (`buildingNumber`,`buildingName`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of buildinginfo
 -- ----------------------------
-INSERT INTO `buildinginfo` VALUES ('1', '1', '1号楼', '1');
+INSERT INTO `buildinginfo` VALUES ('1', '1', '2号楼', '1');
 INSERT INTO `buildinginfo` VALUES ('2', '2', '2号楼', '1');
 INSERT INTO `buildinginfo` VALUES ('3', '3', '3号楼', '1');
 INSERT INTO `buildinginfo` VALUES ('4', '4', '4号楼', '1');
@@ -59,89 +59,6 @@ INSERT INTO `buildinginfo` VALUES ('24', '24', '24号楼', '1');
 INSERT INTO `buildinginfo` VALUES ('25', '25', '25号楼', '1');
 INSERT INTO `buildinginfo` VALUES ('26', '26', '26号楼', '1');
 INSERT INTO `buildinginfo` VALUES ('27', '27', '27号楼', '1');
-INSERT INTO `buildinginfo` VALUES ('28', '28', '28号楼', '1');
-INSERT INTO `buildinginfo` VALUES ('30', '33', '33号楼', '1');
-INSERT INTO `buildinginfo` VALUES ('31', '34', '34号楼', '1');
-
--- ----------------------------
--- Table structure for dormitory
--- ----------------------------
-DROP TABLE IF EXISTS `dormitory`;
-CREATE TABLE `dormitory` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dormitoryName` varchar(255) DEFAULT NULL,
-  `money` varchar(50) DEFAULT NULL,
-  `isfull` tinyint(4) DEFAULT '0',
-  `isdelete` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of dormitory
--- ----------------------------
-INSERT INTO `dormitory` VALUES ('1', '1号楼', '1000', '0', '0');
-INSERT INTO `dormitory` VALUES ('2', '2号楼', '2000', '0', '0');
-INSERT INTO `dormitory` VALUES ('3', '3号楼', '1500', '0', '0');
-INSERT INTO `dormitory` VALUES ('4', '4号楼', '1600', '0', '0');
-
--- ----------------------------
--- Table structure for dormitorymanage
--- ----------------------------
-DROP TABLE IF EXISTS `dormitorymanage`;
-CREATE TABLE `dormitorymanage` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `companyName` varchar(255) DEFAULT NULL,
-  `contact` varchar(255) DEFAULT NULL,
-  `contactNumber` varchar(255) DEFAULT NULL,
-  `dormitoryNum` varchar(50) DEFAULT NULL,
-  `contractSigning` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `startDate` date DEFAULT NULL,
-  `endDate` date DEFAULT NULL,
-  `leasePeriod` varchar(50) DEFAULT NULL,
-  `remark` varchar(50) DEFAULT NULL,
-  `isdelete` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `fk_bn` (`dormitoryNum`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of dormitorymanage
--- ----------------------------
-INSERT INTO `dormitorymanage` VALUES ('5', '6', '6', '6', '1号楼', '2019-09-03 20:15:13', null, null, '2', '2000', '0');
-INSERT INTO `dormitorymanage` VALUES ('6', '7', '7', '7', '1号楼', '2019-09-03 20:15:14', '2019-09-02', '2019-09-02', '8', '8000', '0');
-INSERT INTO `dormitorymanage` VALUES ('7', 'gw', 'gff', '123', '1号楼', '2019-09-03 20:15:16', '2019-09-02', '2019-09-02', '12', '12000', '0');
-INSERT INTO `dormitorymanage` VALUES ('8', 'e', 'qwe', '12333', '2号楼', '2019-09-03 20:15:15', '2019-09-02', '2019-09-02', '6', '12000', '0');
-INSERT INTO `dormitorymanage` VALUES ('9', '12', '12', '12', '1号楼', '2019-09-03 10:17:41', '2019-09-02', '2019-09-02', '7', '7000', '0');
-INSERT INTO `dormitorymanage` VALUES ('10', '11', '22', '33', '4号楼', '2019-09-02 15:18:17', '2019-09-02', '2019-09-02', '2', '3200', '0');
-INSERT INTO `dormitorymanage` VALUES ('11', 'qqq', '123', '144', '1号楼', '2019-09-02 15:18:17', '2019-09-02', '2019-09-02', '8', '8000', '0');
-INSERT INTO `dormitorymanage` VALUES ('12', 'q', '222', '111111111', '1号楼', '2019-09-03 20:15:17', '2019-09-02', '2019-09-02', '1', '1000', '0');
-INSERT INTO `dormitorymanage` VALUES ('13', '123', '123123', '123123123123', '1号楼', '2019-09-03 20:15:18', '2019-09-02', '2019-09-02', '1', '1000', '0');
-INSERT INTO `dormitorymanage` VALUES ('14', '123', '11111', '111111', '3号楼', '2019-09-03 20:15:19', '2019-09-02', '2019-09-02', '1', '1500', '0');
-INSERT INTO `dormitorymanage` VALUES ('15', '333', '333', '333', '1号楼', '2019-09-03 20:15:23', '2019-09-02', '2019-11-02', '2', '2000', '0');
-INSERT INTO `dormitorymanage` VALUES ('16', '55', '5555', '565656', '1号楼', '2019-09-02 15:19:22', '2019-09-02', '2020-01-02', '4', '2000', '0');
-INSERT INTO `dormitorymanage` VALUES ('17', '5566', '66677', '7788', '2号楼', '2019-09-02 15:19:17', '2019-09-02', '2019-12-02', '3', '4000', '0');
-INSERT INTO `dormitorymanage` VALUES ('18', '9', '9999', '999999', '1号楼', '2019-09-03 10:17:37', '2019-09-02', '2020-02-02', '5', '5000', '0');
-INSERT INTO `dormitorymanage` VALUES ('19', 'c', 'c', '66666', '1号楼', '2019-09-02 15:21:48', '2019-09-26', '2020-01-25', '4', '4000', '0');
-INSERT INTO `dormitorymanage` VALUES ('20', '1', '2', '3', '1号楼', '2019-09-02 15:41:51', '2019-09-26', '2020-01-25', '4', '4000', '0');
-INSERT INTO `dormitorymanage` VALUES ('21', 'r', 'r', 'r', '1号楼', '2019-09-02 15:44:19', '2019-09-19', '2019-11-18', '2', '2000', '0');
-INSERT INTO `dormitorymanage` VALUES ('22', '4', '4', '4', '1号楼', '2019-09-02 15:45:57', '2019-09-28', '2020-01-27', '4', '4000', '0');
-
--- ----------------------------
--- Table structure for droms
--- ----------------------------
-DROP TABLE IF EXISTS `droms`;
-CREATE TABLE `droms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `htId` varchar(11) DEFAULT '0' COMMENT '合同编号',
-  `domitoryId` int(11) DEFAULT NULL COMMENT '寝室编号',
-  `dromNum` int(11) DEFAULT NULL COMMENT '宿舍编号',
-  `isfull` tinyint(4) unsigned zerofill DEFAULT '0000',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of droms
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for enterpriseinfo
@@ -159,7 +76,7 @@ CREATE TABLE `enterpriseinfo` (
 -- ----------------------------
 -- Records of enterpriseinfo
 -- ----------------------------
-INSERT INTO `enterpriseinfo` VALUES ('1', '1号公司', 'npc1', '17857075856', '1');
+INSERT INTO `enterpriseinfo` VALUES ('1', '1号公司', 'npc1', '', '1');
 INSERT INTO `enterpriseinfo` VALUES ('2', '2号公司', 'npc2', '654321', '1');
 INSERT INTO `enterpriseinfo` VALUES ('3', '3号公司', 'npc3', '147852', '1');
 INSERT INTO `enterpriseinfo` VALUES ('4', '1', '222', '222', '1');
@@ -178,22 +95,6 @@ INSERT INTO `enterpriseinfo` VALUES ('16', '161', '162', '163', '1');
 INSERT INTO `enterpriseinfo` VALUES ('17', '171', '172', '173', '1');
 INSERT INTO `enterpriseinfo` VALUES ('18', '181', '182', '183', '1');
 INSERT INTO `enterpriseinfo` VALUES ('19', '2', '1', '1', '1');
-
--- ----------------------------
--- Table structure for hydropower
--- ----------------------------
-DROP TABLE IF EXISTS `hydropower`;
-CREATE TABLE `hydropower` (
-  `water` float(255,4) unsigned zerofill DEFAULT NULL,
-  `electricity` float(255,4) unsigned zerofill DEFAULT NULL,
-  `id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ----------------------------
--- Records of hydropower
--- ----------------------------
-INSERT INTO `hydropower` VALUES ('0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002.0000', '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002.0000', '1');
 
 -- ----------------------------
 -- Table structure for leaseinfo
@@ -244,9 +145,9 @@ CREATE TABLE `leaseinfo` (
   `propertyFeeSix` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '第6期租期应付物业费（周期*管理费单价*面积）',
   `energySharingSix` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '第6期能耗公摊',
   `totalRentSix` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '第6期租费合计(租金+物业费+能耗公摊)',
-  `isPayBond` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '否' COMMENT '保证金是否支付',
-  `isPayFirstRent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '否' COMMENT '首年租金是否支付',
-  `isPaySecondRent` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '否' COMMENT '第二年租金是否支付',
+  `isPayBond` varchar(255) DEFAULT '1' COMMENT '保证金是否支付',
+  `isPayFirstRent` varchar(255) DEFAULT '1' COMMENT '首年租金是否支付',
+  `isPaySecondRent` varchar(255) DEFAULT '1' COMMENT '第二年租金是否支付',
   `rentalUnits` varchar(255) DEFAULT NULL COMMENT '出租单元数',
   `annualTurnoverInterval` varchar(255) DEFAULT NULL COMMENT '年成交额区间',
   `dailyQuantityInterval` varchar(255) DEFAULT NULL COMMENT '日均单量区间',
@@ -255,79 +156,23 @@ CREATE TABLE `leaseinfo` (
   PRIMARY KEY (`id`),
   KEY `buildingName` (`buildingName`),
   CONSTRAINT `leaseinfo_ibfk_2` FOREIGN KEY (`buildingName`) REFERENCES `buildinginfo` (`buildingname`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='租赁信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='租赁信息表';
 
 -- ----------------------------
 -- Records of leaseinfo
 -- ----------------------------
-INSERT INTO `leaseinfo` VALUES ('1', '1', '102', '1号楼', '1', '1', '2019-09-03', '2019-10-02', '1', '1', '50', '50', '1', '101', '1', '1', '50', '50', '1', null, '2', '2', '200', '100', '2', '302', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '是', '是', '是', '1', '1', '1', '1', '1');
-INSERT INTO `leaseinfo` VALUES ('2', '2', '101', '2号楼', '15000', '6', '2019-09-03', '2020-03-02', '50', '3', '9000', '180', '500', '9680', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '是', '是', '是', '1', '1', '1', '1', '1');
-
--- ----------------------------
--- Table structure for paymentinfo
--- ----------------------------
-DROP TABLE IF EXISTS `paymentinfo`;
-CREATE TABLE `paymentinfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `WaterNumber` varchar(255) DEFAULT NULL,
-  `ElectricityNumber` varchar(255) DEFAULT NULL,
-  `EnterpriseNumber` varchar(255) DEFAULT NULL,
-  `Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=519 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ----------------------------
--- Records of paymentinfo
--- ----------------------------
-INSERT INTO `paymentinfo` VALUES ('496', '12', '13', '2', '2019-09-02 23:00:02');
-INSERT INTO `paymentinfo` VALUES ('497', '11', '14', '阿三的', '2019-09-02 15:50:52');
-INSERT INTO `paymentinfo` VALUES ('498', '11', '14', '一套', '2019-09-02 15:50:52');
-INSERT INTO `paymentinfo` VALUES ('499', '12', '13', '123', '2019-09-02 15:50:52');
-INSERT INTO `paymentinfo` VALUES ('500', '11', '14', '123213', '2019-09-02 15:50:52');
-INSERT INTO `paymentinfo` VALUES ('501', '12', '13', '90', '2019-09-02 15:50:52');
-INSERT INTO `paymentinfo` VALUES ('502', '11', '14', '周星驰z\'x\'c', '2019-09-02 15:50:52');
-INSERT INTO `paymentinfo` VALUES ('503', '11', '14', '123ZZ下', '2019-09-02 15:50:53');
-INSERT INTO `paymentinfo` VALUES ('504', '12', '131', '啊实打实', '2019-12-01 15:50:53');
-INSERT INTO `paymentinfo` VALUES ('505', '12', '13', '突然又r\'t', '2019-11-01 15:50:53');
-INSERT INTO `paymentinfo` VALUES ('506', '12345', '54321', 'fdgg', '2019-10-01 16:38:08');
-INSERT INTO `paymentinfo` VALUES ('507', '123', '123', 'qwe', '2019-08-01 23:00:37');
-INSERT INTO `paymentinfo` VALUES ('508', '1', '2', '气味', '2019-07-03 08:44:10');
-INSERT INTO `paymentinfo` VALUES ('509', '5', '4', '华人', '2019-06-01 08:44:36');
-INSERT INTO `paymentinfo` VALUES ('510', '6', '6', '合同', '2019-05-01 08:44:59');
-INSERT INTO `paymentinfo` VALUES ('511', '7', '7', '忽然', '2019-04-01 08:46:15');
-INSERT INTO `paymentinfo` VALUES ('512', '87', '12', '黑人', '2019-03-01 08:46:56');
-INSERT INTO `paymentinfo` VALUES ('513', '23', '43', '那个', '2019-02-01 08:47:15');
-INSERT INTO `paymentinfo` VALUES ('514', '14', '414', '黑人', '2019-01-01 08:47:34');
-INSERT INTO `paymentinfo` VALUES ('515', '15', '16', '不过', '2018-01-03 11:46:08');
-INSERT INTO `paymentinfo` VALUES ('516', '15', '17', 'vf', '2017-09-03 11:46:24');
-INSERT INTO `paymentinfo` VALUES ('517', '16', '17', '不过', '2016-01-03 11:46:57');
-
--- ----------------------------
--- Table structure for renewals
--- ----------------------------
-DROP TABLE IF EXISTS `renewals`;
-CREATE TABLE `renewals` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dormitoryMid` int(11) DEFAULT NULL COMMENT '合同编号',
-  `leasePeriod` varchar(50) DEFAULT NULL COMMENT '续租租期',
-  `remark` varchar(50) DEFAULT NULL COMMENT '续租租金',
-  `startDate` varchar(50) DEFAULT NULL COMMENT '续租起始日期',
-  `endDate` varchar(50) DEFAULT NULL COMMENT '续租结束日期',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of renewals
--- ----------------------------
-INSERT INTO `renewals` VALUES ('1', '18', '2', '2000', '2020-01-25', '2020-03-25');
-INSERT INTO `renewals` VALUES ('2', '18', '2', '2000', '2020-02-02', '2020-04-02');
-INSERT INTO `renewals` VALUES ('3', '18', '2', '2000', '2020-02-02', '2020-04-02');
-INSERT INTO `renewals` VALUES ('4', '18', '2', '2000', '2020-02-02', '2020-04-02');
-INSERT INTO `renewals` VALUES ('5', '18', '2', '2000', '2020-02-02', '2020-04-02');
-INSERT INTO `renewals` VALUES ('6', '18', '2', '2000', '2020-02-02', '2020-04-02');
-INSERT INTO `renewals` VALUES ('7', '18', '2', '2000', '2020-03-25', '2020-05-25');
-INSERT INTO `renewals` VALUES ('8', '21', '2', '2000', '2019-11-18', '2020-01-18');
-INSERT INTO `renewals` VALUES ('9', '21', '2', '2000', '2020-01-18', '2020-03-18');
+INSERT INTO `leaseinfo` VALUES ('1', '小米', '101', '2号楼', '45', '1', '2019-08-23', '2019-08-30', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '是', '是', '是', '1', '1', '1', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('2', '小红', '102', '2号楼', '2', '2', '2019-08-24', '2019-08-30', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '是', '是', '否', '2', '2', '2', '2', '1');
+INSERT INTO `leaseinfo` VALUES ('3', '1111', '101', '2号楼', '1200', '12', '2019-08-23', '2019-08-31', '500', '2', '60000', '120', '1200', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '否', '是', '1', '10', '10', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('4', '黄霞', '201', '2号楼', '1500', '12', '2019-08-21', '2019-08-24', '125', '12', '112500', '900', '500', '45875', '120', '5', '45000', '375', '500', '45875', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '否', '否', '1', '1', '1', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('5', '关晓红', '201', '2号楼', '1200', '5', '2019-08-23', '2019-08-30', '100', '5', '25000', '250', '1250', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '否', '是', '1', '1', '1', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('6', '小米', '202', '2号楼', '4', '1', '2019-08-23', '2019-08-30', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '否', '否', '否', '1', '1', '1', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('7', '小红', '303', '2号楼', '2', '2', '2019-08-24', '2019-08-30', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '否', '是', '是', '2', '2', '2', '2', '1');
+INSERT INTO `leaseinfo` VALUES ('8', '1111', '302', '2号楼', '1200', '12', '2019-08-23', '2019-08-31', '500', '2', '60000', '120', '1200', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '是', '是', '1', '10', '10', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('9', '黄霞', '301', '2号楼', '1500', '12', '2019-08-21', '2019-08-24', '125', '12', '112500', '900', '500', '45875', '120', '5', '45000', '375', '500', '45875', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '是', '是', '1', '1', '1', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('10', '关晓红', '103', '2号楼', '1200', '5', '2019-08-23', '2019-08-30', '100', '5', '25000', '250', '1250', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '是', '是', '1', '1', '1', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('12', '洛克李', '304', '2号楼', '500', '12', '2019-08-24', '2019-08-30', '120', '5', '30000', '250', '500', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '否', '否', '0', '1000-2000', '500-650', '1', '1');
+INSERT INTO `leaseinfo` VALUES ('13', '九尾', '102', '2号楼', '1000', '1', '2019-08-24', '2019-08-31', '50', '1', '3000', '60', '1000', '4060', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '是', '是', '否', '0', '1000', '500', '1', '1');
 
 -- ----------------------------
 -- Table structure for roominfo
@@ -339,7 +184,7 @@ CREATE TABLE `roominfo` (
   `buildingName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '办公楼名称',
   `rentArea` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '计租面积',
   `builtUpArea` varchar(255) DEFAULT NULL COMMENT '建筑面积',
-  `owner` varchar(255) DEFAULT '空闲' COMMENT '业主',
+  `owner` varchar(255) DEFAULT NULL COMMENT '业主',
   `state` varchar(255) DEFAULT '1' COMMENT '记录状态',
   PRIMARY KEY (`id`),
   KEY `buildingName` (`buildingName`),
@@ -350,33 +195,33 @@ CREATE TABLE `roominfo` (
 -- ----------------------------
 -- Records of roominfo
 -- ----------------------------
-INSERT INTO `roominfo` VALUES ('1', '102', '1号楼', '50', '80', '1', '1');
-INSERT INTO `roominfo` VALUES ('2', '203', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('3', '201', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('4', '202', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('5', '101', '2号楼', '60', '90', '2', '1');
-INSERT INTO `roominfo` VALUES ('6', '102', '2号楼', '60', '90', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('7', '204', '2号楼', '75', '100', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('8', '205', '2号楼', '75', '100', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('9', '103', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('10', '104', '3号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('11', '103', '3号楼', '75', '100', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('12', '111', '3号楼', '75', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('13', '301', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('14', '302', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('15', '303', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('16', '304', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('17', '401', '2号楼', '60', '90', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('18', '402', '2号楼', '60', '90', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('19', '403', '2号楼', '75', '100', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('20', '404', '2号楼', '75', '100', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('21', '405', '2号楼', '50', '80', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('22', '406', '2号楼', '213', '124', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('23', '407', '2号楼', '131', '131', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('24', '105', '5号楼', '50', '50', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('25', '112', '11号楼', '12', '23', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('26', '101', '8号楼', '50', '100', '空闲', '1');
-INSERT INTO `roominfo` VALUES ('27', '101', '27号楼', '50', '80', '空闲', '1');
+INSERT INTO `roominfo` VALUES ('1', '101', '2号楼', '50', '80', '小米', '1');
+INSERT INTO `roominfo` VALUES ('2', '102', '2号楼', '50', '80', '小红', '1');
+INSERT INTO `roominfo` VALUES ('3', '201', '2号楼', '50', '80', '关晓红', '1');
+INSERT INTO `roominfo` VALUES ('4', '202', '2号楼', '50', '80', '小米', '1');
+INSERT INTO `roominfo` VALUES ('5', '101', '2号楼', '60', '90', '小米', '1');
+INSERT INTO `roominfo` VALUES ('6', '102', '2号楼', '60', '90', '九尾', '1');
+INSERT INTO `roominfo` VALUES ('7', '201', '2号楼', '75', '100', '黄霞', '1');
+INSERT INTO `roominfo` VALUES ('8', '202', '2号楼', '75', '100', null, '1');
+INSERT INTO `roominfo` VALUES ('9', '103', '2号楼', '50', '80', null, '1');
+INSERT INTO `roominfo` VALUES ('10', '104', '3号楼', '50', '80', null, '1');
+INSERT INTO `roominfo` VALUES ('11', '103', '3号楼', '75', '100', null, '1');
+INSERT INTO `roominfo` VALUES ('12', '111', '3号楼', '75', '80', null, '1');
+INSERT INTO `roominfo` VALUES ('13', '301', '2号楼', '50', '80', '黄霞', '1');
+INSERT INTO `roominfo` VALUES ('14', '302', '2号楼', '50', '80', '1111', '1');
+INSERT INTO `roominfo` VALUES ('15', '303', '2号楼', '50', '80', '小红', '1');
+INSERT INTO `roominfo` VALUES ('16', '304', '2号楼', '50', '80', '洛克李', '1');
+INSERT INTO `roominfo` VALUES ('17', '301', '2号楼', '60', '90', null, '1');
+INSERT INTO `roominfo` VALUES ('18', '302', '2号楼', '60', '90', null, '1');
+INSERT INTO `roominfo` VALUES ('19', '303', '2号楼', '75', '100', null, '1');
+INSERT INTO `roominfo` VALUES ('20', '304', '2号楼', '75', '100', null, '1');
+INSERT INTO `roominfo` VALUES ('21', '305', '2号楼', '50', '80', null, '1');
+INSERT INTO `roominfo` VALUES ('22', '306', '2号楼', '213', '124', null, '1');
+INSERT INTO `roominfo` VALUES ('23', '103', '2号楼', '131', '131', '关晓红', '1');
+INSERT INTO `roominfo` VALUES ('24', '105', '5号楼', '50', '50', null, '1');
+INSERT INTO `roominfo` VALUES ('25', '112', '11号楼', '12', '23', null, '1');
+INSERT INTO `roominfo` VALUES ('26', '101', '8号楼', '50', '100', null, '1');
+INSERT INTO `roominfo` VALUES ('27', '101', '27号楼', '50', '80', null, '1');
 
 -- ----------------------------
 -- Table structure for settinginfo
@@ -384,7 +229,7 @@ INSERT INTO `roominfo` VALUES ('27', '101', '27号楼', '50', '80', '空闲', '1
 DROP TABLE IF EXISTS `settinginfo`;
 CREATE TABLE `settinginfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `manageExpense` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '管理单价',
+  `manageExpense` varchar(255) DEFAULT NULL,
   `state` int(255) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统设置信息表';
@@ -392,4 +237,4 @@ CREATE TABLE `settinginfo` (
 -- ----------------------------
 -- Records of settinginfo
 -- ----------------------------
-INSERT INTO `settinginfo` VALUES ('1', '2', '1');
+INSERT INTO `settinginfo` VALUES ('1', '1', '1');

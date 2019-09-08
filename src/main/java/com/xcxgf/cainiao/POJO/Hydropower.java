@@ -5,8 +5,25 @@ import java.sql.Timestamp;
 
 public class Hydropower {
     private int id;
-    private String Water;
-    private String Electricity;
+
+    public Float getWater() {
+        return Water;
+    }
+
+    public void setWater(Float water) {
+        Water = water;
+    }
+
+    public Float getElectricity() {
+        return Electricity;
+    }
+
+    public void setElectricity(Float electricity) {
+        Electricity = electricity;
+    }
+
+    private Float Water;
+    private Float Electricity;
     private Long Time;
     public Long getTime() {
         return Time;
@@ -24,21 +41,7 @@ public class Hydropower {
         this.id = id;
     }
 
-    public String getWater() {
-        return Water;
-    }
 
-    public void setWater(String water) {
-        Water = water;
-    }
-
-    public String getElectricity() {
-        return Electricity;
-    }
-
-    public void setElectricity(String electricity) {
-        Electricity = electricity;
-    }
 
 
 }

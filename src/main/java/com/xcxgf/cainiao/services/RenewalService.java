@@ -15,6 +15,7 @@ public class RenewalService {
     @Autowired
     RenewalMapper renewalMapper;
 
+
     public List<Renewal> getRenewalList(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("nid"));
         return renewalMapper.getRenewalList(id);}

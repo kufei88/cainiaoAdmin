@@ -2,16 +2,22 @@ package com.xcxgf.cainiao.mapper;
 
 import com.xcxgf.cainiao.POJO.Account;
 import com.xcxgf.cainiao.POJO.Dormitory;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 public interface DormitoryMapper {
-<<<<<<< HEAD
-    @Select("select * from dormitory where isdelete=false")
-=======
     @Select("select * from dormitory where isfull=false")
->>>>>>> 8ce3b59e0e10b66368e77315b5469cea0f70bbf4
     public List<Dormitory> getDormitoryList();
 
+    @Select("select id from dormitory where dormitoryName=#{dormitoryName}")
+    public int Selectid(String dormitoryName);
+
+    @Select("select dormitoryName from dormitory where id=#{id}")
+    public String SelectName(int id);
+
+    @Insert("insert into dormitory(dormitoryName,money) " +
+            "values(#{dormitoryName},#{money})")
+    public int addNewDormitory(String dormitoryName,String money);
 }

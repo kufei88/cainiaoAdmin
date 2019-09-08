@@ -2,6 +2,7 @@ package com.xcxgf.cainiao.controller;
 
 import com.xcxgf.cainiao.POJO.Account;
 import com.xcxgf.cainiao.POJO.Dorms;
+import com.xcxgf.cainiao.POJO.ExcelData;
 import com.xcxgf.cainiao.POJO.SelectDatas;
 import com.xcxgf.cainiao.mapper.AccountMapper;
 import com.xcxgf.cainiao.services.AccountService;
@@ -68,7 +69,7 @@ public class AccountController {
             JSONArray jsonArray = jsonObject.getJSONArray("selectdatas");
             account.setCompanyName(jsonObject.getString("companyName"));
             account.setContact(jsonObject.getString("contact"));
-            account.setContactNumber(jsonObject.getInt("contactNumber")+"");
+            account.setContactNumber(jsonObject.getLong("contactNumber")+"");
             account.setDormitoryNum(jsonObject.getString("dormitoryNum"));
             account.setStartDate(jsonObject.getString("startDate"));
             account.setLeasePeriod(jsonObject.getString("leasePeriod"));
@@ -88,12 +89,16 @@ public class AccountController {
         return accountService.insertAccount(account);
     }
 
-    @RequestMapping(method = RequestMethod.GET,value="/deleteAccount")
-    public int deleteAccount(HttpServletRequest request){ return accountService.deleteAccount(request);}
+    @RequestMapping(method = RequestMethod.POST,value="/deleteAccount")
+    public int deleteAccount(@RequestBody Account account){
+        return accountService.deleteAccount(account);}
 
     @RequestMapping(method = RequestMethod.POST,value="/uploadAccount")
-    public int uploadAccount(HttpServletRequest request){
-        return accountService.uploadAccount(request);
+    public int uploadAccount(@RequestBody List<ExcelData> excelDataList) throws ParseException {
+        //System.out.println(excelDataList.get(0).getCompanyName());
+        //System.out.println(excelDataList.get(1).getDromNum().split(",")[0]);
+
+        return accountService.uploadAccount(excelDataList);
     }
 
 
