@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -21,12 +22,19 @@ public class DormitoryController {
     @Autowired
     DormService dormService;
     @RequestMapping(method = RequestMethod.GET,value="/getDormitoryList")
-    public List<Dormitory> getAccountList(){return dormitoryService.getDormitoryList();}
+    public List<Dormitory> getDormitoryList(HttpServletRequest request){
+        return dormitoryService.getDormitoryList(request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value="/getDormitoryList0")
+    public List<Dormitory> getDormitoryList0(){
+        return dormitoryService.getDormitoryList0();
+    }
 
     @RequestMapping(method = RequestMethod.POST,value = "/addNewDormitory")
     public int addNewDormitory(@RequestBody AddDomitory addDomitory){
          String dormitoryName=addDomitory.getDormitoryName();
-        String money=addDomitory.getMoney();
+         String money=addDomitory.getMoney();
 
         return dormitoryService.addNewDormitory(dormitoryName,money);
     }
@@ -48,5 +56,19 @@ public class DormitoryController {
             }
         }
         return 1;
+    }
+    @RequestMapping(method = RequestMethod.POST,value = "/updateDormistory")
+    public int updateDormistory(@RequestBody Dormitory dormitory){
+        return dormitoryService.updateDormitory(dormitory);
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/deleteRow")
+    public int deleteRow(@RequestBody Dormitory dormitory){
+        return dormitoryService.deleteRow(dormitory);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/getDormitoryCount")
+    public int getDormitoryCount(){
+        return dormitoryService.getDormitoryCount();
     }
 }
