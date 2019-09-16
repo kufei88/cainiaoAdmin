@@ -11,6 +11,7 @@ public class DataReturn {
     private List<Room> roomList; // 办公室记录集合
     private List<Enterprise> enterpriseList; // 园区企业记录集合
     private List<Lease> leaseList; // 租赁信息记录集合
+    private List<User> userList; // 用户信息记录集合
 
 
     public List<Building> getBuildingList() {
@@ -51,5 +52,13 @@ public class DataReturn {
 
     public void setLeaseList(List<Lease> leaseList) {
         this.leaseList = leaseList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

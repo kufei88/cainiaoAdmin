@@ -23,14 +23,6 @@ public class BuildingController {
     @Autowired
     private BuildingService bs;
 
-    /**
-     * 获取所有办公楼数据
-     * @return 所有办公楼数据
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getBuildingList")
-    public List<Building> getBuildingList() {
-        return bs.getBuildingList();
-    }
 
     /**
      * 获取符合查询条件的办公楼数据
@@ -41,15 +33,11 @@ public class BuildingController {
     public DataReturn getSearchList(HttpServletRequest request) {
         // 从request中获取各参数
         String search = request.getParameter("search");
-        String startStr = request.getParameter("dataStart");
-        String endStr = request.getParameter("dataEnd");
-        int start = Integer.parseInt(startStr);
-        int end = Integer.parseInt(endStr);
-        // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "and (buildingName like '%" + search + "%' or buildingNumber = '%"+search+"%')";
-        String limitStr = "0".equals(startStr) && "0".equals(endStr) ? "" : "limit " + start + "," + end;
+        String start = request.getParameter("dataStart");
+        String count = request.getParameter("dataEnd");
+        String dataType = request.getParameter("dataType");
 
-        return bs.getSearchList(searchStr, limitStr);
+        return bs.getSearchList(search, start,count,dataType);
     }
 
     /**

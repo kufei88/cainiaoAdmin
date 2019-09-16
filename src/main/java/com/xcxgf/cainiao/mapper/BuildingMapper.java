@@ -9,17 +9,9 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 /**
- * 对数据库中buildingInfo表（办公楼管理表）的增删改查操作
+ * 对数据库中buildingInfo表（楼栋管理表）的增删改查操作
  */
 public interface BuildingMapper {
-
-    /**
-     * 查找所有可用记录
-     *
-     * @return Building类型的集合，所有可用的记录
-     */
-    @Select("select * from buildingInfo where state != -1 ORDER BY CAST(buildingNumber AS DECIMAL)")
-    public List<Building> getBuildingList();
 
     /**
      * 查询满足条件的可用记录
@@ -28,8 +20,13 @@ public interface BuildingMapper {
      * @param limit  需要返回的记录的起始位置和终止位置
      * @return Building类型的集合，满足条件的可用记录
      */
-    @Select("select * from buildingInfo where state != -1 ${search} ORDER BY CAST(buildingNumber AS DECIMAL) ${limit}")
-    public List<Building> getSearchList(String search, String limit);
+    @Select("select * " +
+            "from buildingInfo " +
+            "where buildingType = '${dataType}' " +
+            "${search} " +
+            "ORDER BY CAST(buildingName AS DECIMAL),insertTime desc " +
+            "${limit}")
+    public List<Building> getSearchList(String search, String limit, String dataType);
 
     /**
      * 查询满足条件的可用记录的条数
@@ -37,8 +34,11 @@ public interface BuildingMapper {
      * @param search 查询条件
      * @return int类型，满足条件的记录条数
      */
-    @Select("SELECT count(*) FROM buildingInfo WHERE state !=-1 ${search}")
-    public int getSearchCount(String search);
+    @Select("SELECT count(*) " +
+            "FROM buildingInfo " +
+            "where buildingType = '${dataType}' " +
+            "${search}")
+    public int getSearchCount(String search, String dataType);
 
     /**
      * 更新记录
@@ -46,7 +46,10 @@ public interface BuildingMapper {
      * @param building 需要更新的记录对象
      * @return int类型，更新操作影响的记录条数，为0时更新失败，否则更新成功
      */
-    @Update("UPDATE buildingInfo SET buildingNumber=#{buildingNumber},buildingName=#{buildingName} WHERE id =#{id}")
+    @Update("UPDATE buildingInfo " +
+            "SET buildingType=#{buildingType}, " +
+            "updateTime=#{updateTime}" +
+            "WHERE buildingName=#{buildingName}")
     public int updateBuildingInfo(Building building);
 
     /**
@@ -55,7 +58,7 @@ public interface BuildingMapper {
      * @param building 需要删除的记录对象
      * @return int类型，删除操作影响的记录条数，为0时删除失败，否则删除成功
      */
-    @Delete("DELETE FROM buildingInfo WHERE id =#{id}")
+    @Delete("DELETE FROM buildingInfo WHERE buildingName =#{buildingName}")
     public int deleteBuildingInfo(Building building);
 
     /**
@@ -64,7 +67,8 @@ public interface BuildingMapper {
      * @param building 需要插入的记录对象
      * @return int类型，插入记录影响的记录条数，为0时插入失败，否则插入成功
      */
-    @Insert("INSERT INTO buildingInfo(buildingNumber,buildingName) VALUES(#{buildingNumber}, #{buildingName})")
+    @Insert("INSERT INTO buildingInfo(buildingName,buildingType,insertTime) " +
+            "VALUES(#{buildingName}, #{buildingType}, #{insertTime})")
     public int insertBuildingInfo(Building building);
 
     /**
@@ -73,20 +77,20 @@ public interface BuildingMapper {
      * @param building 需要查询是否存在的记录对象
      * @return int类型，满足查询条件的记录条数，为0时不存在重复记录，否则存在重复记录
      */
-    @Select("select count(*) from buildingInfo " +
-            "where state != -1 " +
-            "and (buildingName = #{buildingName} or buildingNumber = #{buildingNumber})")
+    @Select("select count(*) " +
+            "from buildingInfo " +
+            "where buildingName = #{buildingName}")
     public int insertSearchSame(Building building);
 
     /**
      * 查询是否存在重复记录（执行更新记录操作时）
+     *
      * @param building 需要查询是否存在的记录对象
      * @return int类型，满足查询条件的记录条数，为0时不存在重复记录，否则存在重复记录
      */
     @Select("SELECT COUNT(*) " +
-            "FROM (SELECT * FROM buildingInfo WHERE id NOT in (select id from buildingInfo where state != -1 AND id=#{id})) AS temp" +
-            " WHERE state != -1 " +
-            "AND (buildingName = #{buildingName} or buildingNumber = #{buildingNumber})")
+            "FROM (SELECT * FROM buildingInfo WHERE buildingName NOT in (select buildingName from buildingInfo where buildingName=#{buildingName} )) AS temp" +
+            " WHERE buildingName = #{buildingName}")
     public int updateSearchSame(Building building);
 
 }

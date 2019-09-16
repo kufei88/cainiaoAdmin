@@ -9,18 +9,24 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface RenewalMapper {
-    @Select("select * from renewals where dormitoryMid=#{dormitoryMid} order by endDate desc")
+    @Select("select * from dormitorycontinueinfo where contractId=#{dormitoryMid} order by continueEndTime desc")
     public List<Renewal> getRenewalList(int dormitoryMid);
 
-    @Select("select count(*) from renewals where dormitoryMid=#{dormitoryMid}  ")
+    @Select("select count(*) from dormitorycontinueinfo where contractId=#{dormitoryMid}  ")
     public int getCount(int dormitoryMid);
 
-    @Insert("insert into renewals (dormitoryMid,startDate,endDate,leasePeriod,remark) " +
-            "values(#{dormitoryMid}," +
-            "#{startDate}," +
-            "#{endDate}," +
-            "#{leasePeriod}," +
-            "#{remark})")
+    @Insert("insert into dormitorycontinueinfo (contractId," +
+            "continueStartTime," +
+            "continueEndTime," +
+            "continuePeriod," +
+            "totalCost," +
+            "insertTime) " +
+            "values(#{contractId}," +
+            "#{continueStartTime}," +
+            "#{continueEndTime}," +
+            "#{continuePeriod}," +
+            "#{totalCost}," +
+            "#{insertTime})")
     public int insertRenewals(Renewal entityReneweal);
 
     @Delete("delete from renewals where dormitoryMid=#{dormitoryMid}")

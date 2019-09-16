@@ -1,9 +1,6 @@
 package com.xcxgf.cainiao.controller;
 
-import com.xcxgf.cainiao.POJO.Account;
-import com.xcxgf.cainiao.POJO.Dorms;
-import com.xcxgf.cainiao.POJO.ExcelData;
-import com.xcxgf.cainiao.POJO.SelectDatas;
+import com.xcxgf.cainiao.POJO.*;
 import com.xcxgf.cainiao.mapper.AccountMapper;
 import com.xcxgf.cainiao.services.AccountService;
 import com.xcxgf.cainiao.services.DormService;
@@ -29,12 +26,16 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-    @Autowired
-    DormService dormService;
-
+    //获取公司信息
+    @RequestMapping(method = RequestMethod.GET,value="/getOwnerList")
+    public List<Enterprise> getOwnerList(HttpServletRequest request){
+        return accountService.getOwnerList(request);
+    }
+    //获取首租合同的信息
     @RequestMapping(method = RequestMethod.GET,value="/getAccountList")
-    public List<Account> getAccountList(HttpServletRequest request) {return accountService.getAccountList(request);}
-
+    public List<Account> getAccountList(HttpServletRequest request) throws ParseException
+    {return accountService.getAccountList(request);}
+    //获取第一页首租合同的信息
     @RequestMapping(method = RequestMethod.GET,value="/getAccountList0")
     public List<Account> getAccountList0() {return accountService.getAccountList0();}
 
@@ -50,10 +51,11 @@ public class AccountController {
     public int updateAccount(@RequestBody Account account) throws ParseException
     { return accountService.updateAccount(account);}
 
+    //插入合同信息
     @RequestMapping(method = RequestMethod.POST,value="/insertAccount")
     public int insertAccount(HttpServletRequest request) throws ParseException {
         Account account=new Account();
-        Dorms dorms=new Dorms();
+        Room room=new Room();
         try {
             InputStream is = request.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(is, "utf-8"));
@@ -67,19 +69,23 @@ public class AccountController {
             //System.out.println(reqStr);
             JSONObject jsonObject = new JSONObject(reqStr);
             JSONArray jsonArray = jsonObject.getJSONArray("selectdatas");
-            account.setCompanyName(jsonObject.getString("companyName"));
-            account.setContact(jsonObject.getString("contact"));
-            account.setContactNumber(jsonObject.getLong("contactNumber")+"");
-            account.setDormitoryNum(jsonObject.getString("dormitoryNum"));
-            account.setStartDate(jsonObject.getString("startDate"));
-            account.setLeasePeriod(jsonObject.getString("leasePeriod"));
-            account.setRemark(jsonObject.getInt("remark")+"");
-            dorms.setHtId(jsonObject.getString("companyName"));
+            account.setOwner(jsonObject.getString("companyName"));
+//            account.setContact(jsonObject.getString("contact"));
+//            account.setContactNumber(jsonObject.getLong("contactNumber")+"");
+            account.setBuildingName(jsonObject.getString("dormitoryNum"));
+            account.setStartRentTime(jsonObject.getString("startDate"));
+            account.setRentPeriod(jsonObject.getInt("leasePeriod"));
+            account.setTotalCost((float) jsonObject.getDouble("remark"));
+            account.setInsertTime(jsonObject.getString("insertTime"));
+            //dorms.setHtId(jsonObject.getString("companyName"));
+
+            room.setOwner(jsonObject.getString("companyName"));
+            room.setBuildingName(jsonObject.getString("dormitoryNum"));
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                int id = jsonObject1.getInt("id");
-                dorms.setId(id);
-                dormService.Updatedroms(dorms);
+                String  roomNumber = jsonObject1.getString("roomNumber");
+                room.setRoomNumber(roomNumber);
+                accountService.updateRoom(room);
                 //System.out.println("id:"+id);
             }
             //System.out.println(jsonArray);
@@ -105,5 +111,38 @@ public class AccountController {
     @RequestMapping(method = RequestMethod.GET,value="/getNameList")
     public List<Account> getAccountNameList(HttpServletRequest request){
         return accountService.getAccountNameList(request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value="/getNameCount")
+    public int getAccountNameCount(HttpServletRequest request){
+        return accountService.getAccountNameCount(request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/getBuildingList")
+    public List<Building> getBuildingList(){
+        return accountService.getBuildingList();
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/getRoomList")
+    public List<Room> getRoomList(HttpServletRequest request){
+        return accountService.getRoomList(request);
+    }
+
+    //获取选择的楼栋的空闲房间的数量
+    @RequestMapping(method = RequestMethod.GET,value = "/getRoomListCount")
+    public int getRoomListCount(HttpServletRequest request){
+
+        return accountService.getRoomListCount(request);
+    }
+
+    //获取该合同中的具体租赁房间
+    @RequestMapping(method = RequestMethod.GET,value = "/getRoomListCount2")
+    public int getRoomListCount2(HttpServletRequest request){
+        return accountService.getRoomListCount2(request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/getRoomList2")
+    public List<Room> getRoomList2(HttpServletRequest request){
+        return accountService.getRoomList2(request);
     }
 }

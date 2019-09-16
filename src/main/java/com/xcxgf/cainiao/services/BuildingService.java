@@ -17,26 +17,15 @@ public class BuildingService {
     @Autowired
     private BuildingMapper buildingMapper;
 
-    /**
-     * 获取所有可用记录
-     *
-     * @return Building类型的集合，所有可用记录
-     */
-    public List<Building> getBuildingList() {
-        return buildingMapper.getBuildingList();
-    }
 
-    /**
-     * 获取指定位置的满足查询条件的可用记录
-     *
-     * @param searchStr 查询条件
-     * @param limitStr  指定位置
-     * @return DataReturn类型的对象，满足条件的记录的数据包装
-     */
-    public DataReturn getSearchList(String searchStr, String limitStr) {
+    public DataReturn getSearchList(String search, String start,String count,String dataType) {
+        // 拼接查询字符串，limit字符串
+        String searchStr = "".equals(search) ? "" : "and buildingName = '" + search + "'";
+        String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
+
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setBuildingList(buildingMapper.getSearchList(searchStr, limitStr));
-        dataReturn.setDataCount(buildingMapper.getSearchCount(searchStr));
+        dataReturn.setBuildingList(buildingMapper.getSearchList(searchStr, limitStr,dataType));
+        dataReturn.setDataCount(buildingMapper.getSearchCount(searchStr,dataType));
         return dataReturn;
     }
 

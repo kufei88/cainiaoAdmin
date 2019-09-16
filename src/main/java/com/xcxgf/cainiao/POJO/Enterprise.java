@@ -7,7 +7,7 @@ public class Enterprise {
     private int Id; // id标识
     private String enterpriseName; // 公司名称
     private String enterprisePerson; // 联系人
-    private String enterpriseTelphone; // 联系电话
+    private String contactNumber; // 联系电话
     private int state; // 记录状态，1为可用，-1为不可用
 
     public int getId() {
@@ -34,12 +34,12 @@ public class Enterprise {
         this.enterprisePerson = enterprisePerson;
     }
 
-    public String getEnterpriseTelphone() {
-        return enterpriseTelphone;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public void setEnterpriseTelphone(String enterpriseTelphone) {
-        this.enterpriseTelphone = enterpriseTelphone;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public int getState() {

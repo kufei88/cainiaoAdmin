@@ -1,23 +1,24 @@
 package com.xcxgf.cainiao.POJO;
 
 /**
- * 办公室的实体类
+ * 园区各楼栋房间的实体类
  */
 public class Room {
-    private int id; // id标识
-    private String roomNumber; // 办公室房间号
     private String buildingName; // 所属办公楼
-    private String rentArea; // 计租面积
-    private String builtUpArea; // 建筑面积
+    private String roomNumber; // 房间号
     private String owner; // 业主
-    private int state; // 记录状态，1为可用，-1为不可用
+    private String rentArea; // 计租面积
+    private String buildingArea; // 建筑面积
+    private String monthRent; // 每月租金
+    private String insertTime; // 添加时间
+    private String updateTime; // 修改时间
 
-    public int getId() {
-        return id;
+    public String getBuildingName() {
+        return buildingName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
     }
 
     public String getRoomNumber() {
@@ -28,12 +29,12 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public String getBuildingName() {
-        return buildingName;
+    public String getOwner() {
+        return owner;
     }
 
-    public void setBuildingName(String buildingName) {
-        this.buildingName = buildingName;
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getRentArea() {
@@ -44,27 +45,35 @@ public class Room {
         this.rentArea = rentArea;
     }
 
-    public String getBuiltUpArea() {
-        return builtUpArea;
+    public String getBuildingArea() {
+        return buildingArea;
     }
 
-    public void setBuiltUpArea(String builtUpArea) {
-        this.builtUpArea = builtUpArea;
+    public void setBuildingArea(String buildingArea) {
+        this.buildingArea = buildingArea;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getMonthRent() {
+        return monthRent;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setMonthRent(String monthRent) {
+        this.monthRent = monthRent;
     }
 
-    public int getState() {
-        return state;
+    public String getInsertTime() {
+        return insertTime;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setInsertTime(String insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

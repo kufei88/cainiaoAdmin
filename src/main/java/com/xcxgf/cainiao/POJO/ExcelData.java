@@ -4,12 +4,21 @@ public class ExcelData {
     private String companyName;
     private String contact;
     private String contactNumber;
-    private String dormitoryId;
+    private String buildingName;
     private String startDate;
     private String endDate;
     private String leasePeriod;
     private String remark;
-    private String dromNum;
+    private String roomNumber;
+    private String insertTime;
+
+    public String getInsertTime() {
+        return insertTime;
+    }
+
+    public void setInsertTime(String insertTime) {
+        this.insertTime = insertTime;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -35,12 +44,12 @@ public class ExcelData {
         this.contactNumber = contactNumber;
     }
 
-    public String getDormitoryId() {
-        return dormitoryId;
+    public String getBuildingName() {
+        return buildingName;
     }
 
-    public void setDormitoryId(String dormitoryId) {
-        this.dormitoryId = dormitoryId;
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
     }
 
     public String getStartDate() {
@@ -75,11 +84,11 @@ public class ExcelData {
         this.remark = remark;
     }
 
-    public String getDromNum() {
-        return dromNum;
+    public String getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setDromNum(String dromNum) {
-        this.dromNum = dromNum;
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 }
