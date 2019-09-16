@@ -4,25 +4,82 @@ import java.util.Date;
 
 public class PaymentInfo {
     private int id;
-    private StringBuffer startTime;
+    private String startTime; //开始时间
+    private String endTime;//结束时间
+    private float WaterNumber;//水表读数
+    private float ElectricityNumber;//电表读数
+    private String owner;//公司
+    private String BuildingName;//楼栋名
+    private String RoomNumber;//房号
+    private float waterCost;//水费
+    private float electricityCost;//电费
+    private String establishTime;//创建时间
+    private String updateTime;//更新时间
+    public String getEstablishTime() {
+        return establishTime;
+    }
 
-    public StringBuffer getStartTime() {
+    public void setEstablishTime(String establishTime) {
+        this.establishTime = establishTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+
+    public float getWaterCost() {
+        return waterCost;
+    }
+
+    public void setWaterCost(float waterCost) {
+        this.waterCost = waterCost;
+    }
+
+    public float getElectricityCost() {
+        return electricityCost;
+    }
+
+    public void setElectricityCost(float electricityCost) {
+        this.electricityCost = electricityCost;
+    }
+
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getBuildingName() {
+        return BuildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        BuildingName = buildingName;
+    }
+
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(StringBuffer startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public StringBuffer getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(StringBuffer endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-
-    private StringBuffer endTime;
 
     public float getWaterNumber() {
         return WaterNumber;
@@ -40,25 +97,20 @@ public class PaymentInfo {
         ElectricityNumber = electricityNumber;
     }
 
-    private float WaterNumber;
-    private float ElectricityNumber;
-    private String EnterpriseNumber;
-    private String RoomNumber;
     public String getRoomNumber() {
         return RoomNumber;
     }
+
     public void setRoomNumber(String roomNumber) {
         RoomNumber = roomNumber;
     }
-    public String getEnterpriseNumber() {
-        return EnterpriseNumber;
-    }
-    public void setEnterpriseNumber(String enterpriseNumber) {
-        EnterpriseNumber = enterpriseNumber;
-    }
+
+
+
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }

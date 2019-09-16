@@ -1,13 +1,10 @@
 package com.xcxgf.cainiao.controller;
 
 import com.xcxgf.cainiao.POJO.*;
-import com.xcxgf.cainiao.mapper.AccountMapper;
 import com.xcxgf.cainiao.services.AccountService;
-import com.xcxgf.cainiao.services.DormService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,16 +23,15 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
-    //获取公司信息
     @RequestMapping(method = RequestMethod.GET,value="/getOwnerList")
     public List<Enterprise> getOwnerList(HttpServletRequest request){
         return accountService.getOwnerList(request);
     }
-    //获取首租合同的信息
+
     @RequestMapping(method = RequestMethod.GET,value="/getAccountList")
     public List<Account> getAccountList(HttpServletRequest request) throws ParseException
     {return accountService.getAccountList(request);}
-    //获取第一页首租合同的信息
+
     @RequestMapping(method = RequestMethod.GET,value="/getAccountList0")
     public List<Account> getAccountList0() {return accountService.getAccountList0();}
 
@@ -128,14 +124,12 @@ public class AccountController {
         return accountService.getRoomList(request);
     }
 
-    //获取选择的楼栋的空闲房间的数量
     @RequestMapping(method = RequestMethod.GET,value = "/getRoomListCount")
     public int getRoomListCount(HttpServletRequest request){
 
         return accountService.getRoomListCount(request);
     }
 
-    //获取该合同中的具体租赁房间
     @RequestMapping(method = RequestMethod.GET,value = "/getRoomListCount2")
     public int getRoomListCount2(HttpServletRequest request){
         return accountService.getRoomListCount2(request);

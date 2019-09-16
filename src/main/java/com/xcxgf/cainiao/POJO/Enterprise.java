@@ -4,19 +4,11 @@ package com.xcxgf.cainiao.POJO;
  * 园区企业的实体类
  */
 public class Enterprise {
-    private int Id; // id标识
     private String enterpriseName; // 公司名称
     private String enterprisePerson; // 联系人
     private String contactNumber; // 联系电话
-    private int state; // 记录状态，1为可用，-1为不可用
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
+    private String insertTime; // 添加时间
+    private String updateTime; // 修改时间
 
     public String getEnterpriseName() {
         return enterpriseName;
@@ -42,11 +34,19 @@ public class Enterprise {
         this.contactNumber = contactNumber;
     }
 
-    public int getState() {
-        return state;
+    public String getInsertTime() {
+        return insertTime;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setInsertTime(String insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

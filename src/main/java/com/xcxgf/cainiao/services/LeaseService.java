@@ -1,7 +1,6 @@
 package com.xcxgf.cainiao.services;
 
-import com.xcxgf.cainiao.POJO.DataReturn;
-import com.xcxgf.cainiao.POJO.Lease;
+import com.xcxgf.cainiao.POJO.*;
 import com.xcxgf.cainiao.mapper.LeaseMapper;
 import com.xcxgf.cainiao.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +23,18 @@ public class LeaseService {
     private RoomMapper rm;
 
     /**
-     * 获取指定位置的满足查询条件的可用记录
+     * 查询满足查询条件的记录
      *
-     * @param searchStr 查询条件
-     * @param limitStr  指定位置
-     * @return DataReturn类型的对象，满足条件的记录的数据包装
+     * @param search 查询内容:楼栋名称（模糊查询），房间名称（精确查询），业主（模糊查询）
+     * @param start  记录开始位置
+     * @param count  需要返回的记录条数
+     * @return
      */
-    public DataReturn getSearchList(String searchStr, String limitStr) {
+    public DataReturn getSearchList(String search, String start, String count) {
+        // 拼接查询字符串，limit字符串
+        String searchStr = "".equals(search) ? "" : "where (buildingName like '%" + search + "%' or roomNumber = '" + search + "' or owner like '%" + search + "%')";
+        String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
+
         DataReturn dataReturn = new DataReturn();
         dataReturn.setLeaseList(lm.getSearchList(searchStr, limitStr));
         dataReturn.setDataCount(lm.getSearchCount(searchStr));
@@ -173,13 +177,48 @@ public class LeaseService {
         // 日期格式化的格式
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date start = dateFormat.parse(lease.getStartingLeasePeriod());
-            Date end = dateFormat.parse(lease.getTerminationPeriod());
-            lease.setStartingLeasePeriod(dateFormat.format(start));
-            lease.setTerminationPeriod(dateFormat.format(end));
+            Date start = dateFormat.parse(lease.getStartRentTime());
+            Date end = dateFormat.parse(lease.getEndRentTime());
+            lease.setStartRentTime(dateFormat.format(start));
+            lease.setEndRentTime(dateFormat.format(end));
         } catch (ParseException e) {
             e.printStackTrace();
         }
         return lease;
+    }
+
+    /**
+     * 查询所有办公楼
+     *
+     * @return
+     */
+    public List<Building> getBuildingList() {
+        return lm.getBuildingList();
+    }
+
+    /**
+     * 获取所有未租赁的可用记录
+     *
+     * @return Room类型的集合，所有未租赁的可用记录
+     */
+    public List<Room> getEmptyRoomList() {
+        return lm.getEmptyRoomList();
+    }
+
+    /**
+     * 获取所有已租赁的可用记录
+     *
+     * @return Room类型的集合，所有已租赁的可用记录
+     */
+    public List<Room> getContinueRoomList() {
+        return lm.getContinueRoomList();
+    }
+
+    /**
+     * 获取所有可用数据
+     * @return Setting类型，所有可用数据
+     */
+    public String getSettingList(){
+        return lm.getSettingList();
     }
 }

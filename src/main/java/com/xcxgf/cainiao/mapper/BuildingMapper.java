@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 /**
- * 对数据库中buildingInfo表（楼栋管理表）的增删改查操作
+ * 对数据库中buildinginfo表（楼栋管理表）的增删改查操作
  */
 public interface BuildingMapper {
 
@@ -21,7 +21,7 @@ public interface BuildingMapper {
      * @return Building类型的集合，满足条件的可用记录
      */
     @Select("select * " +
-            "from buildingInfo " +
+            "from buildinginfo " +
             "where buildingType = '${dataType}' " +
             "${search} " +
             "ORDER BY CAST(buildingName AS DECIMAL),insertTime desc " +
@@ -35,7 +35,7 @@ public interface BuildingMapper {
      * @return int类型，满足条件的记录条数
      */
     @Select("SELECT count(*) " +
-            "FROM buildingInfo " +
+            "FROM buildinginfo " +
             "where buildingType = '${dataType}' " +
             "${search}")
     public int getSearchCount(String search, String dataType);
@@ -46,7 +46,7 @@ public interface BuildingMapper {
      * @param building 需要更新的记录对象
      * @return int类型，更新操作影响的记录条数，为0时更新失败，否则更新成功
      */
-    @Update("UPDATE buildingInfo " +
+    @Update("UPDATE buildinginfo " +
             "SET buildingType=#{buildingType}, " +
             "updateTime=#{updateTime}" +
             "WHERE buildingName=#{buildingName}")
@@ -58,7 +58,7 @@ public interface BuildingMapper {
      * @param building 需要删除的记录对象
      * @return int类型，删除操作影响的记录条数，为0时删除失败，否则删除成功
      */
-    @Delete("DELETE FROM buildingInfo WHERE buildingName =#{buildingName}")
+    @Delete("DELETE FROM buildinginfo WHERE buildingName =#{buildingName}")
     public int deleteBuildingInfo(Building building);
 
     /**
@@ -67,7 +67,7 @@ public interface BuildingMapper {
      * @param building 需要插入的记录对象
      * @return int类型，插入记录影响的记录条数，为0时插入失败，否则插入成功
      */
-    @Insert("INSERT INTO buildingInfo(buildingName,buildingType,insertTime) " +
+    @Insert("INSERT INTO buildinginfo(buildingName,buildingType,insertTime) " +
             "VALUES(#{buildingName}, #{buildingType}, #{insertTime})")
     public int insertBuildingInfo(Building building);
 
@@ -78,7 +78,7 @@ public interface BuildingMapper {
      * @return int类型，满足查询条件的记录条数，为0时不存在重复记录，否则存在重复记录
      */
     @Select("select count(*) " +
-            "from buildingInfo " +
+            "from buildinginfo " +
             "where buildingName = #{buildingName}")
     public int insertSearchSame(Building building);
 
@@ -89,7 +89,7 @@ public interface BuildingMapper {
      * @return int类型，满足查询条件的记录条数，为0时不存在重复记录，否则存在重复记录
      */
     @Select("SELECT COUNT(*) " +
-            "FROM (SELECT * FROM buildingInfo WHERE buildingName NOT in (select buildingName from buildingInfo where buildingName=#{buildingName} )) AS temp" +
+            "FROM (SELECT * FROM buildinginfo WHERE buildingName NOT in (select buildingName from buildinginfo where buildingName=#{buildingName} )) AS temp" +
             " WHERE buildingName = #{buildingName}")
     public int updateSearchSame(Building building);
 

@@ -18,29 +18,11 @@ public class RoomService {
     private RoomMapper rm;
 
     /**
-     * 获取所有未租赁的可用记录
-     *
-     * @return Room类型的集合，所有未租赁的可用记录
-     */
-    public List<Room> getRoomList() {
-        return rm.getRoomList();
-    }
-
-    /**
-     * 获取所有已租赁的可用记录
-     *
-     * @return Room类型的集合，所有已租赁的可用记录
-     */
-    public List<Room> getRoomListContinue() {
-        return rm.getRoomListContinue();
-    }
-
-    /**
-     * 查询满足查询条件的指定位置的记录
-     *
-     * @param search 查询条件
-     * @param start  记录的开始位置
-     * @param count  查询记录条数
+     * 查询满足指定查询条件的记录
+     * @param search 查询内容
+     * @param start 记录返回起始位置
+     * @param count 记录返回条数
+     * @param dataType 记录类型，主要区分房间类型
      * @return
      */
     public DataReturn getSearchList(String search, String start, String count, String dataType) {
@@ -116,7 +98,7 @@ public class RoomService {
             for (Room room : roomList) {
                 // 存在该楼栋
                 dataType = rm.getBuildingType(room);
-                if (rm.insertSearchBuildingName(room,dataType) != 0) {
+                if (rm.insertSearchBuildingName(room, dataType) != 0) {
                     if (rm.insertSearchSame(room) != 0) {
                         sameCount += 1;
                     } else if (rm.insertRoomInfo(room) > 0) {
@@ -134,7 +116,12 @@ public class RoomService {
         return reqCode;
     }
 
-    public List<Building> getBuildingList(String dataType){
+    /**
+     * 获取所有楼栋信息
+     * @param dataType 楼栋类型
+     * @return
+     */
+    public List<Building> getBuildingList(String dataType) {
         return rm.getBuildingList(dataType);
     }
 }

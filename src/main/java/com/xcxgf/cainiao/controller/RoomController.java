@@ -25,7 +25,7 @@ public class RoomController {
     /**
      * 获取符合查询条件的办公室数据
      *
-     * @param request request中包含3个参数，search（查询内容），dataStart（返回数据的起始位置），dataEnd（返回数据的终止位置）
+     * @param request request中包含3个参数，search（查询内容），dataStart（返回数据的起始位置），dataSize（返回数据的终止位置）
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, value = "/getSearchList")
@@ -33,30 +33,10 @@ public class RoomController {
         // 从request中获取各参数
         String search = request.getParameter("search");
         String start = request.getParameter("dataStart");
-        String count = request.getParameter("dataEnd");
+        String count = request.getParameter("dataSize");
         String dataType = request.getParameter("dataType");
 
         return rs.getSearchList(search, start, count, dataType);
-    }
-
-    /**
-     * 获取所有未租赁的办公室数据
-     *
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getRoomList")
-    public List<Room> getRoomList() {
-        return rs.getRoomList();
-    }
-
-    /**
-     * 获取所有的已租赁的办公室数据
-     *
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getRoomListContinue")
-    public List<Room> getRoomListContinue() {
-        return rs.getRoomListContinue();
     }
 
     /**
@@ -105,11 +85,12 @@ public class RoomController {
 
     /**
      * 查询办公楼数据
+     *
      * @param request
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET,value = "/getBuildingList")
-    public List<Building> getBuildingList(HttpServletRequest request){
+    @RequestMapping(method = RequestMethod.GET, value = "/getBuildingList")
+    public List<Building> getBuildingList(HttpServletRequest request) {
         String dataType = request.getParameter("dataType");
         return rs.getBuildingList(dataType);
     }

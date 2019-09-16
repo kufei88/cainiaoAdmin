@@ -1,7 +1,9 @@
 package com.xcxgf.cainiao.controller;
 
+import com.xcxgf.cainiao.POJO.Building;
 import com.xcxgf.cainiao.POJO.DataReturn;
 import com.xcxgf.cainiao.POJO.Lease;
+import com.xcxgf.cainiao.POJO.Room;
 import com.xcxgf.cainiao.services.LeaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,15 +34,10 @@ public class LeaseController {
     public DataReturn getSearchList(HttpServletRequest request) {
         // 从request中获取各参数
         String search = request.getParameter("search");
-        String startStr = request.getParameter("dataStart");
-        String endStr = request.getParameter("dataEnd");
-        int start = Integer.parseInt(startStr);
-        int end = Integer.parseInt(endStr);
-        // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "and (buildingName like '%" + search + "%' or roomNumber like '%" + search + "%' or owner like '%" + search + "%')";
-        String limitStr = "0".equals(startStr) && "0".equals(endStr) ? "" : "limit " + start + "," + end;
+        String start = request.getParameter("dataStart");
+        String count = request.getParameter("dataSize");
 
-        return ls.getSearchList(searchStr, limitStr);
+        return ls.getSearchList(search, start, count);
     }
 
     /**
@@ -67,6 +64,7 @@ public class LeaseController {
 
     /**
      * 更新记录
+     *
      * @param lease 需要被更新的数据
      * @return 更新结果的状态值
      */
@@ -77,6 +75,7 @@ public class LeaseController {
 
     /**
      * 插入记录
+     *
      * @param lease 需要插入的数据
      * @return 插入结果的状态值
      */
@@ -87,6 +86,7 @@ public class LeaseController {
 
     /**
      * 插入记录（续租），根据数据中携带的rentNumber（租期期数）的值来分别进行插入操作
+     *
      * @param lease 需要被插入的数据
      * @return 插入结果的状态值
      */
@@ -117,11 +117,51 @@ public class LeaseController {
 
     /**
      * 批量插入记录（上传数据）
+     *
      * @param lease 需要被插入的数据的集合
      * @return 插入结果的状态值
      */
     @RequestMapping(method = RequestMethod.POST, value = "/uploadLeaseList")
     public int uploadLeaseList(@RequestBody List<Lease> lease) {
         return ls.uploadLeaseList(lease);
+    }
+
+    /**
+     * 查询所有办公楼数据
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/getBuildingList")
+    public List<Building> getBuildingList() {
+        return ls.getBuildingList();
+    }
+
+    /**
+     * 获取所有未租赁的办公室数据
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/getEmptyRoomList")
+    public List<Room> getEmptyRoomList() {
+        return ls.getEmptyRoomList();
+    }
+
+    /**
+     * 获取所有的已租赁的办公室数据
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/getContinueRoomList")
+    public List<Room> getContinueRoomList() {
+        return ls.getContinueRoomList();
+    }
+
+    /**
+     * 获取所有系统设置的数据
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "/getSettingList")
+    public String getSettingList(){
+        return ls.getSettingList();
     }
 }

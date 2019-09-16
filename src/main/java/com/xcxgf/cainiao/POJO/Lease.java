@@ -9,54 +9,55 @@ public class Lease {
     private String roomNumber; // 办公室房号
     private String buildingName; // 所属办公楼名称
     private String depositOnContracts; // 合同保证金
-    private String leaseTerm; // 租期
-    private String startingLeasePeriod; // 起租期
-    private String terminationPeriod; // 终止期
-    private String unitRentOne; // 首期租金单价
-    private String leasePeriodOne; // 首期租期周期
-    private String totalAmountOne; // 首期租期应付总额
-    private String propertyFeeOne; // 首期租期应付物业费
-    private String energySharingOne; // 首期能耗公摊
-    private String totalRentOne; // 首期租费合计
-    private String unitRentTwo; // 第2期租金单价
-    private String leasePeriodTwo; // 第2期租期周期
-    private String totalAmountTwo; // 第2期租期应付总额
-    private String propertyFeeTwo; // 第2期租期应付物业费
-    private String energySharingTwo; // 第2期能耗公摊
-    private String totalRentTwo; // 第2期租费合计
-    private String unitRentThree; // 第3期租金单价
-    private String leasePeriodThree; // 第3期租期周期
-    private String totalAmountThree; // 第3期租期应付总额
-    private String propertyFeeThree; // 第3期租期应付物业费
-    private String energySharingThree; // 第3期能耗公摊
-    private String totalRentThree; // 第3期租费合计
-    private String unitRentFour; // 第4期租金单价
-    private String leasePeriodFour; // 第4期租期周期
-    private String totalAmountFour; // 第4期租期应付总额
-    private String propertyFeeFour; // 第4期租期应付物业费
-    private String energySharingFour; // 第4期能耗公摊
-    private String totalRentFour; // 第4期租费合计
-    private String unitRentFive; // 第5期租金单价
-    private String leasePeriodFive; // 第5期租期周期
-    private String totalAmountFive; // 第5期租期应付总额
-    private String propertyFeeFive; // 第5期租期应付物业费
-    private String energySharingFive; // 第5期能耗公摊
-    private String totalRentFive; // 第5期租费合计
-    private String unitRentSix; // 第6期租金单价
-    private String leasePeriodSix; // 第6期租期周期
-    private String totalAmountSix; // 第6期租期应付总额
-    private String propertyFeeSix; // 第6期租期应付物业费
-    private String energySharingSix; // 第6期能耗公摊
-    private String totalRentSix; // 第6期租费合计
+    private String rentPeriod; // 租期
+    private String startRentTime; // 起租期
+    private String endRentTime; // 终止期
+    private String unitPrice1; // 首期租金单价
+    private String period1; // 首期租期周期
+    private String rentCost1; // 首期租期应付总额
+    private String propertyFee1; // 首期租期应付物业费
+    private String energySharing1; // 首期能耗公摊
+    private String totalCost1; // 首期租费合计
+    private String unitPrice2; // 第2期租金单价
+    private String period2; // 第2期租期周期
+    private String rentCost2; // 第2期租期应付总额
+    private String propertyFee2; // 第2期租期应付物业费
+    private String energySharing2; // 第2期能耗公摊
+    private String totalCost2; // 第2期租费合计
+    private String unitPrice3; // 第3期租金单价
+    private String period3; // 第3期租期周期
+    private String rentCost3; // 第3期租期应付总额
+    private String propertyFee3; // 第3期租期应付物业费
+    private String energySharing3; // 第3期能耗公摊
+    private String totalCost3; // 第3期租费合计
+    private String unitPrice4; // 第4期租金单价
+    private String period4; // 第4期租期周期
+    private String rentCost4; // 第4期租期应付总额
+    private String propertyFee4; // 第4期租期应付物业费
+    private String energySharing4; // 第4期能耗公摊
+    private String totalCost4; // 第4期租费合计
+    private String unitPrice5; // 第5期租金单价
+    private String period5; // 第5期租期周期
+    private String rentCost5; // 第5期租期应付总额
+    private String propertyFee5; // 第5期租期应付物业费
+    private String energySharing5; // 第5期能耗公摊
+    private String totalCost5; // 第5期租费合计
+    private String unitPrice6; // 第6期租金单价
+    private String period6; // 第6期租期周期
+    private String rentCost6; // 第6期租期应付总额
+    private String propertyFee6; // 第6期租期应付物业费
+    private String energySharing6; // 第6期能耗公摊
+    private String totalCost6; // 第6期租费合计
     private String isPayBond; // 保证金是否支付
-    private String isPayFirstRent; // 首年租金是否支付
-    private String isPaySecondRent; // 第二年租金是否支付
-    private String rentalUnits; // 出租单元数
-    private String annualTurnoverInterval; // 年成交额区间
-    private String dailyQuantityInterval; // 日均单量区间
+    private String isPayFirst; // 首年租金是否支付
+    private String isPaySecond; // 第二年租金是否支付
+    private String rentCount; // 出租单元数
+    private String yearTurnoverRange; // 年成交额区间
+    private String dayAverageRange; // 日均单量区间
     private String register; // 注册
     private String rentNumber; // 租期期数标识，仅用于前后端交互，不存入数据库
-    private int state; // 记录标识，1为可用，-1不可用
+    private String insertTime; // 添加时间
+    private String updateTime; // 修改时间
 
     public int getId() {
         return id;
@@ -98,316 +99,316 @@ public class Lease {
         this.depositOnContracts = depositOnContracts;
     }
 
-    public String getLeaseTerm() {
-        return leaseTerm;
+    public String getRentPeriod() {
+        return rentPeriod;
     }
 
-    public void setLeaseTerm(String leaseTerm) {
-        this.leaseTerm = leaseTerm;
+    public void setRentPeriod(String rentPeriod) {
+        this.rentPeriod = rentPeriod;
     }
 
-    public String getStartingLeasePeriod() {
-        return startingLeasePeriod;
+    public String getStartRentTime() {
+        return startRentTime;
     }
 
-    public void setStartingLeasePeriod(String startingLeasePeriod) {
-        this.startingLeasePeriod = startingLeasePeriod;
+    public void setStartRentTime(String startRentTime) {
+        this.startRentTime = startRentTime;
     }
 
-    public String getTerminationPeriod() {
-        return terminationPeriod;
+    public String getEndRentTime() {
+        return endRentTime;
     }
 
-    public void setTerminationPeriod(String terminationPeriod) {
-        this.terminationPeriod = terminationPeriod;
+    public void setEndRentTime(String endRentTime) {
+        this.endRentTime = endRentTime;
     }
 
-    public String getUnitRentOne() {
-        return unitRentOne;
+    public String getUnitPrice1() {
+        return unitPrice1;
     }
 
-    public void setUnitRentOne(String unitRentOne) {
-        this.unitRentOne = unitRentOne;
+    public void setUnitPrice1(String unitPrice1) {
+        this.unitPrice1 = unitPrice1;
     }
 
-    public String getLeasePeriodOne() {
-        return leasePeriodOne;
+    public String getPeriod1() {
+        return period1;
     }
 
-    public void setLeasePeriodOne(String leasePeriodOne) {
-        this.leasePeriodOne = leasePeriodOne;
+    public void setPeriod1(String period1) {
+        this.period1 = period1;
     }
 
-    public String getTotalAmountOne() {
-        return totalAmountOne;
+    public String getRentCost1() {
+        return rentCost1;
     }
 
-    public void setTotalAmountOne(String totalAmountOne) {
-        this.totalAmountOne = totalAmountOne;
+    public void setRentCost1(String rentCost1) {
+        this.rentCost1 = rentCost1;
     }
 
-    public String getPropertyFeeOne() {
-        return propertyFeeOne;
+    public String getPropertyFee1() {
+        return propertyFee1;
     }
 
-    public void setPropertyFeeOne(String propertyFeeOne) {
-        this.propertyFeeOne = propertyFeeOne;
+    public void setPropertyFee1(String propertyFee1) {
+        this.propertyFee1 = propertyFee1;
     }
 
-    public String getEnergySharingOne() {
-        return energySharingOne;
+    public String getEnergySharing1() {
+        return energySharing1;
     }
 
-    public void setEnergySharingOne(String energySharingOne) {
-        this.energySharingOne = energySharingOne;
+    public void setEnergySharing1(String energySharing1) {
+        this.energySharing1 = energySharing1;
     }
 
-    public String getTotalRentOne() {
-        return totalRentOne;
+    public String getTotalCost1() {
+        return totalCost1;
     }
 
-    public void setTotalRentOne(String totalRentOne) {
-        this.totalRentOne = totalRentOne;
+    public void setTotalCost1(String totalCost1) {
+        this.totalCost1 = totalCost1;
     }
 
-    public String getUnitRentTwo() {
-        return unitRentTwo;
+    public String getUnitPrice2() {
+        return unitPrice2;
     }
 
-    public void setUnitRentTwo(String unitRentTwo) {
-        this.unitRentTwo = unitRentTwo;
+    public void setUnitPrice2(String unitPrice2) {
+        this.unitPrice2 = unitPrice2;
     }
 
-    public String getLeasePeriodTwo() {
-        return leasePeriodTwo;
+    public String getPeriod2() {
+        return period2;
     }
 
-    public void setLeasePeriodTwo(String leasePeriodTwo) {
-        this.leasePeriodTwo = leasePeriodTwo;
+    public void setPeriod2(String period2) {
+        this.period2 = period2;
     }
 
-    public String getTotalAmountTwo() {
-        return totalAmountTwo;
+    public String getRentCost2() {
+        return rentCost2;
     }
 
-    public void setTotalAmountTwo(String totalAmountTwo) {
-        this.totalAmountTwo = totalAmountTwo;
+    public void setRentCost2(String rentCost2) {
+        this.rentCost2 = rentCost2;
     }
 
-    public String getPropertyFeeTwo() {
-        return propertyFeeTwo;
+    public String getPropertyFee2() {
+        return propertyFee2;
     }
 
-    public void setPropertyFeeTwo(String propertyFeeTwo) {
-        this.propertyFeeTwo = propertyFeeTwo;
+    public void setPropertyFee2(String propertyFee2) {
+        this.propertyFee2 = propertyFee2;
     }
 
-    public String getEnergySharingTwo() {
-        return energySharingTwo;
+    public String getEnergySharing2() {
+        return energySharing2;
     }
 
-    public void setEnergySharingTwo(String energySharingTwo) {
-        this.energySharingTwo = energySharingTwo;
+    public void setEnergySharing2(String energySharing2) {
+        this.energySharing2 = energySharing2;
     }
 
-    public String getTotalRentTwo() {
-        return totalRentTwo;
+    public String getTotalCost2() {
+        return totalCost2;
     }
 
-    public void setTotalRentTwo(String totalRentTwo) {
-        this.totalRentTwo = totalRentTwo;
+    public void setTotalCost2(String totalCost2) {
+        this.totalCost2 = totalCost2;
     }
 
-    public String getUnitRentThree() {
-        return unitRentThree;
+    public String getUnitPrice3() {
+        return unitPrice3;
     }
 
-    public void setUnitRentThree(String unitRentThree) {
-        this.unitRentThree = unitRentThree;
+    public void setUnitPrice3(String unitPrice3) {
+        this.unitPrice3 = unitPrice3;
     }
 
-    public String getLeasePeriodThree() {
-        return leasePeriodThree;
+    public String getPeriod3() {
+        return period3;
     }
 
-    public void setLeasePeriodThree(String leasePeriodThree) {
-        this.leasePeriodThree = leasePeriodThree;
+    public void setPeriod3(String period3) {
+        this.period3 = period3;
     }
 
-    public String getTotalAmountThree() {
-        return totalAmountThree;
+    public String getRentCost3() {
+        return rentCost3;
     }
 
-    public void setTotalAmountThree(String totalAmountThree) {
-        this.totalAmountThree = totalAmountThree;
+    public void setRentCost3(String rentCost3) {
+        this.rentCost3 = rentCost3;
     }
 
-    public String getPropertyFeeThree() {
-        return propertyFeeThree;
+    public String getPropertyFee3() {
+        return propertyFee3;
     }
 
-    public void setPropertyFeeThree(String propertyFeeThree) {
-        this.propertyFeeThree = propertyFeeThree;
+    public void setPropertyFee3(String propertyFee3) {
+        this.propertyFee3 = propertyFee3;
     }
 
-    public String getEnergySharingThree() {
-        return energySharingThree;
+    public String getEnergySharing3() {
+        return energySharing3;
     }
 
-    public void setEnergySharingThree(String energySharingThree) {
-        this.energySharingThree = energySharingThree;
+    public void setEnergySharing3(String energySharing3) {
+        this.energySharing3 = energySharing3;
     }
 
-    public String getTotalRentThree() {
-        return totalRentThree;
+    public String getTotalCost3() {
+        return totalCost3;
     }
 
-    public void setTotalRentThree(String totalRentThree) {
-        this.totalRentThree = totalRentThree;
+    public void setTotalCost3(String totalCost3) {
+        this.totalCost3 = totalCost3;
     }
 
-    public String getUnitRentFour() {
-        return unitRentFour;
+    public String getUnitPrice4() {
+        return unitPrice4;
     }
 
-    public void setUnitRentFour(String unitRentFour) {
-        this.unitRentFour = unitRentFour;
+    public void setUnitPrice4(String unitPrice4) {
+        this.unitPrice4 = unitPrice4;
     }
 
-    public String getLeasePeriodFour() {
-        return leasePeriodFour;
+    public String getPeriod4() {
+        return period4;
     }
 
-    public void setLeasePeriodFour(String leasePeriodFour) {
-        this.leasePeriodFour = leasePeriodFour;
+    public void setPeriod4(String period4) {
+        this.period4 = period4;
     }
 
-    public String getTotalAmountFour() {
-        return totalAmountFour;
+    public String getRentCost4() {
+        return rentCost4;
     }
 
-    public void setTotalAmountFour(String totalAmountFour) {
-        this.totalAmountFour = totalAmountFour;
+    public void setRentCost4(String rentCost4) {
+        this.rentCost4 = rentCost4;
     }
 
-    public String getPropertyFeeFour() {
-        return propertyFeeFour;
+    public String getPropertyFee4() {
+        return propertyFee4;
     }
 
-    public void setPropertyFeeFour(String propertyFeeFour) {
-        this.propertyFeeFour = propertyFeeFour;
+    public void setPropertyFee4(String propertyFee4) {
+        this.propertyFee4 = propertyFee4;
     }
 
-    public String getEnergySharingFour() {
-        return energySharingFour;
+    public String getEnergySharing4() {
+        return energySharing4;
     }
 
-    public void setEnergySharingFour(String energySharingFour) {
-        this.energySharingFour = energySharingFour;
+    public void setEnergySharing4(String energySharing4) {
+        this.energySharing4 = energySharing4;
     }
 
-    public String getTotalRentFour() {
-        return totalRentFour;
+    public String getTotalCost4() {
+        return totalCost4;
     }
 
-    public void setTotalRentFour(String totalRentFour) {
-        this.totalRentFour = totalRentFour;
+    public void setTotalCost4(String totalCost4) {
+        this.totalCost4 = totalCost4;
     }
 
-    public String getUnitRentFive() {
-        return unitRentFive;
+    public String getUnitPrice5() {
+        return unitPrice5;
     }
 
-    public void setUnitRentFive(String unitRentFive) {
-        this.unitRentFive = unitRentFive;
+    public void setUnitPrice5(String unitPrice5) {
+        this.unitPrice5 = unitPrice5;
     }
 
-    public String getLeasePeriodFive() {
-        return leasePeriodFive;
+    public String getPeriod5() {
+        return period5;
     }
 
-    public void setLeasePeriodFive(String leasePeriodFive) {
-        this.leasePeriodFive = leasePeriodFive;
+    public void setPeriod5(String period5) {
+        this.period5 = period5;
     }
 
-    public String getTotalAmountFive() {
-        return totalAmountFive;
+    public String getRentCost5() {
+        return rentCost5;
     }
 
-    public void setTotalAmountFive(String totalAmountFive) {
-        this.totalAmountFive = totalAmountFive;
+    public void setRentCost5(String rentCost5) {
+        this.rentCost5 = rentCost5;
     }
 
-    public String getPropertyFeeFive() {
-        return propertyFeeFive;
+    public String getPropertyFee5() {
+        return propertyFee5;
     }
 
-    public void setPropertyFeeFive(String propertyFeeFive) {
-        this.propertyFeeFive = propertyFeeFive;
+    public void setPropertyFee5(String propertyFee5) {
+        this.propertyFee5 = propertyFee5;
     }
 
-    public String getEnergySharingFive() {
-        return energySharingFive;
+    public String getEnergySharing5() {
+        return energySharing5;
     }
 
-    public void setEnergySharingFive(String energySharingFive) {
-        this.energySharingFive = energySharingFive;
+    public void setEnergySharing5(String energySharing5) {
+        this.energySharing5 = energySharing5;
     }
 
-    public String getTotalRentFive() {
-        return totalRentFive;
+    public String getTotalCost5() {
+        return totalCost5;
     }
 
-    public void setTotalRentFive(String totalRentFive) {
-        this.totalRentFive = totalRentFive;
+    public void setTotalCost5(String totalCost5) {
+        this.totalCost5 = totalCost5;
     }
 
-    public String getUnitRentSix() {
-        return unitRentSix;
+    public String getUnitPrice6() {
+        return unitPrice6;
     }
 
-    public void setUnitRentSix(String unitRentSix) {
-        this.unitRentSix = unitRentSix;
+    public void setUnitPrice6(String unitPrice6) {
+        this.unitPrice6 = unitPrice6;
     }
 
-    public String getLeasePeriodSix() {
-        return leasePeriodSix;
+    public String getPeriod6() {
+        return period6;
     }
 
-    public void setLeasePeriodSix(String leasePeriodSix) {
-        this.leasePeriodSix = leasePeriodSix;
+    public void setPeriod6(String period6) {
+        this.period6 = period6;
     }
 
-    public String getTotalAmountSix() {
-        return totalAmountSix;
+    public String getRentCost6() {
+        return rentCost6;
     }
 
-    public void setTotalAmountSix(String totalAmountSix) {
-        this.totalAmountSix = totalAmountSix;
+    public void setRentCost6(String rentCost6) {
+        this.rentCost6 = rentCost6;
     }
 
-    public String getPropertyFeeSix() {
-        return propertyFeeSix;
+    public String getPropertyFee6() {
+        return propertyFee6;
     }
 
-    public void setPropertyFeeSix(String propertyFeeSix) {
-        this.propertyFeeSix = propertyFeeSix;
+    public void setPropertyFee6(String propertyFee6) {
+        this.propertyFee6 = propertyFee6;
     }
 
-    public String getEnergySharingSix() {
-        return energySharingSix;
+    public String getEnergySharing6() {
+        return energySharing6;
     }
 
-    public void setEnergySharingSix(String energySharingSix) {
-        this.energySharingSix = energySharingSix;
+    public void setEnergySharing6(String energySharing6) {
+        this.energySharing6 = energySharing6;
     }
 
-    public String getTotalRentSix() {
-        return totalRentSix;
+    public String getTotalCost6() {
+        return totalCost6;
     }
 
-    public void setTotalRentSix(String totalRentSix) {
-        this.totalRentSix = totalRentSix;
+    public void setTotalCost6(String totalCost6) {
+        this.totalCost6 = totalCost6;
     }
 
     public String getIsPayBond() {
@@ -418,44 +419,44 @@ public class Lease {
         this.isPayBond = isPayBond;
     }
 
-    public String getIsPayFirstRent() {
-        return isPayFirstRent;
+    public String getIsPayFirst() {
+        return isPayFirst;
     }
 
-    public void setIsPayFirstRent(String isPayFirstRent) {
-        this.isPayFirstRent = isPayFirstRent;
+    public void setIsPayFirst(String isPayFirst) {
+        this.isPayFirst = isPayFirst;
     }
 
-    public String getIsPaySecondRent() {
-        return isPaySecondRent;
+    public String getIsPaySecond() {
+        return isPaySecond;
     }
 
-    public void setIsPaySecondRent(String isPaySecondRent) {
-        this.isPaySecondRent = isPaySecondRent;
+    public void setIsPaySecond(String isPaySecond) {
+        this.isPaySecond = isPaySecond;
     }
 
-    public String getRentalUnits() {
-        return rentalUnits;
+    public String getRentCount() {
+        return rentCount;
     }
 
-    public void setRentalUnits(String rentalUnits) {
-        this.rentalUnits = rentalUnits;
+    public void setRentCount(String rentCount) {
+        this.rentCount = rentCount;
     }
 
-    public String getAnnualTurnoverInterval() {
-        return annualTurnoverInterval;
+    public String getYearTurnoverRange() {
+        return yearTurnoverRange;
     }
 
-    public void setAnnualTurnoverInterval(String annualTurnoverInterval) {
-        this.annualTurnoverInterval = annualTurnoverInterval;
+    public void setYearTurnoverRange(String yearTurnoverRange) {
+        this.yearTurnoverRange = yearTurnoverRange;
     }
 
-    public String getDailyQuantityInterval() {
-        return dailyQuantityInterval;
+    public String getDayAverageRange() {
+        return dayAverageRange;
     }
 
-    public void setDailyQuantityInterval(String dailyQuantityInterval) {
-        this.dailyQuantityInterval = dailyQuantityInterval;
+    public void setDayAverageRange(String dayAverageRange) {
+        this.dayAverageRange = dayAverageRange;
     }
 
     public String getRegister() {
@@ -474,11 +475,19 @@ public class Lease {
         this.rentNumber = rentNumber;
     }
 
-    public int getState() {
-        return state;
+    public String getInsertTime() {
+        return insertTime;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setInsertTime(String insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

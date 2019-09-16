@@ -34,7 +34,7 @@ public class BuildingController {
         // 从request中获取各参数
         String search = request.getParameter("search");
         String start = request.getParameter("dataStart");
-        String count = request.getParameter("dataEnd");
+        String count = request.getParameter("dataSize");
         String dataType = request.getParameter("dataType");
 
         return bs.getSearchList(search, start,count,dataType);

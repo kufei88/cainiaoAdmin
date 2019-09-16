@@ -2,20 +2,18 @@ package com.xcxgf.cainiao.services;
 
 
 
-import com.xcxgf.cainiao.POJO.Hydropower;
-import com.xcxgf.cainiao.POJO.HydropowerCost;
 import com.xcxgf.cainiao.POJO.PaymentInfo;
 import com.xcxgf.cainiao.POJO.ReturnData;
+import com.xcxgf.cainiao.POJO.SystemInfo;
 import com.xcxgf.cainiao.mapper.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PaymentService {
@@ -24,38 +22,119 @@ public class PaymentService {
     private PaymentMapper paymentMapper;
 
     //新增
-    public int insert(PaymentInfo paymentInfo){
-        int flag = 0,flagTwo = 0;
-        HydropowerCost hc =  new HydropowerCost();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-        StringBuffer startTime = paymentInfo.getStartTime();
-        StringBuffer endTime = paymentInfo.getEndTime();
-        String start;
-        String end;
-        if(paymentInfo.getStartTime().length()==11 && paymentInfo.getEndTime().length()==11){
-            start = startTime.delete(10,30).toString();
-            end = endTime.delete(10,30).toString();
-        }else {
-             start =  df.format(new Date(String.valueOf(startTime)));
-             end = df.format(new Date(String.valueOf(endTime)));
+    public int insertHydropowerPaymentData(SystemInfo systemInfo){
+        return paymentMapper.insertHydropowerPaymentData(systemInfo);
+    }
+
+    //查询公司
+    public String getEnterpriseNumber(String building,String room){
+        return paymentMapper.getEnterpriseNumber(building,room);
+    }
+
+    //查询所有楼栋
+    public List<String> getBuilingList(){
+        return paymentMapper.getBuildingList();
+    }
+
+    //查询所属楼栋的未使用的房号
+    public List<Long> getBuildingRoomList(String building){
+        return paymentMapper.getBuildingRoomList(building);
+    }
+
+    //查询水电表已存在的房号
+    public List<Long> getPaymentinfoRoomList(String building){
+        return paymentMapper.getPaymentinfoRoomList(building);
+    }
+
+    //查询去重的房号
+    public List<Long> getRoomList(String building){
+        List list1 =getBuildingRoomList(building);
+        List list2 =getPaymentinfoRoomList(building);
+        return removeAll(list1,list2);
+    }
+
+    //去重
+    public  static List<String> removeAll(List<String> list1,List<String> list2){
+        LinkedList<String> result = new LinkedList<>(list1);
+        HashSet<String> set = new HashSet<>(list2);
+        Iterator<String> itor = result.iterator();
+        while(itor.hasNext()){
+            if(set.contains(itor.next())){
+                itor.remove();
+            }
         }
-        flag = paymentMapper.insertPaymentInfo(paymentInfo.getWaterNumber(),paymentInfo.getElectricityNumber(),paymentInfo.getEnterpriseNumber(),paymentInfo.getRoomNumber(),start,end,df.format(new Date()));
-        if (flag == 1){
-          hc = paymentMapper.selectPaymentInfoId(paymentInfo.getEnterpriseNumber(),paymentInfo.getRoomNumber(),start,end);
-          flagTwo = paymentMapper.insertCost(hc.getId());
-          if (flagTwo==0){
-              paymentMapper.deletePaymentInfo(hc.getId());
-          }
+        return result;
+    }
+
+    //新增
+    public int insert(PaymentInfo paymentInfo){
+        int flagTwo = 0;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+        String start = paymentInfo.getStartTime();
+        String end = paymentInfo.getEndTime();
+        String startTime = null;
+        String endTime = null;
+        try {
+            System.out.println(start+"============="+start.length());
+            if (start.length()>=10 && end.length()>=10){
+                startTime=df.format(df.parse(start));
+                endTime=df.format(df.parse(end));
+                flagTwo = timeSetting(paymentInfo,startTime,endTime);
+            }
+            if (start.length()<10 && end.length()<10){
+                startTime=formatDate(start);
+                endTime=formatDate(end);
+                flagTwo = timeSetting(paymentInfo,startTime,endTime);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return flagTwo;
+    }
+
+    public int timeSetting(PaymentInfo paymentInfo,String startTime,String endTime){
+        int flag = 0,flagTwo = 0;
+        PaymentInfo hc ;
+        paymentInfo.setStartTime(startTime);
+        paymentInfo.setEndTime(endTime);
+        if (paymentMapper.repeatData(paymentInfo) != 1) {
+            flag =paymentMapper.insertPaymentInfo(paymentInfo);
+            if (flag == 1){
+                hc = paymentMapper.selectPaymentInfoId(paymentInfo);
+                flagTwo = paymentMapper.insertCost(hc);
+                if(flagTwo!=1){
+                    paymentMapper.deletePaymentInfo(hc.getId());
+                }
+            }
+        }else {
+            flagTwo=2;
+        }
+        return flagTwo;
+    }
+
+    //时间类型转换
+    public static String formatDate(String inDate) {
+        SimpleDateFormat inSDF = new SimpleDateFormat("mm/dd/yy");
+        SimpleDateFormat outSDF = new SimpleDateFormat("yyyy-mm-dd");
+        String outDate = "";
+        if (inDate != null) {
+            try {
+                Date date = inSDF.parse(inDate);
+                outDate = outSDF.format(date);
+            } catch (ParseException ex){
+            }
+        }
+        return outDate;
     }
     //更新
     public int update(PaymentInfo paymentInfo){
         int flag = 0;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
-        flag = paymentMapper.updatePaymentInfo(paymentInfo.getId(),paymentInfo.getWaterNumber(),paymentInfo.getElectricityNumber(),df.format(new Date()));
+        paymentInfo.setUpdateTime(df.format(new Date()));
+        flag = paymentMapper.updatePaymentInfo(paymentInfo);
         if (flag == 1){
-            paymentMapper.insertCost(paymentInfo.getId());
+            paymentMapper.insertCost(paymentInfo);
         }
        return flag;
     }
@@ -69,9 +148,6 @@ public class PaymentService {
         System.out.println(paymentMapper.deletePaymentInfoAll());
     }
 
-    public void insertAll(){
-
-    }
     //得到数据
     public ReturnData getPaymentList(String limit){
         ReturnData dataReturn = new ReturnData();
@@ -99,13 +175,13 @@ public class PaymentService {
     }
 
     //得到水电价格数据
-    public List<Hydropower> getHydropowerPaymentList(){
+    public List<SystemInfo> getHydropowerPaymentList(){
         return paymentMapper.getHydropowerPaymentList();
     }
 
     //更新水电价格数据
-    public int updateHydropower(Hydropower hydropower){
-        return paymentMapper.updateHydropowerPaymentInfo(hydropower.getWater(),hydropower.getElectricity());
+    public int updateHydropower(SystemInfo systemInfo){
+        return paymentMapper.updateHydropowerPaymentInfo(systemInfo);
     }
 
     //得到水电费数据

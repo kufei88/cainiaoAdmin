@@ -72,7 +72,7 @@ public interface AccountMapper {
     public int updateleasePeriod(int addNum,int id);
 
     //查询宿舍楼栋
-    @Select("select * from buildingInfo where buildingType='宿舍'")
+    @Select("select * from buildinginfo where buildingType='宿舍'")
     public List<Building> getBuildingList();
 
     //查询房间号

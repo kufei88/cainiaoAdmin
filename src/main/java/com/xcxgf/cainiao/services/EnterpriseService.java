@@ -17,13 +17,18 @@ public class EnterpriseService {
     private EnterpriseMapper em;
 
     /**
-     * 获取指定位置的满足查询条件的可用记录
+     * 查询指定条件的记录数据
      *
-     * @param searchStr 查询条件
-     * @param limitStr  指定位置
-     * @return DataReturn类型的对象，满足条件的记录的数据包装
+     * @param search 查询条件的内容
+     * @param start  记录起始位置
+     * @param count  查询返回的记录数量
+     * @return
      */
-    public DataReturn getSearchList(String searchStr, String limitStr) {
+    public DataReturn getSearchList(String search, String start, String count) {
+        // 拼接查询字符串，limit字符串
+        String searchStr = "".equals(search) ? "" : "where (enterpriseName like '%" + search + "%' or enterprisePerson = '" + search + "')";
+        String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
+
         DataReturn dataReturn = new DataReturn();
         dataReturn.setEnterpriseList(em.getSearchList(searchStr, limitStr));
         dataReturn.setDataCount(em.getSearchCount(searchStr));
@@ -41,6 +46,7 @@ public class EnterpriseService {
 
     /**
      * 删除记录
+     *
      * @param enterprise 需要被删除的记录对象
      * @return int类型，0为删除失败，1为删除成功
      */
@@ -54,6 +60,7 @@ public class EnterpriseService {
 
     /**
      * 更新记录
+     *
      * @param enterprise 需要被更新的记录对象
      * @return int类型，0为更新失败，1为更新成功，-1为存在重复数据
      */
@@ -69,6 +76,7 @@ public class EnterpriseService {
 
     /**
      * 插入记录
+     *
      * @param enterprise 需要插入的记录对象
      * @return int类型，0为更新失败，1为更新成功，-1为存在重复数据
      */
@@ -85,6 +93,7 @@ public class EnterpriseService {
 
     /**
      * 批量插入记录
+     *
      * @param enterpriseList 需要被插入的记录对象集合
      * @return int类型，插入操作的状态，-1为表内无数据，-2为全部重复，0为插入失败，否则返回成功条数
      */
