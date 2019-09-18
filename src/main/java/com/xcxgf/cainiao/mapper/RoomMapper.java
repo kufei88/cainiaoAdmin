@@ -70,7 +70,7 @@ public interface RoomMapper {
      * @param room 需要插入的记录对象
      * @return int类型，插入记录影响的记录条数，为0时插入失败，否则插入成功
      */
-    @Insert("INSERT INTO leaseinfo(roomNumber,buildingName,rentArea,buildingArea,monthRent,insertTime) " +
+    @Insert("INSERT INTO roominfo(roomNumber,buildingName,rentArea,buildingArea,monthRent,insertTime) " +
             "VALUES(#{roomNumber}, #{buildingName}, #{rentArea}, #{buildingArea},#{monthRent},#{insertTime})")
     public int insertRoomInfo(Room room);
 

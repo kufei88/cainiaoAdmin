@@ -82,15 +82,15 @@ public interface PaymentMapper {
     /**
      * 查询满足条件的可用记录
      *
-     * @param establishTime 查询条件
+     * @param startTime 查询条件
      * @param limit  需要返回的记录的起始位置和终止位置
      * @return 类型的集合，满足条件的可用记录
      */
-    @Select("select  * from paymentinfo where establishTime like CONCAT(#{establishTime},'%') ${limit};")
-    public List<PaymentInfo> getPaymentList(@Param("establishTime")String establishTime, String limit);
+    @Select("select  * from paymentinfo where startTime like CONCAT(#{startTime},'%') ${limit};")
+    public List<PaymentInfo> getPaymentList(@Param("startTime")String startTime, String limit);
 
-    @Select("select  count(*) from paymentinfo where establishTime like CONCAT(#{establishTime},'%');")
-    public int getCount(@Param("establishTime")String establishTime);
+    @Select("select  count(*) from paymentinfo where startTime like CONCAT(#{startTime},'%');")
+    public int getCount(@Param("startTime")String startTime);
 
 
     //插入水电读数后的水电费 更新

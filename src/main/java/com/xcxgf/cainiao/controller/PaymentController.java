@@ -7,7 +7,6 @@ import com.xcxgf.cainiao.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
@@ -62,27 +61,29 @@ public class PaymentController {
     public int insert(@RequestBody PaymentInfo paymentInfo) {return ps.insert(paymentInfo); }
 
 
-    //增加
+    //增加Excel
     @PostMapping("/insertPaymentDataExcel")
     public ReturnData insertExcel(@RequestBody List<PaymentInfo> paymentInfo) {
         int flag=0,i=0,j=0;
+        int T;
         ReturnData returnData = new ReturnData();
         for (PaymentInfo pi:paymentInfo)
         {
+            T = ps.insert(pi);
             i++;
-            if (ps.insert(pi)==1){
+            if (T==1){
                 if (i==paymentInfo.size()){
                     flag=1;
                     returnData.setExcelFlag(flag);
                 }
             }
-            if(ps.insert(pi)==0){
+            if(T==0){
                 j++;
                 if (i==paymentInfo.size()){
                     returnData.setErrorCount(j);
                 }
             }
-            if (ps.insert(pi)==2){
+            if (T==2){
                 j++;
                 if (i==paymentInfo.size()){
                     flag=2;

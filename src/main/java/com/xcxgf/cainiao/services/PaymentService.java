@@ -75,11 +75,11 @@ public class PaymentService {
         String startTime = null;
         String endTime = null;
         try {
-            System.out.println(start+"============="+start.length());
             if (start.length()>=10 && end.length()>=10){
-                startTime=df.format(df.parse(start));
-                endTime=df.format(df.parse(end));
+                startTime=subDay(df.format(df.parse(start)));
+                endTime=subDay(df.format(df.parse(end)));
                 flagTwo = timeSetting(paymentInfo,startTime,endTime);
+//                System.out.println(startTime);
             }
             if (start.length()<10 && end.length()<10){
                 startTime=formatDate(start);
@@ -93,6 +93,31 @@ public class PaymentService {
         return flagTwo;
     }
 
+    //时间天数加一天处理
+    public String subDay(String date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dt = sdf.parse(date);
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(dt);
+        rightNow.add(Calendar.DAY_OF_MONTH, 1);
+        Date dt1 = rightNow.getTime();
+        String reStr = sdf.format(dt1);
+        return reStr;
+    }
+
+    //时间月份减一个月
+    public String subMonth(String date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date dt = sdf.parse(date);
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(dt);
+        rightNow.add(Calendar.MONTH, -1);
+        Date dt1 = rightNow.getTime();
+        String reStr = sdf.format(dt1);
+        return reStr;
+    }
+
+    //新增判断
     public int timeSetting(PaymentInfo paymentInfo,String startTime,String endTime){
         int flag = 0,flagTwo = 0;
         PaymentInfo hc ;
@@ -148,29 +173,31 @@ public class PaymentService {
         System.out.println(paymentMapper.deletePaymentInfoAll());
     }
 
-    //得到数据
+    //得到本期数据
     public ReturnData getPaymentList(String limit){
         ReturnData dataReturn = new ReturnData();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
-        dataReturn.setDataCount(paymentMapper.getCount(df.format(new Date())));
-        dataReturn.setPaymentInfos(paymentMapper.getPaymentList(df.format(new Date()),limit));
+        try {
+            dataReturn.setDataCount(paymentMapper.getCount(subMonth(df.format(new Date()))));
+            dataReturn.setPaymentInfos(paymentMapper.getPaymentList(subMonth(df.format(new Date())),limit));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         return dataReturn;
     }
     //得到上期数据
     public ReturnData getPreviousPaymentList(String limit){
         ReturnData dataReturn = new ReturnData();
-
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");//设置日期格式
-        SimpleDateFormat mm = new SimpleDateFormat("MM");//设置月份格式
-        int month = Integer.parseInt(mm.format(new Date()))-1;  //计算上月
-        StringBuffer monthT = new StringBuffer(String.valueOf(month));
-        StringBuffer years = new StringBuffer(df.format(new Date()));
-        if (month<10){
-            monthT.insert(0,"0");
+        String years = null;
+        try {
+            years = subMonth(subMonth(df.format(new Date())));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        years.replace(5, 8, monthT.toString());
-        dataReturn.setDataCount(paymentMapper.getCount(years.toString()));
-        dataReturn.setPaymentInfos(paymentMapper.getPaymentList(years.toString(),limit));
+        dataReturn.setDataCount(paymentMapper.getCount(years));
+        dataReturn.setPaymentInfos(paymentMapper.getPaymentList(years,limit));
         return dataReturn;
     }
 
