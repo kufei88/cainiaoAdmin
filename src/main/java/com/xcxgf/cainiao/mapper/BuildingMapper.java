@@ -22,11 +22,10 @@ public interface BuildingMapper {
      */
     @Select("select * " +
             "from buildinginfo " +
-            "where buildingType = '${dataType}' " +
             "${search} " +
-            "ORDER BY CAST(buildingName AS DECIMAL),insertTime desc " +
+            "ORDER BY buildingName+0,insertTime desc " +
             "${limit}")
-    public List<Building> getSearchList(String search, String limit, String dataType);
+    public List<Building> getSearchList(String search, String limit);
 
     /**
      * 查询满足条件的可用记录的条数
@@ -36,9 +35,8 @@ public interface BuildingMapper {
      */
     @Select("SELECT count(*) " +
             "FROM buildinginfo " +
-            "where buildingType = '${dataType}' " +
             "${search}")
-    public int getSearchCount(String search, String dataType);
+    public int getSearchCount(String search);
 
     /**
      * 更新记录

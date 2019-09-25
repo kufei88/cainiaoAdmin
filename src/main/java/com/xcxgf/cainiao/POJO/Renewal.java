@@ -2,7 +2,9 @@ package com.xcxgf.cainiao.POJO;
 
 public class Renewal {
     private int id;
-    private int contractId;
+    private String owner;
+    private String contractId;
+    private String contractType;
     private String continueStartTime;
     private String continueEndTime;
     private int continuePeriod;
@@ -16,12 +18,28 @@ public class Renewal {
         this.id = id;
     }
 
-    public int getContractId() {
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getContractId() {
         return contractId;
     }
 
-    public void setContractId(int contractId) {
+    public void setContractId(String contractId) {
         this.contractId = contractId;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
     }
 
     public String getContinueStartTime() {

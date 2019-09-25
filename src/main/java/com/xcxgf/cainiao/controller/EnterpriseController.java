@@ -39,16 +39,6 @@ public class EnterpriseController {
     }
 
     /**
-     * 获取所有的园区企业的数据
-     *
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getEnterpriseList")
-    public List<Enterprise> getEnterpriseList() {
-        return es.getEnterpriseList();
-    }
-
-    /**
      * 删除记录
      *
      * @param enterprise 需要被删除的数据

@@ -18,7 +18,7 @@ public interface EnterpriseMapper {
      * @param limit 需要返回的记录起始位置和终止位置
      * @return Enterprise类型的集合，所有满足条件的记录集合
      */
-    @Select("select * from enterpriseinfo ${search} ${limit}")
+    @Select("select * from enterpriseinfo ${search} order by insertTime desc ${limit}")
     public List<Enterprise> getSearchList(String search, String limit);
 
     /**
@@ -29,12 +29,6 @@ public interface EnterpriseMapper {
     @Select("SELECT count(*) FROM enterpriseinfo ${search}")
     public int getSearchCount(String search);
 
-    /**
-     * 查询获得所有可用记录
-     * @return Enterprise类型的集合，所有可用记录
-     */
-    @Select("select * from enterpriseinfo where state !=-1")
-    public List<Enterprise> getEnterpriseList();
 
     /**
      * 更新记录
@@ -44,6 +38,7 @@ public interface EnterpriseMapper {
     @Update("UPDATE enterpriseinfo " +
             "SET enterprisePerson=#{enterprisePerson}," +
             "contactNumber=#{contactNumber}," +
+            "state=#{state}," +
             "updateTime=#{updateTime} " +
             "WHERE enterpriseName=#{enterpriseName}")
     public int updateEnterpriseInfo(Enterprise enterprise);
@@ -61,8 +56,8 @@ public interface EnterpriseMapper {
      * @param enterprise 需要被插入的记录对象
      * @return int类型，插入操作影响的记录条数，0为插入失败，否则插入成功
      */
-    @Insert("INSERT INTO enterpriseinfo(enterpriseName,enterprisePerson,contactNumber,insertTime) " +
-            "VALUES(#{enterpriseName}, #{enterprisePerson}, #{contactNumber},#{insertTime})")
+    @Insert("INSERT INTO enterpriseinfo(enterpriseName,enterprisePerson,contactNumber,insertTime,state) " +
+            "VALUES(#{enterpriseName}, #{enterprisePerson}, #{contactNumber},#{insertTime},#{state})")
     public int insertEnterpriseInfo(Enterprise enterprise);
 
     /**

@@ -18,14 +18,14 @@ public class BuildingService {
     private BuildingMapper buildingMapper;
 
 
-    public DataReturn getSearchList(String search, String start,String count,String dataType) {
+    public DataReturn getSearchList(String search, String start,String count) {
         // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "and buildingName = '" + search + "'";
+        String searchStr = "".equals(search) ? "" : "where buildingName = '" + search + "' or buildingType = '"+ search +"'";
         String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
 
         DataReturn dataReturn = new DataReturn();
-        dataReturn.setBuildingList(buildingMapper.getSearchList(searchStr, limitStr,dataType));
-        dataReturn.setDataCount(buildingMapper.getSearchCount(searchStr,dataType));
+        dataReturn.setBuildingList(buildingMapper.getSearchList(searchStr, limitStr));
+        dataReturn.setDataCount(buildingMapper.getSearchCount(searchStr));
         return dataReturn;
     }
 

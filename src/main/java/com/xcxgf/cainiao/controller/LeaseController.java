@@ -1,9 +1,6 @@
 package com.xcxgf.cainiao.controller;
 
-import com.xcxgf.cainiao.POJO.Building;
-import com.xcxgf.cainiao.POJO.DataReturn;
-import com.xcxgf.cainiao.POJO.Lease;
-import com.xcxgf.cainiao.POJO.Room;
+import com.xcxgf.cainiao.POJO.*;
 import com.xcxgf.cainiao.services.LeaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,97 +31,35 @@ public class LeaseController {
     public DataReturn getSearchList(HttpServletRequest request) {
         // 从request中获取各参数
         String search = request.getParameter("search");
-        String start = request.getParameter("dataStart");
-        String count = request.getParameter("dataSize");
+        String start = request.getParameter("start");
+        String count = request.getParameter("count");
 
         return ls.getSearchList(search, start, count);
     }
 
-    /**
-     * 获得所有的租赁信息数据
-     *
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getLeaseList")
-    public List<Lease> getLeaseList() {
-        return ls.getLeaseList();
-    }
 
     /**
      * 删除记录
      *
-     * @param lease 需要被删除的数据
+     * @param leaseContract 需要被删除的数据
      * @return 删除结果的状态值
      */
     @RequestMapping(method = RequestMethod.POST, value = "/deleteLeaseList")
-    public int deleteLeaseList(@RequestBody Lease lease) {
-
-        return ls.deleteLeaseList(lease);
+    public int deleteLeaseList(@RequestBody LeaseContract leaseContract) {
+        return ls.deleteLeaseList(leaseContract);
     }
 
     /**
-     * 更新记录
+     * 插入合同记录
      *
-     * @param lease 需要被更新的数据
-     * @return 更新结果的状态值
-     */
-    @RequestMapping(method = RequestMethod.POST, value = "/updateLeaseList")
-    public int updateLeaseList(@RequestBody Lease lease) {
-        return ls.updateLeaseList(lease);
-    }
-
-    /**
-     * 插入记录
-     *
-     * @param lease 需要插入的数据
+     * @param leaseContract 需要插入的数据
      * @return 插入结果的状态值
      */
     @RequestMapping(method = RequestMethod.POST, value = "/insertLeaseList")
-    public int insertLeaseList(@RequestBody Lease lease) {
-        return ls.insertLeaseListFirst(lease);
+    public int insertLeaseList(@RequestBody LeaseContract leaseContract) {
+        return ls.insertLeaseList(leaseContract);
     }
 
-    /**
-     * 插入记录（续租），根据数据中携带的rentNumber（租期期数）的值来分别进行插入操作
-     *
-     * @param lease 需要被插入的数据
-     * @return 插入结果的状态值
-     */
-    @RequestMapping(method = RequestMethod.POST, value = "/insertLeaseListContinue")
-    public int insertLeaseListContinue(@RequestBody Lease lease) {
-        int reqCode = 0;
-        switch (lease.getRentNumber()) {
-            case "第2期":
-                reqCode = ls.insertLeaseListContinue(lease, 2);
-                break;
-            case "第3期":
-                reqCode = ls.insertLeaseListContinue(lease, 3);
-                break;
-            case "第4期":
-                reqCode = ls.insertLeaseListContinue(lease, 4);
-                break;
-            case "第5期":
-                reqCode = ls.insertLeaseListContinue(lease, 5);
-                break;
-            case "第6期":
-                reqCode = ls.insertLeaseListContinue(lease, 6);
-                break;
-            default:
-                break;
-        }
-        return reqCode;
-    }
-
-    /**
-     * 批量插入记录（上传数据）
-     *
-     * @param lease 需要被插入的数据的集合
-     * @return 插入结果的状态值
-     */
-    @RequestMapping(method = RequestMethod.POST, value = "/uploadLeaseList")
-    public int uploadLeaseList(@RequestBody List<Lease> lease) {
-        return ls.uploadLeaseList(lease);
-    }
 
     /**
      * 查询所有办公楼数据
@@ -147,21 +82,52 @@ public class LeaseController {
     }
 
     /**
-     * 获取所有的已租赁的办公室数据
+     * 获取管理单价的数值
      *
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/getContinueRoomList")
-    public List<Room> getContinueRoomList() {
-        return ls.getContinueRoomList();
+    @RequestMapping(method = RequestMethod.GET, value = "/getSettingList")
+    public String getSettingList() {
+        return ls.getSettingList();
     }
 
     /**
-     * 获取所有系统设置的数据
+     * 获取能耗公摊单价的数值
+     *
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET,value = "/getSettingList")
-    public String getSettingList(){
-        return ls.getSettingList();
+    @RequestMapping(method = RequestMethod.GET, value = "/getEnergyPrice")
+    public String getEnergyPrice() {
+        return ls.getEnergyPrice();
+    }
+
+    /**
+     * 插入缴费记录
+     * @param leaseCost
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,value = "/insertLeaseCostInfo")
+    public int insertLeaseCostInfo(@RequestBody LeaseCost leaseCost){
+        return ls.insertLeaseCostInfo(leaseCost);
+    }
+
+    /**
+     * 合同变更
+     * @param leaseContract
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,value = "/changeLeaseContractInfo")
+    public int changeLeaseContractInfo(@RequestBody LeaseContract leaseContract){
+     return ls.changeLeaseContractInfo(leaseContract);
+    }
+
+    /**
+     * 查询某合同的所有缴费记录
+     * @param leaseContract
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,value = "/getLeaseCostList")
+    public List<LeaseCost> getLeaseCostList(@RequestBody LeaseContract leaseContract){
+        return ls.getLeaseCostList(leaseContract);
     }
 }

@@ -26,7 +26,7 @@ public class EnterpriseService {
      */
     public DataReturn getSearchList(String search, String start, String count) {
         // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "where (enterpriseName like '%" + search + "%' or enterprisePerson = '" + search + "')";
+        String searchStr = "".equals(search) ? "" : "where (enterpriseName = '" + search + "' or enterprisePerson = '" + search + "' or state = '"+search+"')";
         String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
 
         DataReturn dataReturn = new DataReturn();
@@ -35,14 +35,6 @@ public class EnterpriseService {
         return dataReturn;
     }
 
-    /**
-     * 获取所有可用记录
-     *
-     * @return Enterprise类型的集合，所有可用记录
-     */
-    public List<Enterprise> getEnterpriseList() {
-        return em.getEnterpriseList();
-    }
 
     /**
      * 删除记录

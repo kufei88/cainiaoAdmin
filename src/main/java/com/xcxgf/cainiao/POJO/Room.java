@@ -9,7 +9,7 @@ public class Room {
     private String owner; // 业主
     private String rentArea; // 计租面积
     private String buildingArea; // 建筑面积
-    private String monthRent; // 每月租金
+    private String roomType; // 房间类型
     private String insertTime; // 添加时间
     private String updateTime; // 修改时间
 
@@ -53,12 +53,12 @@ public class Room {
         this.buildingArea = buildingArea;
     }
 
-    public String getMonthRent() {
-        return monthRent;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setMonthRent(String monthRent) {
-        this.monthRent = monthRent;
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public String getInsertTime() {

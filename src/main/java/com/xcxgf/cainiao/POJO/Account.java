@@ -5,8 +5,10 @@ import java.util.List;
 
 public class Account {
     private int id;
+    private String contractId;
     private String buildingName;
     private String owner;
+    private String roomNumber;
     private int rentPeriod;
     private String startRentTime;
     private String endRentTime;
@@ -39,6 +41,14 @@ public class Account {
         this.id = id;
     }
 
+    public String getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
+    }
+
     public String getBuildingName() {
         return buildingName;
     }
@@ -53,6 +63,14 @@ public class Account {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public int getRentPeriod() {

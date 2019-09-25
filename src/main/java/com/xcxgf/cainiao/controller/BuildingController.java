@@ -35,9 +35,8 @@ public class BuildingController {
         String search = request.getParameter("search");
         String start = request.getParameter("dataStart");
         String count = request.getParameter("dataSize");
-        String dataType = request.getParameter("dataType");
 
-        return bs.getSearchList(search, start,count,dataType);
+        return bs.getSearchList(search, start,count);
     }
 
     /**

@@ -7,12 +7,39 @@ import java.util.List;
  */
 public class DataReturn {
     private int dataCount; // 查询到的记录总条数
-    private List<Building> buildingList; // 办公楼记录集合
-    private List<Room> roomList; // 办公室记录集合
+    private List<Building> buildingList; // 楼栋记录集合，新增合同
+    private List<Room> roomList; // 房间记录集合，新增合同
+    private List<Building> payBuildingList; // 楼栋记录集合，合同缴费
+    private List<Room> payRoomList; // 房间记录集合，合同缴费
     private List<Enterprise> enterpriseList; // 园区企业记录集合
     private List<Lease> leaseList; // 租赁信息记录集合
     private List<User> userList; // 用户信息记录集合
+    private List<LeaseContract> leaseContractList; // 租赁合同记录集合
 
+
+    public List<Building> getPayBuildingList() {
+        return payBuildingList;
+    }
+
+    public void setPayBuildingList(List<Building> payBuildingList) {
+        this.payBuildingList = payBuildingList;
+    }
+
+    public List<Room> getPayRoomList() {
+        return payRoomList;
+    }
+
+    public void setPayRoomList(List<Room> payRoomList) {
+        this.payRoomList = payRoomList;
+    }
+
+    public List<LeaseContract> getLeaseContractList() {
+        return leaseContractList;
+    }
+
+    public void setLeaseContractList(List<LeaseContract> leaseContractList) {
+        this.leaseContractList = leaseContractList;
+    }
 
     public List<Building> getBuildingList() {
         return buildingList;

@@ -9,6 +9,15 @@ public class Enterprise {
     private String contactNumber; // 联系电话
     private String insertTime; // 添加时间
     private String updateTime; // 修改时间
+    private String state; // 企业登记状态，未注册，已注册，已入驻
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getEnterpriseName() {
         return enterpriseName;

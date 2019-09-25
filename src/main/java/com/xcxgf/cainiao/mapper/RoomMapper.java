@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 /**
- * 对数据库中roominfo表（办公室管理表）的增删改查操作
+ * 对数据库中roomInfo表（办公室管理表）的增删改查操作
  */
 public interface RoomMapper {
     /**
@@ -40,6 +40,22 @@ public interface RoomMapper {
     public int getSearchCount(String search, String dataType);
 
     /**
+     * 查找所有房间租赁状态为空闲的记录
+     *
+     * @return Room类型的集合，所有房间租赁状态为空闲的记录
+     */
+    @Select("select * from roominfo where state !=-1 and owner = '空闲' ORDER BY CAST(buildingName AS DECIMAL),roomNumber")
+    public List<Room> getRoomList();
+
+    /**
+     * 查找所有房间租赁状态不为空闲的记录
+     *
+     * @return Room类型的集合，所有房间租赁状态不为空闲的记录
+     */
+    @Select("select * from roominfo where state !=-1 and owner != '空闲' ORDER BY CAST(buildingName AS DECIMAL),roomNumber")
+    public List<Room> getRoomListContinue();
+
+    /**
      * 删除记录
      *
      * @param room 需要删除的记录对象
@@ -51,7 +67,7 @@ public interface RoomMapper {
     public int deleteRoomInfo(Room room);
 
     /**
-     * 更新记录,更新内容为，计租面积，建筑面积，租金，唯一标识：楼栋名称+房间号
+     * 更新记录,更新内容为，计租面积，建筑面积，唯一标识：楼栋名称+房间号
      *
      * @param room 需要更新的记录对象
      * @return int类型，更新操作影响的记录条数，为0时更新失败，否则更新成功
@@ -59,7 +75,7 @@ public interface RoomMapper {
     @Update("UPDATE roominfo SET rentArea=#{rentArea}," +
             "buildingArea=#{buildingArea}," +
             "updateTime=#{updateTime}," +
-            "monthRent=#{monthRent}" +
+            "roomType=#{roomType}" +
             "WHERE buildingName=#{buildingName} " +
             "and roomNumber=#{roomNumber}")
     public int updateRoomInfo(Room room);
@@ -70,8 +86,8 @@ public interface RoomMapper {
      * @param room 需要插入的记录对象
      * @return int类型，插入记录影响的记录条数，为0时插入失败，否则插入成功
      */
-    @Insert("INSERT INTO roominfo(roomNumber,buildingName,rentArea,buildingArea,monthRent,insertTime) " +
-            "VALUES(#{roomNumber}, #{buildingName}, #{rentArea}, #{buildingArea},#{monthRent},#{insertTime})")
+    @Insert("INSERT INTO roominfo(roomNumber,buildingName,rentArea,buildingArea,roomType,insertTime) " +
+            "VALUES(#{roomNumber}, #{buildingName}, #{rentArea}, #{buildingArea},#{roomType},#{insertTime})")
     public int insertRoomInfo(Room room);
 
     /**
@@ -91,7 +107,7 @@ public interface RoomMapper {
      * @param lease 需要更新的记录对象
      * @return int类型，更新操作影响的记录条数，为0时更新失败，否则更新成功
      */
-    @Update("UPDATE roominfo SET owner='空闲' " +
+    @Update("UPDATE roominfo SET owner=#{owner} " +
             "WHERE roomNumber=#{roomNumber} " +
             "and buildingName=#{buildingName}")
     public int deleteRoomInfoOwner(Lease lease);
@@ -121,8 +137,7 @@ public interface RoomMapper {
 
     /**
      * 查询是否存在该楼栋
-     *
-     * @param room     需要被查询的记录对象
+     * @param room 需要被查询的记录对象
      * @param dataType 楼栋类型
      * @return 0为不存在，1为存在
      */
@@ -130,11 +145,10 @@ public interface RoomMapper {
             "from buildinginfo " +
             "where buildingName='${room.getBuildingName()}' " +
             "and buildingType='${dataType}'")
-    public int insertSearchBuildingName(Room room, String dataType);
+    public int insertSearchBuildingName(Room room,String dataType);
 
     /**
      * 查询楼栋类型
-     *
      * @param room
      * @return
      */
@@ -145,10 +159,11 @@ public interface RoomMapper {
 
     /**
      * 获取办公楼数据
-     *
      * @param dataType
      * @return
      */
     @Select("select * from buildinginfo where buildingType='${dataType}'")
     public List<Building> getBuildingList(String dataType);
+
+
 }

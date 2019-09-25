@@ -2,12 +2,16 @@ package com.xcxgf.cainiao.services;
 
 import com.xcxgf.cainiao.POJO.*;
 import com.xcxgf.cainiao.mapper.AccountMapper;
+import com.xcxgf.cainiao.mapper.RenewalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 @Service
 public class AccountService {
@@ -48,17 +52,12 @@ public class AccountService {
         return accountMapper.getAccountNameCount(name);
     }
 
-    public List<Account> getAccountIdList(HttpServletRequest request){
-        int id=Integer.parseInt(request.getParameter("nid"));
-        return accountMapper.getAccountIdList(id);
-    }
+
 
     public int getAccountCount(){return accountMapper.getAccountCount();}
     //数据更新
 
     public int updateAccount(Account account) {
-
-
         return accountMapper.updateAccount(account);
     }
     //数据插入
@@ -68,19 +67,29 @@ public class AccountService {
         return accountMapper.insertAccount(account);
     }
 
+    //
+    public int insertRenewals(Renewal renewal) throws ParseException {
+        //System.out.printf(renewal.getLeasePeriod());
+        funhelper funh=new funhelper();
+        renewal.setContractType("首租");
+        renewal.setContinueEndTime(funh.addMounth(renewal.getContinueStartTime(),
+                renewal.getContinuePeriod()));
+        return accountMapper.insertRenewals(renewal);
+    }
+
     //数据删除
     public int deleteAccount(Account account){
         Room room=new Room();
-        int id=account.getId();
+        String contractId=account.getContractId();
         String buildingName=account.getBuildingName();
         String owner=account.getOwner();
-
+        room.setRoomNumber(account.getRoomNumber());
         room.setOwner(owner);
         room.setBuildingName(buildingName);
 
         accountMapper.updateRoom2(room);
-
-        return accountMapper.deleteAccount(id);
+        accountMapper.deleteAccount2(contractId);
+        return accountMapper.deleteAccount(contractId);
     }
 
     //上传数据
@@ -147,14 +156,16 @@ public class AccountService {
     };
 
     public List<Room> getRoomList(HttpServletRequest request){
+        String roomType=request.getParameter("roomtype");
         String buildingName=request.getParameter("buildingName");
         int page=(Integer.parseInt(request.getParameter("pagedom"))-1)*5;
-        return accountMapper.getRoomList(buildingName,page);
+        return accountMapper.getRoomList(roomType,buildingName,page);
     };
 
     public int getRoomListCount(HttpServletRequest request){
+        String roomType=request.getParameter("roomtype");
         String buildingName=request.getParameter("buildingName");
-        return accountMapper.getRoomListCount(buildingName);
+        return accountMapper.getRoomListCount(roomType,buildingName);
     };
 
     //更新房间信息
@@ -182,5 +193,15 @@ public class AccountService {
         String outDate=sdf.format(sdf1.parse(date));
 
         return outDate;
+    }
+
+    //查询公司是否存在
+    public int getCompanyName(HttpServletRequest request){
+        String enterpriseName=request.getParameter("companyName");
+        return accountMapper.getCompanyName(enterpriseName);
+    }
+
+    public String getRoomType(Account account){
+        return accountMapper.getRoomType(account);
     }
 }
