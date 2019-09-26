@@ -211,4 +211,13 @@ public class LeaseService {
     public List<LeaseCost> getLeaseCostList(LeaseContract leaseContract) {
         return lm.getLeaseCostList(leaseContract);
     }
+
+    /**
+     * 查询某合同的租金单价
+     * @param leaseCost
+     * @return
+     */
+    public String getPayUnitPrice(LeaseCost leaseCost){
+        return lm.getPayUnitPrice(leaseCost);
+    }
 }

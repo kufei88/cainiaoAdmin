@@ -130,4 +130,15 @@ public class LeaseController {
     public List<LeaseCost> getLeaseCostList(@RequestBody LeaseContract leaseContract){
         return ls.getLeaseCostList(leaseContract);
     }
+
+
+    /**
+     * 查询某合同的租金单价
+     * @param leaseCost
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,value = "/getPayUnitPrice")
+    public String getPayUnitPrice(@RequestBody LeaseCost leaseCost){
+        return ls.getPayUnitPrice(leaseCost);
+    }
 }

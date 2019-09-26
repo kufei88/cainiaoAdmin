@@ -9,6 +9,7 @@ public class LeaseContract {
     private String roomNumber; // 房号
     private String buildingName; // 所属楼栋名称
     private String depositOnContracts; // 合同保证金
+    private String unitPrice; // 租金单价
     private String rentPeriod; // 租期
     private String startRentTime; // 起租期
     private String endRentTime; // 终止期
@@ -18,6 +19,13 @@ public class LeaseContract {
     private String insertTime; // 添加时间
     private String updateTime; // 修改时间
 
+    public String getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(String unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 
     public String getOwner() {
         return owner;

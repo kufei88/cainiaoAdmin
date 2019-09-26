@@ -65,8 +65,8 @@ public interface LeaseMapper {
      * @param leaseContract 需要被插入的记录对象
      * @return int类型，插入操作影响到的记录条数，0为插入失败，否则插入成功
      */
-    @Insert("INSERT INTO leaseContractInfo(buildingName,roomNumber,owner,depositOnContracts,rentPeriod,startRentTime,endRentTime,insertTime,noPayPeriod,totalRent) " +
-            "VALUES(#{buildingName},#{roomNumber},#{owner},#{depositOnContracts},#{rentPeriod},#{startRentTime},#{endRentTime},#{insertTime},#{rentPeriod},#{totalRent})")
+    @Insert("INSERT INTO leaseContractInfo(buildingName,roomNumber,owner,depositOnContracts,rentPeriod,startRentTime,endRentTime,insertTime,noPayPeriod,totalRent,unitPrice) " +
+            "VALUES(#{buildingName},#{roomNumber},#{owner},#{depositOnContracts},#{rentPeriod},#{startRentTime},#{endRentTime},#{insertTime},#{rentPeriod},#{totalRent},#{unitPrice})")
     public int insertLeaseContractInfo(LeaseContract leaseContract);
 
     /**
@@ -302,4 +302,10 @@ public interface LeaseMapper {
             "where enterpriseName=#{owner} " +
             "and state!='已入驻'")
     public int isInsertFirstSearch(LeaseContract leaseContract);
+
+    @Select("select unitPrice " +
+            "from leaseContractInfo " +
+            "where buildingName=#{buildingName} " +
+            "and roomNumber=#{roomNumber}")
+    public String getPayUnitPrice(LeaseCost leaseCost);
 }
