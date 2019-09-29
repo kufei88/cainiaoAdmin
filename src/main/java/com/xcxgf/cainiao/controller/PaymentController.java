@@ -21,6 +21,26 @@ public class PaymentController {
     @Autowired
     private PaymentService ps;
 
+    @GetMapping("/getReportList")
+    public ReturnData getReportList(HttpServletRequest request){
+        String reportState = request.getParameter("reportState");
+        ReturnData returnData = new ReturnData();
+        if(reportState.equals("1")){
+            returnData.setTimeList(ps.getYearsList());
+            returnData.setWaterList(ps.getYearsWaterCostList());
+            returnData.setElectricityList(ps.getYearsElectricityCostList());
+        }else if(reportState.equals("2")){
+            returnData.setTimeList(ps.getQuarterList());
+            returnData.setWaterList(ps.getQuarterWaterCostList());
+            returnData.setElectricityList(ps.getQuarterElectricityCostList());
+        }else if(reportState.equals("3")){
+            returnData.setTimeList(ps.getMonthList());
+            returnData.setWaterList(ps.getMonthWaterCostList());
+            returnData.setElectricityList(ps.getMonthElectricityCostList());
+        }
+
+        return returnData;
+    }
 
     //查询公司
     @GetMapping("/getEnterpriseNumber")
@@ -62,7 +82,6 @@ public class PaymentController {
         ReturnData returnData = new ReturnData();
         List<PaymentInfo> addList = new ArrayList<>();
         List<PaymentInfo> updateList=new ArrayList<>();
-
         SystemInfo systemInfo= ps.getSystemInfo();
         water = systemInfo.getWaterUnitPrice();
         electricity = systemInfo.getElectricityUnitPrice();
@@ -115,63 +134,7 @@ public class PaymentController {
     public int updateSystemInfo(@RequestBody SystemInfo systemInfo) {
         return ps.updateSystemInfo(systemInfo);
     }
-
-    //查询所有年份
-    @GetMapping("/getYearsList")
-    public List<Long> getYearsList(){
-        return ps.getYearsList();
-    }
-
-    //查询年份水费
-    @GetMapping("/getYearsWaterCostList")
-    public List<Float> getYearsWaterCostList(){
-        return ps.getYearsWaterCostList();
-    }
-
-    //查询年份电费
-    @GetMapping("/getYearsElectricityCostList")
-    public List<Float> getYearsElectricityCostList(){
-        return ps.getYearsElectricityCostList();
-    }
-
-    //查询本年月份
-    @GetMapping("/getMonthList")
-    public List<Long> getMonthList(){
-        return ps.getMonthList();
-    }
-
-    //查询本年月份水费
-    @GetMapping("/getMonthWaterCostList")
-    public List<Float> getMonthWaterCostList(){
-
-        return ps.getMonthWaterCostList();
-    }
-
-    //查询本年月份电费
-    @GetMapping("/getMonthElectricityCostList")
-    public List<Float> getMonthElectricityCostList(){
-
-        return ps.getMonthElectricityCostList();
-    }
-
-    //查询本年季度
-    @GetMapping("/getQuarterList")
-    public List<Long> getQuarterList(){
-        return ps.getQuarterList();
-    }
-
-    //查询本年季度水费
-    @GetMapping("/getQuarterWaterCostList")
-    public List<Float> getQuarterWaterCostList(){
-        return ps.getMonthWaterCostList();
-    }
-
-    //查询本年季度电费
-    @GetMapping("/getQuarterElectricityCostList")
-    public List<Float> getQuarterElectricityCostList(){
-        return ps.getQuarterElectricityCostList();
-    }
-
+    
     /**
      *查询表格数据
      * @param request request中包含3个参数，dataStart（返回数据的起始位置），dataEnd（返回数据的终止位置）

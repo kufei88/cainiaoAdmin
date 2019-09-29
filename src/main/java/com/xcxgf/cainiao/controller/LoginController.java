@@ -17,9 +17,9 @@ import java.util.List;
 public class LoginController {
     @Autowired
     LoginService loginService;
+
     @RequestMapping(method = RequestMethod.POST,value="/log")
     public int getUserByAccount(@RequestBody Login login){
-
         return loginService.getUserByAccount(login);
     }
 }

@@ -32,7 +32,7 @@ public class LeaseService {
      */
     public DataReturn getSearchList(String search, String start, String count) {
         // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "where (buildingName = '" + search + "' or roomNumber = '" + search + "' or owner like '%" + search + "%')";
+        String searchStr = "".equals(search) ? "" : "where (buildingName = '" + search + "' or roomNumber = '" + search + "' or owner = '" + search + "')";
         String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
 
         // 数据包装

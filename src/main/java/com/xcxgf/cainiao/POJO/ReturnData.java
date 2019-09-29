@@ -7,6 +7,33 @@ public class ReturnData {
     private List<PaymentInfo> paymentInfos; //水电读数集合
     private int errorCount;//错误条数
     private int excelFlag;//Excel状态
+    private List<Long> timeList;//时间list
+    private List<Float> waterList;//水list
+    private List<Float> electricityList;//电list
+    public List<Long> getTimeList() {
+        return timeList;
+    }
+
+    public void setTimeList(List<Long> timeList) {
+        this.timeList = timeList;
+    }
+
+    public List<Float> getWaterList() {
+        return waterList;
+    }
+
+    public void setWaterList(List<Float> waterList) {
+        this.waterList = waterList;
+    }
+
+    public List<Float> getElectricityList() {
+        return electricityList;
+    }
+
+    public void setElectricityList(List<Float> electricityList) {
+        this.electricityList = electricityList;
+    }
+
 
     public int getErrorCount() {
         return errorCount;

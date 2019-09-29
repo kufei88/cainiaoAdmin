@@ -22,7 +22,7 @@ public interface LeaseMapper {
     @Select("select * " +
             "from leaseContractInfo " +
             "${search} " +
-            "ORDER BY buildingName+0,roomNumber,insertTime desc " +
+            "ORDER BY endRentTime,insertTime desc,buildingName+0,roomNumber " +
             "${limit}")
     public List<LeaseContract> getSearchList(String search, String limit);
 
