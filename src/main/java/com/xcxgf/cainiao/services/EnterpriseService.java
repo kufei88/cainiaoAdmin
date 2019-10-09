@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 园区企业管理，后端与数据库的逻辑处理层
+ * @author zyz
  */
 @Service
 public class EnterpriseService {
@@ -26,7 +27,7 @@ public class EnterpriseService {
      */
     public DataReturn getSearchList(String search, String start, String count) {
         // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "where (enterpriseName = '" + search + "' or enterprisePerson = '" + search + "' or state = '"+search+"')";
+        String searchStr = "".equals(search) ? "" : "where (enterpriseName like '%" + search + "%' or enterprisePerson like '%" + search + "%' or state = '"+search+"')";
         String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
 
         DataReturn dataReturn = new DataReturn();

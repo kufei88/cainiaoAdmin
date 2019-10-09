@@ -17,18 +17,33 @@ import java.util.List;
 public class AccountService {
     @Autowired
     AccountMapper accountMapper;
-    //业主信息查询
+
+    /**
+     * /业主信息查询
+     * @param request
+     * @return
+     */
     public List<Enterprise> getOwnerList(HttpServletRequest request){
         String enterpriseName=request.getParameter("owner");
         return accountMapper.getOwnerList(enterpriseName);
     }
-    //数据查询
+
+    /**
+     * 查询第一页
+     * @return
+     */
     public List<Account> getAccountList0(){ return accountMapper.getAccountList0();}
 
+    /**
+     * 获取合同信息
+     * @param request
+     * @return
+     * @throws ParseException
+     */
     public List<Account> getAccountList(HttpServletRequest request) throws ParseException {
         funhelper funh=new funhelper();
         int start=(Integer.parseInt(request.getParameter("startnum"))-1)*10;
-        //System.out.println(start);
+
         int pagesize=Integer.parseInt(request.getParameter("pagecount"));
         List<Account> accounts=accountMapper.getAccountList(start,pagesize);
         for(int i=0;i<accounts.toArray().length;i++){
@@ -39,6 +54,11 @@ public class AccountService {
         return accounts;
     }
 
+    /**
+     * 获取搜索的信息
+     * @param request
+     * @return
+     */
     public List<Account> getAccountNameList(HttpServletRequest request){
         String name=request.getParameter("name");
         int spg1=Integer.parseInt(request.getParameter("spg"));
@@ -47,29 +67,53 @@ public class AccountService {
         return accountMapper.getAccountNameList(name,spg,spgsize);
     }
 
+    /**
+     * 获取搜索总条数
+     * @param request
+     * @return
+     */
     public int getAccountNameCount(HttpServletRequest request){
         String name=request.getParameter("name");
         return accountMapper.getAccountNameCount(name);
     }
 
 
-
+    /**
+     * 获取总条数
+     * @return
+     */
     public int getAccountCount(){return accountMapper.getAccountCount();}
-    //数据更新
+
+    /**
+     * 数据更新
+     * @param account
+     * @return
+     */
 
     public int updateAccount(Account account) {
         return accountMapper.updateAccount(account);
     }
-    //数据插入
+
+    /**
+     * 新增数据
+     * @param account
+     * @return
+     * @throws ParseException
+     */
     public int insertAccount(Account account) throws ParseException {
         funhelper funh=new funhelper();
         account.setEndRentTime(funh.addMounth(account.getStartRentTime(),account.getRentPeriod()));
         return accountMapper.insertAccount(account);
     }
 
-    //
+    /**
+     * 新增详细信息
+     * @param renewal
+     * @return
+     * @throws ParseException
+     */
     public int insertRenewals(Renewal renewal) throws ParseException {
-        //System.out.printf(renewal.getLeasePeriod());
+
         funhelper funh=new funhelper();
         renewal.setContractType("首租");
         renewal.setContinueEndTime(funh.addMounth(renewal.getContinueStartTime(),
@@ -77,7 +121,11 @@ public class AccountService {
         return accountMapper.insertRenewals(renewal);
     }
 
-    //数据删除
+    /**
+     * 合同删除
+     * @param account
+     * @return
+     */
     public int deleteAccount(Account account){
         Room room=new Room();
         String contractId=account.getContractId();
@@ -92,7 +140,12 @@ public class AccountService {
         return accountMapper.deleteAccount(contractId);
     }
 
-    //上传数据
+    /**
+     * 上传数据
+     * @param excelDataList
+     * @return
+     * @throws ParseException
+     */
     public int uploadAccount(List<ExcelData> excelDataList) throws ParseException {
         funhelper fhp=new funhelper();
         int status=1;
@@ -150,11 +203,19 @@ public class AccountService {
         return status;
     }
 
-
+    /**
+     * 获取楼栋信息
+     * @return
+     */
     public List<Building> getBuildingList(){
         return accountMapper.getBuildingList();
     };
 
+    /**
+     * 获取房间信息
+     * @param request
+     * @return
+     */
     public List<Room> getRoomList(HttpServletRequest request){
         String roomType=request.getParameter("roomtype");
         String buildingName=request.getParameter("buildingName");
@@ -162,18 +223,31 @@ public class AccountService {
         return accountMapper.getRoomList(roomType,buildingName,page);
     };
 
+    /**
+     * 获取房间总条数
+     * @param request
+     * @return
+     */
     public int getRoomListCount(HttpServletRequest request){
         String roomType=request.getParameter("roomtype");
         String buildingName=request.getParameter("buildingName");
         return accountMapper.getRoomListCount(roomType,buildingName);
     };
 
-    //更新房间信息
+    /**
+     * 更新房间信息
+     * @param room
+     * @return
+     */
     public int updateRoom(Room room){
         return accountMapper.updateRoom(room);
     }
 
-    //
+    /**
+     * 获取合同的租赁房间
+     * @param request
+     * @return
+     */
     public List<Room> getRoomList2(HttpServletRequest request){
         String owner=request.getParameter("owner");
         String buildingName=request.getParameter("buildingName");
@@ -181,12 +255,23 @@ public class AccountService {
         return accountMapper.getRoomList2(owner,buildingName,start);
     };
 
+    /**
+     * 获取该合同中的具体租赁房间条数
+     * @param request
+     * @return
+     */
     public int getRoomListCount2(HttpServletRequest request){
         String owner=request.getParameter("owner");
         String buildingName=request.getParameter("buildingName");
         return accountMapper.getRoomListCount2(owner,buildingName);
     };
 
+    /**
+     * 变更日期格式
+     * @param date
+     * @return
+     * @throws ParseException
+     */
     public String dateFormat(String date) throws ParseException {
         SimpleDateFormat sdf1=new SimpleDateFormat("MM/dd/yy");
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
@@ -195,7 +280,11 @@ public class AccountService {
         return outDate;
     }
 
-    //查询公司是否存在
+    /**
+     * 查询公司是否存在
+     * @param request
+     * @return
+     */
     public int getCompanyName(HttpServletRequest request){
         String enterpriseName=request.getParameter("companyName");
         return accountMapper.getCompanyName(enterpriseName);

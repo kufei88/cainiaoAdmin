@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 用户管理，后台与数据库的逻辑处理层
+ * @author zyz
  */
 @Service
 public class UserService {
@@ -34,7 +35,8 @@ public class UserService {
      */
     public int insertUserInfo(User user) {
         int reqCode = 0;
-        if (userMapper.isSearchSame("account", user.getAccount()) == 0) {
+        String search = "account";
+        if (userMapper.isSearchSame(search, user.getAccount()) == 0) {
             if (userMapper.insertUserInfo(user) > 0) {
                 reqCode = 1;
             }
@@ -52,7 +54,8 @@ public class UserService {
      */
     public int updateUserInfo(User user) {
         int reqCode = 0;
-        if (userMapper.isSearchSame("account", user.getAccount()) == 0) {
+        String search = "account";
+        if (userMapper.isSearchSame(search, user.getAccount()) == 0) {
             reqCode = -1;
         } else {
             if (userMapper.updateUserInfo(user) > 0) {
@@ -64,6 +67,7 @@ public class UserService {
 
     /**
      * 删除记录
+     *
      * @param user 需要被删除的对象
      * @return 0为删除失败，1为删除成功
      */

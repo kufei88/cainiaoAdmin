@@ -2,21 +2,82 @@ package com.xcxgf.cainiao.POJO;
 
 /**
  * 租赁缴费的实体类
+ *
+ * @author zyz
  */
 public class LeaseCost {
+    /**
+     * 业主
+     */
+    private String owner;
+    /**
+     * 房间号
+     */
+    private String roomNumber;
+    /**
+     * 所属楼栋名称
+     */
+    private String buildingName;
+    /**
+     * 租金单价
+     */
+    private String unitPrice;
+    /**
+     * 租期周期
+     */
+    private String period;
+    /**
+     * 租期应付总额
+     */
+    private String rentCost;
+    /**
+     * 租期应付物业费
+     */
+    private String propertyFee;
+    /**
+     * 能耗公摊
+     */
+    private String energySharing;
+    /**
+     * 租费合计
+     */
+    private String totalCost;
+    /**
+     * 变更业主
+     */
+    private String isChangeOwner;
+    /**
+     * 添加时间
+     */
+    private String insertTime;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
+    /**
+     * 缴费起始租期
+     */
+    private String startPayTime;
+    /**
+     * 缴费终止租期
+     */
+    private String endPayTime;
 
-    private String owner; // 业主
-    private String roomNumber; // 房间号
-    private String buildingName; // 所属楼栋名称
-    private String unitPrice; // 租金单价
-    private String period; // 租期周期
-    private String rentCost; // 租期应付总额
-    private String propertyFee; // 租期应付物业费
-    private String energySharing; // 能耗公摊
-    private String totalCost; // 租费合计
-    private String isChangeOwner; // 变更业主
-    private String insertTime; // 添加时间
-    private String updateTime; // 修改时间
+    public String getStartPayTime() {
+        return startPayTime;
+    }
+
+    public void setStartPayTime(String startPayTime) {
+        this.startPayTime = startPayTime;
+    }
+
+    public String getEndPayTime() {
+        return endPayTime;
+    }
+
+    public void setEndPayTime(String endPayTime) {
+        this.endPayTime = endPayTime;
+    }
 
     public String getOwner() {
         return owner;

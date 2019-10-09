@@ -4,17 +4,41 @@ import java.util.List;
 
 /**
  * 请求返回数据的封装类，主要封装查询的记录集合，以及记录总条数
+ * @author zyz
  */
 public class DataReturn {
-    private int dataCount; // 查询到的记录总条数
-    private List<Building> buildingList; // 楼栋记录集合，新增合同
-    private List<Room> roomList; // 房间记录集合，新增合同
-    private List<Building> payBuildingList; // 楼栋记录集合，合同缴费
-    private List<Room> payRoomList; // 房间记录集合，合同缴费
-    private List<Enterprise> enterpriseList; // 园区企业记录集合
-    private List<Lease> leaseList; // 租赁信息记录集合
-    private List<User> userList; // 用户信息记录集合
-    private List<LeaseContract> leaseContractList; // 租赁合同记录集合
+    /**
+     * 查询到的记录总条数
+     */
+    private int dataCount;
+    /**
+     * 楼栋记录集合，新增合同
+     */
+    private List<Building> buildingList;
+    /**
+     * 房间记录集合，新增合同
+     */
+    private List<Room> roomList;
+    /**
+     * 楼栋记录集合，合同缴费
+     */
+    private List<Building> payBuildingList;
+    /**
+     * 房间记录集合，合同缴费
+     */
+    private List<Room> payRoomList;
+    /**
+     * 园区企业记录集合
+     */
+    private List<Enterprise> enterpriseList;
+    /**
+     * 用户信息记录集合
+     */
+    private List<User> userList;
+    /**
+     * 租赁合同记录集合
+     */
+    private List<LeaseContract> leaseContractList;
 
 
     public List<Building> getPayBuildingList() {
@@ -71,14 +95,6 @@ public class DataReturn {
 
     public void setEnterpriseList(List<Enterprise> enterpriseList) {
         this.enterpriseList = enterpriseList;
-    }
-
-    public List<Lease> getLeaseList() {
-        return leaseList;
-    }
-
-    public void setLeaseList(List<Lease> leaseList) {
-        this.leaseList = leaseList;
     }
 
     public List<User> getUserList() {

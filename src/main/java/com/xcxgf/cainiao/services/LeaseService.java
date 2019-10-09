@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * 租赁管理，后端与数据库的逻辑处理层
+ *
+ * @author zyz
  */
 @Service
 public class LeaseService {
@@ -25,14 +27,14 @@ public class LeaseService {
     /**
      * 查询满足查询条件的记录
      *
-     * @param search 查询内容:楼栋名称（模糊查询），房间名称（精确查询），业主（模糊查询）
+     * @param search 查询内容:楼栋名称（模糊查询），房间名称（模糊查询），业主（模糊查询）
      * @param start  记录开始位置
      * @param count  需要返回的记录条数
      * @return
      */
     public DataReturn getSearchList(String search, String start, String count) {
         // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "where (buildingName = '" + search + "' or roomNumber = '" + search + "' or owner = '" + search + "')";
+        String searchStr = "".equals(search) ? "" : "where (buildingName like '%" + search + "%' or roomNumber like '%" + search + "%' or owner like '%" + search + "%')";
         String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
 
         // 数据包装
@@ -56,18 +58,26 @@ public class LeaseService {
      * 删除记录
      *
      * @param leaseContract 需要被删除的记录对象
-     * @return int类型，0为删除失败，1为删除成功
+     * @return int类型，0为删除失败，1为删除成功,-1为未完成所有缴费
      */
     public int deleteLeaseList(LeaseContract leaseContract) {
         int reqCode = 0;
-        // 删除了合同记录，以及更新房间业主，还需要删除所有缴费记录
-        if (lm.deleteLeaseInfo(leaseContract) > 0 && lm.deleteRoomInfoOwner(leaseContract) > 0 && lm.deleteAllPay(leaseContract) > 0) {
-            reqCode = 1;
-            // 查询是否已无合同存在，是，则修改企业的状态为【已注册】
-            if (lm.insertSearchSame(leaseContract) == 0) {
-                lm.updateEnterpriseStateWhenDelete(leaseContract);
+        // 已完成所有缴费
+        String state = "0";
+        // 1、查询该合同是否有缴费记录，有则删除合同记录以及更新房间状态，并且删除所有缴费记录
+        if (lm.hasLeaseCost(leaseContract).equals(state)) {
+            // 删除了合同记录，以及更新房间业主，还需要删除所有缴费记录
+            if (lm.deleteLeaseInfo(leaseContract) > 0 && lm.deleteRoomInfoOwner(leaseContract) > 0 && lm.deleteAllPay(leaseContract) > 0) {
+                reqCode = 1;
+                // 查询是否已该企业无合同存在，是，则修改企业的状态为【已注册】
+                if (lm.insertSearchSame(leaseContract) == 0) {
+                    lm.updateEnterpriseStateWhenDelete(leaseContract);
+                }
             }
+        } else {
+            reqCode = -1;
         }
+
         return reqCode;
     }
 
@@ -88,7 +98,7 @@ public class LeaseService {
                 reqCode = 1;
             }
             // 判断公司目前状态是否是【已入驻】，不是，则修改登记状态
-            if (lm.isInsertFirstSearch(leaseContract)>0){
+            if (lm.isInsertFirstSearch(leaseContract) > 0) {
                 lm.updateEnterpriseStateWhenInsert(leaseContract);
             }
         } else {
@@ -98,7 +108,7 @@ public class LeaseService {
     }
 
     /**
-     * 日期格式化
+     * 日期格式化(合同)
      *
      * @param leaseContract
      * @return
@@ -115,6 +125,25 @@ public class LeaseService {
             e.printStackTrace();
         }
         return leaseContract;
+    }
+
+    /**
+     * 日期格式化（缴费）
+     * @param leaseCost
+     * @return
+     */
+    public LeaseCost leaseDataFormat(LeaseCost leaseCost) {
+        // 日期格式化的格式
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date start = dateFormat.parse(leaseCost.getStartPayTime());
+            Date end = dateFormat.parse(leaseCost.getEndPayTime());
+            leaseCost.setStartPayTime(dateFormat.format(start));
+            leaseCost.setEndPayTime(dateFormat.format(end));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return leaseCost;
     }
 
     /**
@@ -161,10 +190,11 @@ public class LeaseService {
      * @return
      */
     public int insertLeaseCostInfo(LeaseCost leaseCost) {
+        leaseCost = leaseDataFormat(leaseCost);
         int reqCode = 0;
         // 1、查询缴费租期是否大于未缴费租期，是，则返回-1
         // 2、查询是否已有过往记录存在，否，则先更新合同中的【首租租金】
-        // 3、插入新纪录，并更新合同中的【未缴费租期】
+        // 3、插入新纪录，并更新合同中的【未缴费租期】，合同的【上一次缴费终止租期】
         if (lm.searchTimeRight(leaseCost) != 0) {
             if (lm.searchLeaseCostSame(leaseCost) == 0) {
                 // 更新合同中的【首租租金】
@@ -173,6 +203,7 @@ public class LeaseService {
             if (lm.insertLeaseCostInfo(leaseCost) > 0) {
                 // 更新合同中的【未缴费租期】
                 lm.updateNoPayPeriod(leaseCost);
+                lm.updateLastPayTime(leaseCost);
                 reqCode = 1;
             }
         } else {
@@ -192,10 +223,20 @@ public class LeaseService {
         int reqCode = 0;
         // 1、判断是否公司已注册
         if (lm.searchEnterpriseRight(leaseContract) != 0) {
-            //2、更改合同的所属人，以及更新所有缴费记录的【业主变更】
-            if (lm.updateContractOwner(leaseContract) > 0 && lm.updateLeaseCostInfo(leaseContract) > 0) {
+
+            //2、查询是否，合同原所属人已无合同记录,是，则修改合同原所属人的状态为【已注册】
+            if (lm.hasLeaseContract(leaseContract) == 1) {
+                lm.updateOldState(leaseContract);
+            }
+            //3、查询是否，合同变更对象为未入驻状态，是则修改登记状态【已入驻】
+            if (lm.isInsertFirstSearch(leaseContract) > 0) {
+                lm.updateEnterpriseStateWhenInsert(leaseContract);
+            }
+            //4、更改合同的所属人，以及更新所有缴费记录的【业主变更】，更新房间号
+            if (lm.updateContractOwner(leaseContract) > 0 && lm.updateLeaseCostInfo(leaseContract) >= 0 && lm.updateRoomInfoOwner(leaseContract) > 0) {
                 reqCode = 1;
             }
+
         } else {
             reqCode = -1;
         }
@@ -214,10 +255,12 @@ public class LeaseService {
 
     /**
      * 查询某合同的租金单价
+     *
      * @param leaseCost
      * @return
      */
-    public String getPayUnitPrice(LeaseCost leaseCost){
+    public String getPayUnitPrice(LeaseCost leaseCost) {
         return lm.getPayUnitPrice(leaseCost);
     }
+
 }

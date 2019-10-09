@@ -2,16 +2,42 @@ package com.xcxgf.cainiao.POJO;
 
 /**
  * 园区各楼栋房间的实体类
+ *
+ * @author zyz
  */
 public class Room {
-    private String buildingName; // 所属办公楼
-    private String roomNumber; // 房间号
-    private String owner; // 业主
-    private String rentArea; // 计租面积
-    private String buildingArea; // 建筑面积
-    private String roomType; // 房间类型
-    private String insertTime; // 添加时间
-    private String updateTime; // 修改时间
+    /**
+     * 所属办公楼
+     */
+    private String buildingName;
+    /**
+     * 房间号
+     */
+    private String roomNumber;
+    /**
+     * 业主
+     */
+    private String owner;
+    /**
+     * 计租面积
+     */
+    private String rentArea;
+    /**
+     * 建筑面积
+     */
+    private String buildingArea;
+    /**
+     * 房间类型
+     */
+    private String roomType;
+    /**
+     * 添加时间
+     */
+    private String insertTime;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
 
     public String getBuildingName() {
         return buildingName;

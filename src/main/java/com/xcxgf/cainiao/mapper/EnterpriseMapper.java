@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 对数据库中enterpriseinfo表（园区企业信息表）的增删改查操作
+ * @author zyz
  */
 public interface EnterpriseMapper {
     /**

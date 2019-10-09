@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 用户信息存储的前端与后台交互
+ * @author zyz
+ */
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -32,7 +36,7 @@ public class UserController {
         int start = Integer.parseInt(startStr);
         int end = Integer.parseInt(endStr);
         // 拼接limit字符串
-        String searchStr = "".equals(search) ? "" : "where account = '" + search + "'";
+        String searchStr = "".equals(search) ? "" : "where account like '%" + search + "%' or userName like '%" + search + "%'";
         String limitStr = "0".equals(startStr) && "0".equals(endStr) ? "" : "limit " + start + "," + end;
         return userService.getUserList(searchStr, limitStr);
     }

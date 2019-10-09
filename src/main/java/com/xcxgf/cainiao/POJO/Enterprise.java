@@ -2,14 +2,34 @@ package com.xcxgf.cainiao.POJO;
 
 /**
  * 园区企业的实体类
+ *
+ * @author zyz
  */
 public class Enterprise {
-    private String enterpriseName; // 公司名称
-    private String enterprisePerson; // 联系人
-    private String contactNumber; // 联系电话
-    private String insertTime; // 添加时间
-    private String updateTime; // 修改时间
-    private String state; // 企业登记状态，未注册，已注册，已入驻
+    /**
+     * 公司名称
+     */
+    private String enterpriseName;
+    /**
+     * 联系人
+     */
+    private String enterprisePerson;
+    /**
+     * 联系电话
+     */
+    private String contactNumber;
+    /**
+     * 添加时间
+     */
+    private String insertTime;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
+    /**
+     * 企业登记状态，未注册，已注册，已入驻
+     */
+    private String state;
 
     public String getState() {
         return state;

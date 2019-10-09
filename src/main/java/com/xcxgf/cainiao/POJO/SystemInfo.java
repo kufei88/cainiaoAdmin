@@ -1,11 +1,30 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * @author 田易
+ */
 public class SystemInfo {
     private int id;
-    private float waterUnitPrice;//水单价
-    private float electricityUnitPrice;//电单价
-    private float leaseUnitPrice;//管理单价
-    private float energySharingPrice;//能耗公摊单价
+
+    /**
+     * 水单价
+     */
+    private float waterUnitPrice;
+
+    /**
+     * 电单价
+     */
+    private float electricityUnitPrice;
+
+    /**
+     * 管理单价
+     */
+    private float leaseUnitPrice;
+
+    /**
+     * 能耗公摊单价
+     */
+    private float energySharingPrice;
     public int getId() {
         return id;
     }

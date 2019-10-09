@@ -1,54 +1,155 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * @author 田易
+ */
 public class PaymentInfo {
-    private int id;//id
-    private String BuildingName;//楼栋名
-    private String RoomNumber;//房号
-    private String owner;//公司
-    private float WaterNumber;//水表读数
-    private float ElectricityNumber;//电表读数
-    private float WaterNumberPrevious;//上期水表读数
-    private float ElectricityNumberPrevious;//上期电表读数
-    private float WaterDifference;//水差值
-    private float ElectricityDifference;//电差值
-    private float waterCost;//水费
-    private float electricityCost;//电费
-    private float total;//总金额
-    private String startTime; //开始时间
-    private String endTime;//结束时间
-    private String establishTime;//创建时间
-    private String updateTime;//更新时间
+
+    /**
+     * id
+     */
+    private int id;
+
+    /**
+     * 楼栋名
+     */
+    private String buildingName;
+
+    /**
+     * 房号
+     */
+    private String roomNumber;
+    /**
+     * 公司
+     */
+    private String owner;
+
+    /**
+     * 水表读数
+     */
+    private float waterNumber;
+
+    /**
+     * 电表读数
+     */
+    private float electricityNumber;
+
+    /**
+     * 上期水表读数
+     */
+    private float waterNumberPrevious;
+
+    /**
+     * 上期电表读数
+     */
+    private float electricityNumberPrevious;
+
+    /**
+     * 水差值
+     */
+    private float waterDifference;
+
+    /**
+     * 电差值
+     */
+    private float electricityDifference;
+
+    /**
+     * 水费
+     */
+    private float waterCost;
+
+    /**
+     * 电费
+     */
+    private float electricityCost;
+
+    /**
+     * 总金额
+     */
+    private float total;
+
+    /**
+     * 开始时间
+     */
+    private String startTime;
+
+    /**
+     * 结束时间
+     */
+    private String endTime;
+
+    /**
+     * 创建时间
+     */
+    private String establishTime;
+
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public float getWaterNumber() {
+        return waterNumber;
+    }
+
+    public void setWaterNumber(float waterNumber) {
+        this.waterNumber = waterNumber;
+    }
+
+    public float getElectricityNumber() {
+        return electricityNumber;
+    }
+
+    public void setElectricityNumber(float electricityNumber) {
+        this.electricityNumber = electricityNumber;
+    }
 
     public float getWaterNumberPrevious() {
-        return WaterNumberPrevious;
+        return waterNumberPrevious;
     }
 
     public void setWaterNumberPrevious(float waterNumberPrevious) {
-        WaterNumberPrevious = waterNumberPrevious;
+        this.waterNumberPrevious = waterNumberPrevious;
     }
 
     public float getElectricityNumberPrevious() {
-        return ElectricityNumberPrevious;
+        return electricityNumberPrevious;
     }
 
     public void setElectricityNumberPrevious(float electricityNumberPrevious) {
-        ElectricityNumberPrevious = electricityNumberPrevious;
+        this.electricityNumberPrevious = electricityNumberPrevious;
     }
 
     public float getWaterDifference() {
-        return WaterDifference;
+        return waterDifference;
     }
 
     public void setWaterDifference(float waterDifference) {
-        WaterDifference = waterDifference;
+        this.waterDifference = waterDifference;
     }
 
     public float getElectricityDifference() {
-        return ElectricityDifference;
+        return electricityDifference;
     }
 
     public void setElectricityDifference(float electricityDifference) {
-        ElectricityDifference = electricityDifference;
+        this.electricityDifference = electricityDifference;
     }
 
     public float getTotal() {
@@ -100,13 +201,6 @@ public class PaymentInfo {
         this.owner = owner;
     }
 
-    public String getBuildingName() {
-        return BuildingName;
-    }
-
-    public void setBuildingName(String buildingName) {
-        BuildingName = buildingName;
-    }
 
     public String getStartTime() {
         return startTime;
@@ -122,30 +216,6 @@ public class PaymentInfo {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
-    }
-
-    public float getWaterNumber() {
-        return WaterNumber;
-    }
-
-    public void setWaterNumber(float waterNumber) {
-        WaterNumber = waterNumber;
-    }
-
-    public float getElectricityNumber() {
-        return ElectricityNumber;
-    }
-
-    public void setElectricityNumber(float electricityNumber) {
-        ElectricityNumber = electricityNumber;
-    }
-
-    public String getRoomNumber() {
-        return RoomNumber;
-    }
-
-    public void setRoomNumber(String roomNumber) {
-        RoomNumber = roomNumber;
     }
 
     public int getId() {

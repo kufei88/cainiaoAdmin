@@ -2,16 +2,42 @@ package com.xcxgf.cainiao.POJO;
 
 /**
  * 用户管理实体类
+ *
+ * @author zyz
  */
 public class User {
-    private String account;// 账号
-    private String password;// 密码
-    private String userName;// 用户名，一般用姓名
-    private String sex; // 性别
-    private String telephone; // 联系电话
-    private String department; // 所属部门
-    private String insertTime; // 添加时间
-    private String updateTime; // 修改时间
+    /**
+     * 账号
+     */
+    private String account;
+    /**
+     * 密码
+     */
+    private String password;
+    /**
+     * 用户名，一般用姓名
+     */
+    private String userName;
+    /**
+     * 性别
+     */
+    private String sex;
+    /**
+     * 联系电话
+     */
+    private String telephone;
+    /**
+     * 所属部门
+     */
+    private String department;
+    /**
+     * 添加时间
+     */
+    private String insertTime;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
 
     public String getAccount() {
         return account;

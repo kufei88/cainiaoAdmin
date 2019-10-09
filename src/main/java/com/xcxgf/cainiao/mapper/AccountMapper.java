@@ -9,29 +9,62 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface AccountMapper {
-    //查询
+    /**
+     * 查询数据库合同信息表的1到10条数据
+     * @return
+     */
    @Select("select * from dormitoryfirstinfo limit 0,10")
    public List<Account> getAccountList0();
-    //分页查询
+
+    /**
+     * 获取合同总信息表的数据按照合同结束日期进行排序 进行分页
+     * @param start
+     * @param pagesize
+     * @return
+     */
     @Select("select * from dormitoryfirstinfo order by endRentTime limit #{start},#{pagesize}")
     public List<Account> getAccountList(int start,int pagesize);
 
-    //搜索
+    /**
+     * 根据业主名搜索合同信息并进行分页
+     * @param name
+     * @param spg
+     * @param spgsize
+     * @return
+     */
     @Select("select * from dormitoryfirstinfo where owner like CONCAT('%',#{name},'%') " +
+            "order by endRentTime " +
             "limit #{spg},#{spgsize}")
     public List<Account> getAccountNameList(String name,int spg,int spgsize);
-    //搜索内容的总条数
+
+    /**
+     * 获取搜索的信息的总条数
+     * @param name
+     * @return
+     */
     @Select("select count(*) from dormitoryfirstinfo where owner like CONCAT('%',#{name},'%')")
     public int getAccountNameCount(String name);
 
-    //获取业主信息
+    /**
+     * 获取所选合同的业主信息
+     * @param enterpriseName
+     * @return
+     */
     @Select("select * from enterpriseinfo where enterpriseName=#{enterpriseName}")
     public List<Enterprise> getOwnerList(String enterpriseName);
 
-    //查询合同总条数
+    /**
+     * 获取合同信息总条数
+     * @return
+     */
     @Select("select count(*) from dormitoryfirstinfo")
     public int getAccountCount();
-    //更新
+
+    /**
+     * 更新合同信息
+     * @param entityAccount
+     * @return
+     */
     @Update("update dormitoryfirstinfo set " +
             "owner=#{owner}," +
             "buildingName=#{buildingName}," +
@@ -43,7 +76,11 @@ public interface AccountMapper {
             "where id=#{id}")
     public int updateAccount(Account entityAccount);
 
-    //插入
+    /**
+     * 新增合同信息
+     * @param entityAccount
+     * @return
+     */
     @Insert("insert into dormitoryfirstinfo(contractId," +
             "owner," +
             "roomNumber," +
@@ -66,6 +103,11 @@ public interface AccountMapper {
             "#{insertTime})")
     public int insertAccount(Account entityAccount);
 
+    /**
+     * 新增合同
+     * @param entityReneweal
+     * @return
+     */
     @Insert("insert into dormitorycontinueinfo (owner," +
             "contractId," +
             "contractType," +
@@ -84,56 +126,137 @@ public interface AccountMapper {
             "#{insertTime})")
     public int insertRenewals(Renewal entityReneweal);
 
-    //删除
+    /**
+     * 删除合同
+     * @param contractId
+     * @return
+     */
     @Delete("delete from dormitoryfirstinfo where contractId=#{contractId}")
     public int deleteAccount(String contractId);
 
+    /**
+     * 删除相关联的合同详细信息
+     * @param contractId
+     * @return
+     */
     @Delete("delete from dormitorycontinueinfo where contractId=#{contractId}")
     public int deleteAccount2(String contractId);
-    //更新总租期
+
+    /**
+     * 更新合同总租期
+     * @param addNum
+     * @param totalCost
+     * @param endRentTime
+     * @param contractId
+     * @return
+     */
     @Update("update dormitoryfirstinfo set totalPeriod=totalPeriod+#{addNum}," +
             "totalCost=totalCost+#{totalCost}," +
             "endRentTime=#{endRentTime} where contractId=#{contractId}")
     public int updateleasePeriod(int addNum,float totalCost,String endRentTime,String contractId);
 
+    /**
+     * 合同变更
+     * @param owner
+     * @param contractId
+     * @return
+     */
  @Update("update dormitoryfirstinfo set owner=#{owner}  where contractId=#{contractId}")
  public int updateOwner(String owner,String contractId);
 
-    //查询宿舍楼栋
+    /**
+     * 获取宿舍楼信息
+     * @return
+     */
     @Select("select * from buildinginfo where buildingType='宿舍'")
     public List<Building> getBuildingList();
 
-    //查询房间号
+    /**
+     * 根据楼号和房间类型搜索房间
+     * @param roomType
+     * @param buildingName
+     * @param start
+     * @return
+     */
     @Select("select * from roominfo " +
             "where owner='空闲' and roomType=#{roomType} and buildingName=#{buildingName} limit #{start},5")
     public List<Room> getRoomList(String roomType,String buildingName, int start);
-    //
+
+    /**
+     * 根据楼号和房间类型获取房间总条数
+     * @param roomType
+     * @param buildingName
+     * @return
+     */
     @Select("select count(*) from roominfo where owner='空闲' and roomType=#{roomType} and buildingName=#{buildingName}")
     public int getRoomListCount(String roomType,String buildingName);
-    //合同新增更新
+
+    /**
+     * 更新房间业主信息
+     * @param room
+     * @return
+     */
     @Update("update roominfo set owner=#{owner} where buildingName=#{buildingName} and roomNumber=#{roomNumber}")
     public int updateRoom(Room room);
 
-    //删除更新
+    /**
+     * 删除合同后更新房间业主
+     * @param room
+     * @return
+     */
     @Update("update roominfo set owner='空闲' " +
             "where buildingName=#{buildingName} and owner=#{owner} and roomNumber=#{roomNumber}")
     public int updateRoom2(Room room);
 
+    /**
+     * 获取合同的租赁房间
+     * @param owner
+     * @param buildingName
+     * @param start
+     * @return
+     */
     @Select("select * from roominfo where owner=#{owner} and buildingName=#{buildingName} limit #{start},5")
     public List<Room> getRoomList2(String owner,String buildingName, int start);
 
+    /**
+     * 获取合同租赁房间总条数
+     * @param owner
+     * @param buildingName
+     * @return
+     */
     @Select("select count(*) from roominfo where owner=#{owner} and buildingName=#{buildingName}")
     public int getRoomListCount2(String owner,String buildingName);
-    //查询宿舍
+
+    /**
+     * 查询宿舍是否存在
+     * @param buildingName
+     * @return
+     */
     @Select("select count(*) from buildinginfo where buildingType='宿舍' and buildingName=#{buildingName}")
     public int getBuildingListCount(String buildingName);
-    //
+
+    /**
+     * 查询房间是否已存在
+     * @param roomNumber
+     * @param buildingName
+     * @return
+     */
     @Select("select count(*) from roominfo where roomNumber=#{roomNumber} and buildingName=#{buildingName}")
     public int getRoomListCount3(String roomNumber,String buildingName);
 
+    /**
+     * 查询公司是否存在
+     * @param enterpriseName
+     * @return
+     */
     @Select("select count(*) from enterpriseinfo where enterpriseName=#{enterpriseName}")
     public int getCompanyName(String enterpriseName);
 
+    /**
+     * 获取宿舍房间的房间类型
+     * @param account
+     * @return
+     */
     @Select("select roomType from roominfo where buildingName=#{buildingName} and roomNumber=#{roomNumber}")
     public String getRoomType(Account account);
 }

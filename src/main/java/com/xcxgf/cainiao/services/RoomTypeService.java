@@ -13,21 +13,48 @@ import java.util.List;
 public class RoomTypeService {
     @Autowired
     RoomTypeMapper roomTypeMapper;
+
+    /**
+     * 获取房型信息
+     * @return
+     */
     public List<RoomType> getRoomType(){
         return roomTypeMapper.getRoomType();
     }
+
+    /**
+     * 添加新房型
+     * @param roomType
+     * @return
+     */
     public int insertRoomType(RoomType roomType){
         return roomTypeMapper.insertRoomType(roomType);
     }
 
+    /**
+     * 删除房型
+     * @param roomType
+     * @return
+     */
     public int deleteRoomType(RoomType roomType){
         int id=roomType.getId();
         return roomTypeMapper.deleteRoomType(id);
     }
 
+    /**
+     * 更新租金
+     * @param roomType
+     * @return
+     */
     public int updateMonthRent(RoomType roomType){
         return roomTypeMapper.updateMonthRent(roomType);
     }
+
+    /**
+     * 获取每月租金
+     * @param roomType
+     * @return
+     */
     public float getMonthRent(RoomType roomType){
         String roomTypes=roomType.getRoomType();
         return roomTypeMapper.getMonthRent(roomTypes);

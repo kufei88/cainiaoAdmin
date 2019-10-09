@@ -2,12 +2,26 @@ package com.xcxgf.cainiao.POJO;
 
 /**
  * 楼栋管理的实体类
+ *
+ * @author zyz
  */
 public class Building {
-    private String buildingName; // 楼栋名称
-    private String buildingType; // 楼栋类型
-    private String insertTime; // 添加时间
-    private String updateTime; // 修改时间
+    /**
+     * 楼栋名称
+     */
+    private String buildingName;
+    /**
+     * 楼栋类型
+     */
+    private String buildingType;
+    /**
+     * 添加时间
+     */
+    private String insertTime;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
 
     public String getBuildingName() {
         return buildingName;

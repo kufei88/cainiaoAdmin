@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * 租赁管理，前端后台交互层
+ * @author zyz
  */
 @RestController
 @RequestMapping("lease")
@@ -141,4 +142,5 @@ public class LeaseController {
     public String getPayUnitPrice(@RequestBody LeaseCost leaseCost){
         return ls.getPayUnitPrice(leaseCost);
     }
+
 }

@@ -1,7 +1,6 @@
 package com.xcxgf.cainiao.mapper;
 
 import com.xcxgf.cainiao.POJO.Building;
-import com.xcxgf.cainiao.POJO.Lease;
 import com.xcxgf.cainiao.POJO.Room;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -12,14 +11,15 @@ import java.util.List;
 
 /**
  * 对数据库中roomInfo表（办公室管理表）的增删改查操作
+ * @author zyz
  */
 public interface RoomMapper {
     /**
-     * 查询满足条件的可用记录
-     *
+     * 查询满足条件的记录
      * @param search 查询条件
-     * @param limit  需要返回的记录的起始位置和需要返回的记录条数
-     * @return Room类型的集合，满足条件的可用记录
+     * @param limit 记录的起始位置和条数
+     * @param dataType 数据类型
+     * @return
      */
     @Select("select * " +
             "FROM roominfo " +
@@ -31,6 +31,7 @@ public interface RoomMapper {
      * 查询满足条件的可用记录的条数
      *
      * @param search 查询条件
+     * @param dataType 数据类型
      * @return int类型，满足条件的记录条数
      */
     @Select("SELECT count(*) " +
@@ -89,28 +90,6 @@ public interface RoomMapper {
     @Insert("INSERT INTO roominfo(roomNumber,buildingName,rentArea,buildingArea,roomType,insertTime) " +
             "VALUES(#{roomNumber}, #{buildingName}, #{rentArea}, #{buildingArea},#{roomType},#{insertTime})")
     public int insertRoomInfo(Room room);
-
-    /**
-     * 更新记录（根据租赁信息更新房间的业主）
-     *
-     * @param lease 需要更新的记录对象
-     * @return int类型，更新操作影响的记录条数，为0时更新失败，否则更新成功
-     */
-    @Update("UPDATE roominfo SET owner=#{owner} " +
-            "WHERE roomNumber=#{roomNumber} " +
-            "and buildingName=#{buildingName}")
-    public int updateRoomInfoOwner(Lease lease);
-
-    /**
-     * 更新记录（更新房间的业主为空闲）
-     *
-     * @param lease 需要更新的记录对象
-     * @return int类型，更新操作影响的记录条数，为0时更新失败，否则更新成功
-     */
-    @Update("UPDATE roominfo SET owner=#{owner} " +
-            "WHERE roomNumber=#{roomNumber} " +
-            "and buildingName=#{buildingName}")
-    public int deleteRoomInfoOwner(Lease lease);
 
     /**
      * 查询是否存在重复记录（执行插入记录操作时）

@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 对数据库中buildinginfo表（楼栋管理表）的增删改查操作
+ * @author zyz
  */
 public interface BuildingMapper {
 

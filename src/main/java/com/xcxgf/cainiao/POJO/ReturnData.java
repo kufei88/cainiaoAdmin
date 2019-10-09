@@ -1,15 +1,45 @@
 package com.xcxgf.cainiao.POJO;
 
 import java.util.List;
-
+/**
+ * @author 田易
+ */
 public class ReturnData {
-    private int dataCount; // 查询到的记录总条数
-    private List<PaymentInfo> paymentInfos; //水电读数集合
-    private int errorCount;//错误条数
-    private int excelFlag;//Excel状态
-    private List<Long> timeList;//时间list
-    private List<Float> waterList;//水list
-    private List<Float> electricityList;//电list
+
+    /**
+     * 查询到的记录总条数
+     */
+    private int dataCount;
+
+    /**
+     * 水电读数集合
+     */
+    private List<PaymentInfo> paymentInfos;
+
+    /**
+     * 错误条数
+     */
+    private int errorCount;
+
+    /**
+     * Excel状态
+     */
+    private int excelFlag;
+
+    /**
+     * 时间list
+     */
+    private List<Long> timeList;
+
+    /**
+     * 水list
+     */
+    private List<Float> waterList;
+
+    /**
+     * 电list
+     */
+    private List<Float> electricityList;
     public List<Long> getTimeList() {
         return timeList;
     }

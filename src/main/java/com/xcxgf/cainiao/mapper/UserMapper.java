@@ -8,12 +8,17 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * 用户信息的后台和数据库的交互
+ * @author zyz
+ */
 public interface UserMapper {
 
     /**
      * 查询记录
      *
      * @param limit 记录位置
+     * @param search 查询条件
      * @return
      */
     @Select("select * from userinfo ${search} ORDER BY insertTime desc ${limit}")
@@ -66,6 +71,11 @@ public interface UserMapper {
             "where account=#{account}")
     public int updateUserInfo(User user);
 
+    /**
+     * 删除记录
+     * @param user 需要删除的记录对象
+     * @return
+     */
     @Delete("delete from userinfo " +
             "where account = #{account}")
     public int deleteUserInfo(User user);

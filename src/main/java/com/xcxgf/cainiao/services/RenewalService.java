@@ -26,12 +26,12 @@ public class RenewalService {
 
     public int getCount(HttpServletRequest request){
         int id=Integer.parseInt(request.getParameter("nid"));
-        //System.out.println(id);
+
         return renewalMapper.getCount(id);
     }
 
     public int insertRenewals(Renewal renewal) throws ParseException {
-        //System.out.printf(renewal.getLeasePeriod());
+
         funhelper funh=new funhelper();
         int addNum=renewal.getContinuePeriod();
         String contractId=renewal.getContractId();
@@ -44,7 +44,7 @@ public class RenewalService {
     }
 
     public int insertRenewals2(Renewal renewal) {
-        //System.out.printf(renewal.getLeasePeriod());
+
         String owner=renewal.getOwner();
         String contractId=renewal.getContractId();
         accountMapper.updateOwner(owner,contractId);

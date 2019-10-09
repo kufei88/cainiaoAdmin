@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 对数据库中leaseinfo表（租赁信息管理表）的增删改查操作
+ * @author zyz
  */
 public interface LeaseMapper {
     /**
@@ -65,8 +66,8 @@ public interface LeaseMapper {
      * @param leaseContract 需要被插入的记录对象
      * @return int类型，插入操作影响到的记录条数，0为插入失败，否则插入成功
      */
-    @Insert("INSERT INTO leaseContractInfo(buildingName,roomNumber,owner,depositOnContracts,rentPeriod,startRentTime,endRentTime,insertTime,noPayPeriod,totalRent,unitPrice) " +
-            "VALUES(#{buildingName},#{roomNumber},#{owner},#{depositOnContracts},#{rentPeriod},#{startRentTime},#{endRentTime},#{insertTime},#{rentPeriod},#{totalRent},#{unitPrice})")
+    @Insert("INSERT INTO leaseContractInfo(buildingName,roomNumber,owner,depositOnContracts,rentPeriod,startRentTime,endRentTime,insertTime,noPayPeriod,totalRent,unitPrice,lastPayTime) " +
+            "VALUES(#{buildingName},#{roomNumber},#{owner},#{depositOnContracts},#{rentPeriod},#{startRentTime},#{endRentTime},#{insertTime},#{rentPeriod},#{totalRent},#{unitPrice},#{startRentTime})")
     public int insertLeaseContractInfo(LeaseContract leaseContract);
 
     /**
@@ -82,15 +83,14 @@ public interface LeaseMapper {
 
 
     /**
-     * 查询是否存在房间重复记录（执行插入记录操作时）
+     * 查询是否业主仍有合同未结束（执行插入记录操作时）
      *
      * @param leaseContract 需要查询是否存在的记录对象
      * @return int类型，满足查询条件的记录条数，为0时不存在重复记录，否则存在重复记录
      */
     @Select("select count(*) " +
             "from leaseContractInfo " +
-            "where buildingName = #{buildingName} " +
-            "and roomNumber = #{roomNumber}")
+            "where owner=#{owner}")
     public int insertSearchSame(LeaseContract leaseContract);
 
     /**
@@ -157,8 +157,8 @@ public interface LeaseMapper {
      * @param leaseCost
      * @return
      */
-    @Insert("insert into leaseCostInfo(buildingName,roomNumber,owner,unitPrice,period,rentCost,propertyFee,energySharing,totalCost,insertTime) " +
-            "values(#{buildingName},#{roomNumber},#{owner},#{unitPrice},#{period},#{rentCost},#{propertyFee},#{energySharing},#{totalCost},#{insertTime})")
+    @Insert("insert into leaseCostInfo(buildingName,roomNumber,owner,unitPrice,period,rentCost,propertyFee,energySharing,totalCost,insertTime,startPayTime,endPayTime) " +
+            "values(#{buildingName},#{roomNumber},#{owner},#{unitPrice},#{period},#{rentCost},#{propertyFee},#{energySharing},#{totalCost},#{insertTime},#{startPayTime},#{endPayTime})")
     public int insertLeaseCostInfo(LeaseCost leaseCost);
 
     /**
@@ -198,6 +198,19 @@ public interface LeaseMapper {
             "where buildingName=#{buildingName} " +
             "and roomNumber=#{roomNumber}")
     public int updateNoPayPeriod(LeaseCost leaseCost);
+
+    /**
+     * 更新合同中的【上一次缴费终止租期】
+     *
+     * @param leaseCost
+     * @return
+     */
+    @Update("update leaseContractInfo " +
+            "set lastPayTime=#{endPayTime}," +
+            "updateTime=#{insertTime} " +
+            "where buildingName=#{buildingName} " +
+            "and roomNumber=#{roomNumber}")
+    public int updateLastPayTime(LeaseCost leaseCost);
 
     /**
      * 查询是否缴费租期是正确，小于等于未缴费租期
@@ -303,9 +316,46 @@ public interface LeaseMapper {
             "and state!='已入驻'")
     public int isInsertFirstSearch(LeaseContract leaseContract);
 
+    /**
+     * 获取租金单价
+     * @param leaseCost
+     * @return
+     */
     @Select("select unitPrice " +
             "from leaseContractInfo " +
             "where buildingName=#{buildingName} " +
             "and roomNumber=#{roomNumber}")
     public String getPayUnitPrice(LeaseCost leaseCost);
+
+    /**
+     * 合同变更时，原合同所属人已无合同时，修改登记状态
+     * @param leaseContract
+     * @return
+     */
+    @Update("update enterpriseinfo " +
+            "set state = '已注册' " +
+            "where enterpriseName = (select owner from leaseContractInfo where buildingName=#{buildingName} and roomNumber=#{roomNumber})")
+    public int updateOldState(LeaseContract leaseContract);
+
+    /**
+     * 合同退租时，查询是否有未缴清费用
+     * @param leaseContract
+     * @return
+     */
+    @Select("select noPayPeriod " +
+            "from leaseContractInfo " +
+            "where buildingName=#{buildingName} " +
+            "and roomNumber=#{roomNumber}")
+    public String hasLeaseCost(LeaseContract leaseContract);
+
+    /**
+     * 合同变更时，查询所属原企业是否已无合同
+     * @param leaseContract
+     * @return
+     */
+    @Select("select count(*) " +
+            "from leaseContractInfo " +
+            "where owner = (select owner from leaseContractInfo where buildingName=#{buildingName} and roomNumber=#{roomNumber})")
+    public int hasLeaseContract(LeaseContract leaseContract);
+
 }

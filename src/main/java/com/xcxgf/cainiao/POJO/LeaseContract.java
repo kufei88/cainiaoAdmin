@@ -3,21 +3,74 @@ package com.xcxgf.cainiao.POJO;
 
 /**
  * 合同登记实体类
+ *
+ * @author zyz
  */
 public class LeaseContract {
-    private String owner; // 业主
-    private String roomNumber; // 房号
-    private String buildingName; // 所属楼栋名称
-    private String depositOnContracts; // 合同保证金
-    private String unitPrice; // 租金单价
-    private String rentPeriod; // 租期
-    private String startRentTime; // 起租期
-    private String endRentTime; // 终止期
-    private String noPayPeriod; // 未缴费租期
-    private String totalRent; // 租金总计
-    private String firstRent; // 首期租金
-    private String insertTime; // 添加时间
-    private String updateTime; // 修改时间
+    /**
+     * 业主
+     */
+    private String owner;
+    /**
+     * 房号
+     */
+    private String roomNumber;
+    /**
+     * 所属楼栋名称
+     */
+    private String buildingName;
+    /**
+     * 合同保证金
+     */
+    private String depositOnContracts;
+    /**
+     * 租金单价
+     */
+    private String unitPrice;
+    /**
+     * 租期
+     */
+    private String rentPeriod;
+    /**
+     * 起租期
+     */
+    private String startRentTime;
+    /**
+     * 终止期
+     */
+    private String endRentTime;
+    /**
+     * 未缴费租期
+     */
+    private String noPayPeriod;
+    /**
+     * 租金总计
+     */
+    private String totalRent;
+    /**
+     * 首期租金
+     */
+    private String firstRent;
+    /**
+     * 添加时间
+     */
+    private String insertTime;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
+    /**
+     * 上一次缴费结束租期
+     */
+    private String lastPayTime;
+
+    public String getLastPayTime() {
+        return lastPayTime;
+    }
+
+    public void setLastPayTime(String lastPayTime) {
+        this.lastPayTime = lastPayTime;
+    }
 
     public String getUnitPrice() {
         return unitPrice;
