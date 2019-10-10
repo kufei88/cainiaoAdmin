@@ -13,7 +13,7 @@ public interface AccountMapper {
      * 查询数据库合同信息表的1到10条数据
      * @return
      */
-   @Select("select * from dormitoryfirstinfo limit 0,10")
+   @Select("select * from dormitoryfirstinfo order by endRentTime,roomNumber limit 0,10")
    public List<Account> getAccountList0();
 
     /**
@@ -22,7 +22,7 @@ public interface AccountMapper {
      * @param pagesize
      * @return
      */
-    @Select("select * from dormitoryfirstinfo order by endRentTime limit #{start},#{pagesize}")
+    @Select("select * from dormitoryfirstinfo order by endRentTime,roomNumber,insertTime limit #{start},#{pagesize}")
     public List<Account> getAccountList(int start,int pagesize);
 
     /**
@@ -33,7 +33,7 @@ public interface AccountMapper {
      * @return
      */
     @Select("select * from dormitoryfirstinfo where owner like CONCAT('%',#{name},'%') " +
-            "order by endRentTime " +
+            "order by endRentTime,roomNumber,insertTime " +
             "limit #{spg},#{spgsize}")
     public List<Account> getAccountNameList(String name,int spg,int spgsize);
 

@@ -58,6 +58,22 @@ public interface PaymentMapper {
     public int getCount();
 
     /**
+     * 指定搜索房号的分页条数
+     * @param roomNumber
+     * @return
+     */
+    @Select("select  count(*) from paymentinfo where roomNumber = #{roomNumber}")
+    public int getSearchRoomCount(String roomNumber);
+
+    /**
+     * 指定搜索企业的分页条数
+     * @param owner
+     * @return
+     */
+    @Select("select  count(*) from paymentinfo where owner = #{owner}")
+    public int getSearchOwnerCount(String owner);
+
+    /**
      * 添加paymentinfo表数据
      * @param paymentInfo paymentInfo对象
      * @return

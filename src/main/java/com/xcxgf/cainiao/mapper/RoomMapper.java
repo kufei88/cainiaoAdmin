@@ -24,7 +24,7 @@ public interface RoomMapper {
     @Select("select * " +
             "FROM roominfo " +
             "where buildingName IN (select buildingName FROM buildinginfo where buildingType = '${dataType}') " +
-            "${search} ORDER BY buildingName,roomNumber,insertTime desc ${limit}")
+            "${search} ORDER BY buildingName+0,roomNumber,insertTime desc ${limit}")
     public List<Room> getSearchList(String search, String limit, String dataType);
 
     /**

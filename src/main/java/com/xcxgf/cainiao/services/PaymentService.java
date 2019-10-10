@@ -37,11 +37,13 @@ public class PaymentService {
     public ReturnData getSearchList(String searchValue,String selectValue,String limit){
         ReturnData dataReturn = new ReturnData();
         try {
-            dataReturn.setDataCount(paymentMapper.getCount());
+
             if (selectValue.equals(Enumeration.search.getName())){
                 dataReturn.setPaymentInfos(paymentMapper.getSearchRoomNumberList(searchValue,limit));
+                dataReturn.setDataCount(paymentMapper.getSearchRoomCount(searchValue));
             }else {
                 dataReturn.setPaymentInfos(paymentMapper.getSearchBuildingNameList(searchValue,limit));
+                dataReturn.setDataCount(paymentMapper.getSearchOwnerCount(searchValue));
             }
 
         } catch (Exception e) {
