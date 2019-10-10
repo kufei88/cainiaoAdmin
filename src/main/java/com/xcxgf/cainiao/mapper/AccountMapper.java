@@ -259,6 +259,17 @@ public interface AccountMapper {
      */
     @Select("select roomType from roominfo where buildingName=#{buildingName} and roomNumber=#{roomNumber}")
     public String getRoomType(Account account);
+
+    /**
+     * 根据公司名查询全部符合条件的公司名称
+     * @param enterpriseName
+     * @return
+     */
+    @Select("select * from enterpriseinfo where enterpriseName like CONCAT('%',#{enterpriseName},'%')")
+    public List<Enterprise> getAllCompany(String enterpriseName);
+
+//    @Select("select * from enterpriseinfo")
+//    public List<Enterprise> getAllCompany();
 }
 
 

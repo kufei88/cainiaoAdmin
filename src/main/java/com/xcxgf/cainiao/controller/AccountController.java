@@ -249,4 +249,14 @@ public class AccountController {
     public String getRoomType(@RequestBody Account account){
         return accountService.getRoomType(account);
     }
+
+    /**
+     * 根据公司名查询全部符合条件的公司名称
+     * @param
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "/getAllCompany")
+    public List<Enterprise> getAllCompany(HttpServletRequest request){
+        return accountService.getAllCompany(request);
+    }
 }

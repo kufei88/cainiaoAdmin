@@ -40,6 +40,7 @@ public interface EnterpriseMapper {
             "SET enterprisePerson=#{enterprisePerson}," +
             "contactNumber=#{contactNumber}," +
             "state=#{state}," +
+            "other=#{other}," +
             "updateTime=#{updateTime} " +
             "WHERE enterpriseName=#{enterpriseName}")
     public int updateEnterpriseInfo(Enterprise enterprise);
@@ -57,8 +58,8 @@ public interface EnterpriseMapper {
      * @param enterprise 需要被插入的记录对象
      * @return int类型，插入操作影响的记录条数，0为插入失败，否则插入成功
      */
-    @Insert("INSERT INTO enterpriseinfo(enterpriseName,enterprisePerson,contactNumber,insertTime,state) " +
-            "VALUES(#{enterpriseName}, #{enterprisePerson}, #{contactNumber},#{insertTime},#{state})")
+    @Insert("INSERT INTO enterpriseinfo(enterpriseName,enterprisePerson,contactNumber,insertTime,state,other) " +
+            "VALUES(#{enterpriseName}, #{enterprisePerson}, #{contactNumber},#{insertTime},#{state},#{other})")
     public int insertEnterpriseInfo(Enterprise enterprise);
 
     /**

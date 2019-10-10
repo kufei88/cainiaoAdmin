@@ -290,7 +290,26 @@ public class AccountService {
         return accountMapper.getCompanyName(enterpriseName);
     }
 
+    /**
+     * 获取房间类型
+     * @param account
+     * @return
+     */
     public String getRoomType(Account account){
         return accountMapper.getRoomType(account);
     }
+
+    /**
+     * 根据公司名查询全部符合条件的公司名称
+     * @param request
+     * @return
+     */
+    public List<Enterprise> getAllCompany(HttpServletRequest request){
+        String enterpriseName =request.getParameter("companyName");
+        return accountMapper.getAllCompany(enterpriseName);
+    }
+
+//    public List<Enterprise> getAllCompany(){
+//        return accountMapper.getAllCompany();
+//    }
 }

@@ -30,6 +30,18 @@ public class Enterprise {
      * 企业登记状态，未注册，已注册，已入驻
      */
     private String state;
+    /**
+     * 备注信息
+     */
+    private String other;
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
 
     public String getState() {
         return state;
