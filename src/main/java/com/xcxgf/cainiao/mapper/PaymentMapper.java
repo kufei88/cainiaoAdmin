@@ -70,7 +70,7 @@ public interface PaymentMapper {
      * @param owner
      * @return
      */
-    @Select("select  count(*) from paymentinfo where owner = #{owner}")
+    @Select("select  count(*) from paymentinfo where owner LIKE CONCAT('%'，#{owner},'%')")
     public int getSearchOwnerCount(String owner);
 
     /**
