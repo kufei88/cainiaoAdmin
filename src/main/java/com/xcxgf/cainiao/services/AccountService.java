@@ -42,9 +42,10 @@ public class AccountService {
      */
     public List<Account> getAccountList(HttpServletRequest request) throws ParseException {
         funhelper funh=new funhelper();
-        int start=(Integer.parseInt(request.getParameter("startnum"))-1)*10;
+
 
         int pagesize=Integer.parseInt(request.getParameter("pagecount"));
+        int start=(Integer.parseInt(request.getParameter("startnum"))-1)*pagesize;
         List<Account> accounts=accountMapper.getAccountList(start,pagesize);
         for(int i=0;i<accounts.toArray().length;i++){
             String startdate=accounts.get(i).getStartRentTime();
@@ -62,8 +63,9 @@ public class AccountService {
     public List<Account> getAccountNameList(HttpServletRequest request){
         String name=request.getParameter("name");
         int spg1=Integer.parseInt(request.getParameter("spg"));
-        int spg=(spg1-1)*5;
+
         int spgsize=Integer.parseInt(request.getParameter("spgsize"));
+        int spg=(spg1-1)*spgsize;
         return accountMapper.getAccountNameList(name,spg,spgsize);
     }
 
