@@ -217,7 +217,7 @@ public class LeaseService {
      * 合同变更
      *
      * @param leaseContract
-     * @return
+     * @return -1，变更公司未注册，0，未变更成功，1变更成功
      */
     public int changeLeaseContractInfo(LeaseContract leaseContract) {
         int reqCode = 0;
