@@ -17,6 +17,11 @@ public class ReturnData {
     private List<PaymentInfo> paymentInfos;
 
     /**
+     *诉求集合
+     */
+    private List<Appeal> appeals;
+
+    /**
      * 错误条数
      */
     private int errorCount;
@@ -64,6 +69,13 @@ public class ReturnData {
         this.electricityList = electricityList;
     }
 
+    public List<Appeal> getAppeals() {
+        return appeals;
+    }
+
+    public void setAppeals(List<Appeal> appeals) {
+        this.appeals = appeals;
+    }
 
     public int getErrorCount() {
         return errorCount;

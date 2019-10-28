@@ -10,14 +10,14 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 @MapperScan("com.xcxgf.cainiao.mapper")
-public class DemoApplication extends SpringBootServletInitializer {
+public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(DemoApplication.class);
-	}
+//	@Overrideextends SpringBootServletInitializer
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//		return builder.sources(DemoApplication.class);
+//	}
 }
