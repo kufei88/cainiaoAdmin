@@ -16,6 +16,7 @@ public class Account {
     private int totalPeriod;
     private String insertTime;
     private String updateTime;
+    private Boolean isDelete;
 
     public String getInsertTime() {
         return insertTime;
@@ -111,5 +112,13 @@ public class Account {
 
     public void setTotalPeriod(int totalPeriod) {
         this.totalPeriod = totalPeriod;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }
