@@ -22,6 +22,16 @@ public class LeaseController {
     @Autowired
     private LeaseService ls;
 
+
+    /**
+     * 合同总条数
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "/getContractCount")
+    public int getContractCount(HttpServletRequest request){return ls.getContractCount(request);}
+
+    @RequestMapping(method = RequestMethod.GET,value = "/getContractList")
+    public List<LeaseContract> getContractList(HttpServletRequest request){return ls.getContractList(request);}
     /**
      * 获取符合查询条件的租赁信息数据
      *
@@ -34,12 +44,17 @@ public class LeaseController {
         String search = request.getParameter("search");
         String start = request.getParameter("start");
         String count = request.getParameter("count");
+        Boolean isDelete=false;
+        if(request.getParameter("isDelete").equals("true")){
+            isDelete=true;
+        }
+        return ls.getSearchList(search, start, count,isDelete);
 
-        return ls.getSearchList(search, start, count);
     }
 
 
     /**
+<<<<<<< HEAD
      * 删除记录
      *
      * @param leaseContract 需要被删除的数据
@@ -137,10 +152,21 @@ public class LeaseController {
      * 查询某合同的租金单价
      * @param leaseCost
      * @return
+<<<<<<< HEAD
      */
     @RequestMapping(method = RequestMethod.POST,value = "/getPayUnitPrice")
     public String getPayUnitPrice(@RequestBody LeaseCost leaseCost){
         return ls.getPayUnitPrice(leaseCost);
+    }
+
+    /**
+     * 查询某合同的所有缴费记录
+     * @param leaseContract
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,value = "/getOwnerInfo")
+    public Enterprise getOwnerInfo(@RequestBody LeaseContract leaseContract){
+        return ls.getOwnerInfo(leaseContract);
     }
 
 }

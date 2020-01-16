@@ -75,10 +75,14 @@ public interface RoomMapper {
      */
     @Update("UPDATE roominfo SET rentArea=#{rentArea}," +
             "buildingArea=#{buildingArea}," +
+            "roomNumber=#{roomNumber}," +
+            "other=#{other}," +
+            "followUpPeople=#{followUpPeople}," +
             "updateTime=#{updateTime}," +
-            "roomType=#{roomType}" +
+            "roomType=#{roomType} " +
             "WHERE buildingName=#{buildingName} " +
-            "and roomNumber=#{roomNumber}")
+            "and roomNumber=#{tempRoomNumber}")
+
     public int updateRoomInfo(Room room);
 
     /**
@@ -87,8 +91,8 @@ public interface RoomMapper {
      * @param room 需要插入的记录对象
      * @return int类型，插入记录影响的记录条数，为0时插入失败，否则插入成功
      */
-    @Insert("INSERT INTO roominfo(roomNumber,buildingName,rentArea,buildingArea,roomType,insertTime) " +
-            "VALUES(#{roomNumber}, #{buildingName}, #{rentArea}, #{buildingArea},#{roomType},#{insertTime})")
+    @Insert("INSERT INTO roominfo(roomNumber,buildingName,rentArea,buildingArea,roomType,insertTime,other,followUpPeople) " +
+            "VALUES(#{roomNumber}, #{buildingName}, #{rentArea}, #{buildingArea},#{roomType},#{insertTime},#{other},#{followUpPeople})")
     public int insertRoomInfo(Room room);
 
     /**
@@ -108,9 +112,14 @@ public interface RoomMapper {
      *
      * @param room 需要查询是否存在的记录对象
      * @return int类型，满足查询条件的记录条数，为0时不存在重复记录，否则存在重复记录
+     *
+     * @Select("SELECT COUNT(*) " +
+     *             "FROM (SELECT * FROM roominfo WHERE id NOT in (SELECT id FROM roominfo WHERE roomNumber = #{roomNumber} AND buildingName = #{buildingName} )) AS temp " +
+     *             "WHERE roomNumber = #{roomNumber} AND buildingName = #{buildingName}")
      */
     @Select("SELECT COUNT(*) " +
-            "FROM (SELECT * FROM roominfo WHERE id NOT in (SELECT id FROM roominfo WHERE roomNumber = #{roomNumber} AND buildingName = #{buildingName} )) AS temp " +
+
+            "FROM roominfo  " +
             "WHERE roomNumber = #{roomNumber} AND buildingName = #{buildingName}")
     public int updateSearchSame(Room room);
 

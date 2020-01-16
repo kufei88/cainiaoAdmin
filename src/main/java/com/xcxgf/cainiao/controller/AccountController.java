@@ -57,6 +57,13 @@ public class AccountController {
     public int getAccountCount(){return accountService.getAccountCount();}
 
     /**
+     * 获取过期合同总条数
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.POST,value = "/getDeleteCount")
+    public int getDeleteCount(){return accountService.getDeleteCount();}
+
+    /**
      * 合同更新
      * @param account
      * @return

@@ -75,11 +75,21 @@ public class RoomService {
      */
     public int updateRoomList(Room room) {
         int reqCode = 0;
-        if (rm.updateSearchSame(room) != 0) {
-            reqCode = -1;
-        } else if (rm.updateRoomInfo(room) > 0) {
-            reqCode = 1;
+        if (room.getTempRoomNumber().equals(room.getRoomNumber())){
+            if (rm.updateSearchSame(room) != 1) {
+                reqCode = -1;
+            }else if (rm.updateRoomInfo(room) > 0) {
+                reqCode = 1;
+            }
+        }else{
+            if (rm.updateSearchSame(room) != 0) {
+                reqCode = -1;
+            }else if (rm.updateRoomInfo(room) > 0) {
+                reqCode = 1;
+            }
         }
+
+
         return reqCode;
     }
 

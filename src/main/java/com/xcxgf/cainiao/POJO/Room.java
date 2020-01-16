@@ -15,6 +15,11 @@ public class Room {
      */
     private String roomNumber;
     /**
+     * 临时房间号
+     * 用于修改房间号时，记录旧的房间号
+     */
+    private String tempRoomNumber;
+    /**
      * 业主
      */
     private String owner;
@@ -38,6 +43,16 @@ public class Room {
      * 修改时间
      */
     private String updateTime;
+
+
+    /**
+     * 备注
+     */
+    private String other;
+    /**
+     * 跟进人
+     */
+    private String followUpPeople;
 
     public String getBuildingName() {
         return buildingName;
@@ -93,6 +108,7 @@ public class Room {
 
     public void setInsertTime(String insertTime) {
         this.insertTime = insertTime;
+
     }
 
     public String getUpdateTime() {
@@ -101,5 +117,46 @@ public class Room {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
+    public String getFollowUpPeople() {
+        return followUpPeople;
+    }
+
+    public void setFollowUpPeople(String followUpPeople) {
+        this.followUpPeople = followUpPeople;
+    }
+
+    public String getTempRoomNumber() {
+        return tempRoomNumber;
+    }
+
+    public void setTempRoomNumber(String tempRoomNumber) {
+        this.tempRoomNumber = tempRoomNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "buildingName='" + buildingName + '\'' +
+                ", roomNumber='" + roomNumber + '\'' +
+                ", tempRoomNumber='" + tempRoomNumber + '\'' +
+                ", owner='" + owner + '\'' +
+                ", rentArea='" + rentArea + '\'' +
+                ", buildingArea='" + buildingArea + '\'' +
+                ", roomType='" + roomType + '\'' +
+                ", insertTime='" + insertTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", other='" + other + '\'' +
+                ", followUpPeople='" + followUpPeople + '\'' +
+                '}';
     }
 }

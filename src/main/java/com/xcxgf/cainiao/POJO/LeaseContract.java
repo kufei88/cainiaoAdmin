@@ -7,6 +7,8 @@ package com.xcxgf.cainiao.POJO;
  * @author zyz
  */
 public class LeaseContract {
+    private int id;
+
     /**
      * 业主
      */
@@ -63,6 +65,146 @@ public class LeaseContract {
      * 上一次缴费结束租期
      */
     private String lastPayTime;
+
+    /**
+     * 第一年租金单价
+     */
+    private String firstYear_unitPrice;
+
+    /**
+     * 第一年管理单价
+     */
+    private String firstYear_managePrice;
+
+    /**
+     * 第一年能耗公摊单价
+     */
+    private String firstYear_energyPrice;
+
+    /**
+     * 第二年租金单价
+     */
+    private String secondYear_unitPrice;
+
+    /**
+     * 第二年管理单价
+     */
+    private String secondYear_managePrice;
+
+    /**
+     * 第二年能耗公摊单价
+     */
+    private String secondYear_energyPrice;
+
+    /**
+     * 第一年租金总计
+     */
+    private String firstYear_rentCost;
+
+    /**
+     * 第二年租金总计
+     */
+    private String secondYear_rentCost;
+
+    /**
+     * 合同租金总计
+     */
+    private String totalRentCost;
+
+    /**
+     * 退款
+     */
+    private String refund;
+
+    private Boolean isDelete;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getRefund() {
+        return refund;
+    }
+
+    public void setRefund(String refund) {
+        this.refund = refund;
+    }
+
+    public String getFirstYear_unitPrice() {
+        return firstYear_unitPrice;
+    }
+
+    public void setFirstYear_unitPrice(String firstYear_unitPrice) {
+        this.firstYear_unitPrice = firstYear_unitPrice;
+    }
+
+    public String getFirstYear_managePrice() {
+        return firstYear_managePrice;
+    }
+
+    public void setFirstYear_managePrice(String firstYear_managePrice) {
+        this.firstYear_managePrice = firstYear_managePrice;
+    }
+
+    public String getFirstYear_energyPrice() {
+        return firstYear_energyPrice;
+    }
+
+    public void setFirstYear_energyPrice(String firstYear_energyPrice) {
+        this.firstYear_energyPrice = firstYear_energyPrice;
+    }
+
+    public String getSecondYear_unitPrice() {
+        return secondYear_unitPrice;
+    }
+
+    public void setSecondYear_unitPrice(String secondYear_unitPrice) {
+        this.secondYear_unitPrice = secondYear_unitPrice;
+    }
+
+    public String getSecondYear_managePrice() {
+        return secondYear_managePrice;
+    }
+
+    public void setSecondYear_managePrice(String secondYear_managePrice) {
+        this.secondYear_managePrice = secondYear_managePrice;
+    }
+
+    public String getSecondYear_energyPrice() {
+        return secondYear_energyPrice;
+    }
+
+    public void setSecondYear_energyPrice(String secondYear_energyPrice) {
+        this.secondYear_energyPrice = secondYear_energyPrice;
+    }
+
+    public String getFirstYear_rentCost() {
+        return firstYear_rentCost;
+    }
+
+    public void setFirstYear_rentCost(String firstYear_rentCost) {
+        this.firstYear_rentCost = firstYear_rentCost;
+    }
+
+    public String getSecondYear_rentCost() {
+        return secondYear_rentCost;
+    }
+
+    public void setSecondYear_rentCost(String secondYear_rentCost) {
+        this.secondYear_rentCost = secondYear_rentCost;
+    }
+
+    public String getTotalRentCost() {
+        return totalRentCost;
+    }
+
+    public void setTotalRentCost(String totalRentCost) {
+        this.totalRentCost = totalRentCost;
+    }
 
     public String getLastPayTime() {
         return lastPayTime;
@@ -175,4 +317,13 @@ public class LeaseContract {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
+    }
+
 }

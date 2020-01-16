@@ -1,17 +1,14 @@
 package com.xcxgf.cainiao.services;
 
+
 import com.xcxgf.cainiao.POJO.*;
 import com.xcxgf.cainiao.mapper.AccountMapper;
-import com.xcxgf.cainiao.mapper.RenewalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 @Service
 public class AccountService {
@@ -46,7 +43,11 @@ public class AccountService {
 
         int pagesize=Integer.parseInt(request.getParameter("pagecount"));
         int start=(Integer.parseInt(request.getParameter("startnum"))-1)*pagesize;
-        List<Account> accounts=accountMapper.getAccountList(start,pagesize);
+        Boolean isDelete=false;
+        if(request.getParameter("isDelete").equals("true")){
+            isDelete=true;
+        }
+        List<Account> accounts=accountMapper.getAccountList(isDelete,start,pagesize);
         for(int i=0;i<accounts.toArray().length;i++){
             String startdate=accounts.get(i).getStartRentTime();
             int totalLeasePeriod=accounts.get(i).getTotalPeriod();
@@ -63,10 +64,14 @@ public class AccountService {
     public List<Account> getAccountNameList(HttpServletRequest request){
         String name=request.getParameter("name");
         int spg1=Integer.parseInt(request.getParameter("spg"));
-
+        Boolean isDelete=false;
+        if(request.getParameter("isDelete").equals("true")){
+            isDelete=true;
+        }
         int spgsize=Integer.parseInt(request.getParameter("spgsize"));
         int spg=(spg1-1)*spgsize;
-        return accountMapper.getAccountNameList(name,spg,spgsize);
+        return accountMapper.getAccountNameList(isDelete,name,spg,spgsize);
+
     }
 
     /**
@@ -79,6 +84,12 @@ public class AccountService {
         return accountMapper.getAccountNameCount(name);
     }
 
+
+    /**
+     * 获取过期合同总条数
+     * @return
+     */
+    public int getDeleteCount(){return accountMapper.getDeleteCount();}
 
     /**
      * 获取总条数
@@ -136,9 +147,7 @@ public class AccountService {
         room.setRoomNumber(account.getRoomNumber());
         room.setOwner(owner);
         room.setBuildingName(buildingName);
-
         accountMapper.updateRoom2(room);
-        accountMapper.deleteAccount2(contractId);
         return accountMapper.deleteAccount(contractId);
     }
 

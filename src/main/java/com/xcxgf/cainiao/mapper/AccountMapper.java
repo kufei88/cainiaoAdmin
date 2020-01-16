@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
+/**
+ * @author gdd
+ */
 public interface AccountMapper {
     /**
      * 查询数据库合同信息表的1到10条数据
@@ -22,8 +25,9 @@ public interface AccountMapper {
      * @param pagesize
      * @return
      */
-    @Select("select * from dormitoryfirstinfo order by endRentTime,roomNumber,insertTime,id limit #{start},#{pagesize}")
-    public List<Account> getAccountList(int start,int pagesize);
+    @Select("select * from dormitoryfirstinfo where isDelete=#{isDelete} order by endRentTime,roomNumber,insertTime,id limit #{start},#{pagesize}")
+    public List<Account> getAccountList(Boolean isDelete,int start,int pagesize);
+
 
     /**
      * 根据业主名搜索合同信息并进行分页
@@ -32,17 +36,18 @@ public interface AccountMapper {
      * @param spgsize
      * @return
      */
-    @Select("select * from dormitoryfirstinfo where owner like CONCAT('%',#{name},'%') " +
+    @Select("select * from dormitoryfirstinfo where isDelete=#{isDelete} and owner like CONCAT('%',#{name},'%') " +
             "order by endRentTime,roomNumber,insertTime,id " +
             "limit #{spg},#{spgsize}")
-    public List<Account> getAccountNameList(String name,int spg,int spgsize);
+    public List<Account> getAccountNameList(Boolean isDelete,String name,int spg,int spgsize);
 
     /**
      * 获取搜索的信息的总条数
      * @param name
      * @return
      */
-    @Select("select count(*) from dormitoryfirstinfo where owner like CONCAT('%',#{name},'%')")
+
+    @Select("select count(*) from dormitoryfirstinfo  where isDelete=false and owner like CONCAT('%',#{name},'%')")
     public int getAccountNameCount(String name);
 
     /**
@@ -57,8 +62,16 @@ public interface AccountMapper {
      * 获取合同信息总条数
      * @return
      */
-    @Select("select count(*) from dormitoryfirstinfo")
+
+    @Select("select count(*) from dormitoryfirstinfo where isDelete=false")
     public int getAccountCount();
+
+    /**
+     * 获取到期信息的总条数
+     * @return
+     */
+    @Select("select count(*) from dormitoryfirstinfo  where isDelete=true")
+    public int getDeleteCount();
 
     /**
      * 更新合同信息
@@ -131,7 +144,7 @@ public interface AccountMapper {
      * @param contractId
      * @return
      */
-    @Delete("delete from dormitoryfirstinfo where contractId=#{contractId}")
+    @Delete("update dormitoryfirstinfo set isDelete=true where contractId=#{contractId}")
     public int deleteAccount(String contractId);
 
     /**

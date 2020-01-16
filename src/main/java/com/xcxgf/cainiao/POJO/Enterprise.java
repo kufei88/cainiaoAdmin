@@ -34,6 +34,18 @@ public class Enterprise {
      * 备注信息
      */
     private String other;
+    /**
+     * 职位
+     */
+    private String position;
+    /**
+     * 年销售额
+     */
+    private String annualSales;
+    /**
+     * 行业
+     */
+    private String industry;
 
     public String getOther() {
         return other;
@@ -89,5 +101,30 @@ public class Enterprise {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getAnnualSales() {
+        return annualSales;
+    }
+
+    public void setAnnualSales(String annualSales) {
+        this.annualSales = annualSales;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
     }
 }

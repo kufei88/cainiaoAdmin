@@ -6,6 +6,7 @@ import com.xcxgf.cainiao.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,25 @@ public class LeaseService {
     @Autowired
     private RoomMapper rm;
 
+    public int getContractCount(HttpServletRequest request){
+        String name=request.getParameter("name");
+        Boolean isDelete=false;
+        if(request.getParameter("isDelete").equals("true")){
+            isDelete=true;
+        }
+        return lm.getContractCount(name,isDelete);
+    }
+
+    public List<LeaseContract> getContractList(HttpServletRequest request){
+        int pageSize=Integer.parseInt(request.getParameter("pageSize"));
+        int startPage=(Integer.parseInt(request.getParameter("pageCurrent"))-1)*pageSize;
+        String name=request.getParameter("name");
+        Boolean isDelete=false;
+        if(request.getParameter("isDelete").equals("true")){
+            isDelete=true;
+        }
+        return lm.getContractList(startPage,pageSize,name,isDelete);
+    }
     /**
      * 查询满足查询条件的记录
      *
@@ -32,9 +52,28 @@ public class LeaseService {
      * @param count  需要返回的记录条数
      * @return
      */
-    public DataReturn getSearchList(String search, String start, String count) {
+    public DataReturn getSearchList(String search, String start, String count,Boolean isDelete) {
         // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "where (buildingName like '%" + search + "%' or roomNumber like '%" + search + "%' or owner like '%" + search + "%')";
+        String searchStr;
+        if("".equals(search)){
+            searchStr="";
+            if(isDelete){
+                searchStr=searchStr+"where isDelete=true";
+            }
+            else{
+                searchStr=searchStr+"where isDelete=false";
+            }
+        }
+        else {
+            searchStr="where (buildingName like '%" + search + "%' or roomNumber like '%" + search + "%' or owner like '%" + search + "%')";
+            if(isDelete){
+                searchStr=searchStr+"and isDelete=true";
+            }
+            else{
+                searchStr=searchStr+"and isDelete=false";
+            }
+
+        }
         String limitStr = "0".equals(start) && "0".equals(count) ? "" : "limit " + start + "," + count;
 
         // 数据包装
@@ -65,9 +104,9 @@ public class LeaseService {
         // 已完成所有缴费
         String state = "0";
         // 1、查询该合同是否有缴费记录，有则删除合同记录以及更新房间状态，并且删除所有缴费记录
-        if (lm.hasLeaseCost(leaseContract).equals(state)) {
+        if (lm.hasLeaseCost(leaseContract)<24) {
             // 删除了合同记录，以及更新房间业主，还需要删除所有缴费记录
-            if (lm.deleteLeaseInfo(leaseContract) > 0 && lm.deleteRoomInfoOwner(leaseContract) > 0 && lm.deleteAllPay(leaseContract) > 0) {
+            if (lm.deleteLeaseInfo(leaseContract) > 0 && lm.deleteRoomInfoOwner(leaseContract) > 0) {
                 reqCode = 1;
                 // 查询是否已该企业无合同存在，是，则修改企业的状态为【已注册】
                 if (lm.insertSearchSame(leaseContract) == 0) {
@@ -194,14 +233,15 @@ public class LeaseService {
         int reqCode = 0;
         // 1、查询缴费租期是否大于未缴费租期，是，则返回-1
         // 2、查询是否已有过往记录存在，否，则先更新合同中的【首租租金】
-        // 3、插入新纪录，并更新合同中的【未缴费租期】，合同的【上一次缴费终止租期】
+
+        // 3、插入新纪录，并更新合同中的【未缴费租期】，合同的【上一次缴费终止租】
         if (lm.searchTimeRight(leaseCost) != 0) {
             if (lm.searchLeaseCostSame(leaseCost) == 0) {
                 // 更新合同中的【首租租金】
-                lm.updateRentPriceFirst(leaseCost);
+                // lm.updateRentPriceFirst(leaseCost);
             }
             if (lm.insertLeaseCostInfo(leaseCost) > 0) {
-                // 更新合同中的【未缴费租期】
+                // 更新合同中的【未缴费租期】，合同的【上一次缴费终止租】
                 lm.updateNoPayPeriod(leaseCost);
                 lm.updateLastPayTime(leaseCost);
                 reqCode = 1;
@@ -261,6 +301,16 @@ public class LeaseService {
      */
     public String getPayUnitPrice(LeaseCost leaseCost) {
         return lm.getPayUnitPrice(leaseCost);
+    }
+
+
+    /**
+     * 查询合同联系人的信息
+     * @param leaseContract
+     * @return
+     */
+    public Enterprise getOwnerInfo(LeaseContract leaseContract){
+        return lm.getOwnerInfo(leaseContract);
     }
 
 }

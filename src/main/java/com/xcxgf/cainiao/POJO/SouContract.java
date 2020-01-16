@@ -1,9 +1,6 @@
 package com.xcxgf.cainiao.POJO;
 
-/**
- * @author gdd
- */
-public class SouSouClient {
+public class SouContract {
     private int id;
     /**
      * 招商负责人
@@ -21,6 +18,22 @@ public class SouSouClient {
      * 学号
      */
     private String sno;
+    /**
+     * 缴费金额
+     */
+    private double payment;
+    /**
+     * 合同起始日
+     */
+    private String htStartTime;
+    /**
+     * 合同截止日
+     */
+    private String htEndTime;
+    /**
+     * 标签
+     */
+    private String tag;
     /**
      * 联系人姓名
      */
@@ -42,21 +55,33 @@ public class SouSouClient {
      */
     private String pingTai;
     /**
+     * 经营方式
+     */
+    private String jyFangShi;
+    /**
+     * 产品品牌
+     */
+    private String pingPai;
+    /**
+     * 团队大小
+     */
+    private int teamSize;
+    /**
      * 营业额
      */
     private double sales;
     /**
-     * 沟通情况
+     * 优势
      */
-    private String communication;
+    private String advantage;
     /**
      * 录入时间
      */
     private String createTime;
     /**
-     * 是否存在合同
+     * 合同是否到期
      */
-    private Boolean isContract;
+    private Boolean isDelete;
 
     public int getId() {
         return id;
@@ -96,6 +121,38 @@ public class SouSouClient {
 
     public void setSno(String sno) {
         this.sno = sno;
+    }
+
+    public double getPayment() {
+        return payment;
+    }
+
+    public void setPayment(double payment) {
+        this.payment = payment;
+    }
+
+    public String getHtStartTime() {
+        return htStartTime;
+    }
+
+    public void setHtStartTime(String htStartTime) {
+        this.htStartTime = htStartTime;
+    }
+
+    public String getHtEndTime() {
+        return htEndTime;
+    }
+
+    public void setHtEndTime(String htEndTime) {
+        this.htEndTime = htEndTime;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getContactPerson() {
@@ -138,6 +195,30 @@ public class SouSouClient {
         this.pingTai = pingTai;
     }
 
+    public String getJyFangShi() {
+        return jyFangShi;
+    }
+
+    public void setJyFangShi(String jyFangShi) {
+        this.jyFangShi = jyFangShi;
+    }
+
+    public String getPingPai() {
+        return pingPai;
+    }
+
+    public void setPingPai(String pingPai) {
+        this.pingPai = pingPai;
+    }
+
+    public int getTeamSize() {
+        return teamSize;
+    }
+
+    public void setTeamSize(int teamSize) {
+        this.teamSize = teamSize;
+    }
+
     public double getSales() {
         return sales;
     }
@@ -146,12 +227,12 @@ public class SouSouClient {
         this.sales = sales;
     }
 
-    public String getCommunication() {
-        return communication;
+    public String getAdvantage() {
+        return advantage;
     }
 
-    public void setCommunication(String communication) {
-        this.communication = communication;
+    public void setAdvantage(String advantage) {
+        this.advantage = advantage;
     }
 
     public String getCreateTime() {
@@ -162,11 +243,11 @@ public class SouSouClient {
         this.createTime = createTime;
     }
 
-    public Boolean getContract() {
-        return isContract;
+    public Boolean getDelete() {
+        return isDelete;
     }
 
-    public void setContract(Boolean contract) {
-        isContract = contract;
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }

@@ -62,6 +62,31 @@ public class LeaseCost {
      * 缴费终止租期
      */
     private String endPayTime;
+    /**
+     * 第一年缴费租金
+     */
+    private String firstYear_rentCost;
+
+    /**
+     * 第二年缴费租金
+     */
+    private String secondYear_rentCost;
+
+    public String getFirstYear_rentCost() {
+        return firstYear_rentCost;
+    }
+
+    public void setFirstYear_rentCost(String firstYear_rentCost) {
+        this.firstYear_rentCost = firstYear_rentCost;
+    }
+
+    public String getSecondYear_rentCost() {
+        return secondYear_rentCost;
+    }
+
+    public void setSecondYear_rentCost(String secondYear_rentCost) {
+        this.secondYear_rentCost = secondYear_rentCost;
+    }
 
     public String getStartPayTime() {
         return startPayTime;
