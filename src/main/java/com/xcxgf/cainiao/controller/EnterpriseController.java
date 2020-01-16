@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * 园区企业管理，前端后台交互层
+ * @author zyz
  */
 @RestController
 @RequestMapping("enterprise")
@@ -32,25 +33,10 @@ public class EnterpriseController {
     public DataReturn getSearchList(HttpServletRequest request) {
         // 从request中获取各参数
         String search = request.getParameter("search");
-        String startStr = request.getParameter("dataStart");
-        String endStr = request.getParameter("dataEnd");
-        int start = Integer.parseInt(startStr);
-        int end = Integer.parseInt(endStr);
-        // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "and (enterpriseName like '%" + search + "%' or enterprisePerson like '%" + search + "%')";
-        String limitStr = "0".equals(startStr) && "0".equals(endStr) ? "" : "limit " + start + "," + end;
+        String start = request.getParameter("dataStart");
+        String count = request.getParameter("dataSize");
 
-        return es.getSearchList(searchStr, limitStr);
-    }
-
-    /**
-     * 获取所有的园区企业的数据
-     *
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getEnterpriseList")
-    public List<Enterprise> getEnterpriseList() {
-        return es.getEnterpriseList();
+        return es.getSearchList(search, start, count);
     }
 
     /**

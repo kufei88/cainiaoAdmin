@@ -1,5 +1,6 @@
 package com.xcxgf.cainiao.controller;
 
+import com.xcxgf.cainiao.POJO.Building;
 import com.xcxgf.cainiao.POJO.DataReturn;
 import com.xcxgf.cainiao.POJO.Room;
 import com.xcxgf.cainiao.services.RoomService;
@@ -11,16 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
 /**
  * 办公室管理，前端后台交互层
+ * @author zyz
  */
 @RestController
 @RequestMapping("room")
 public class RoomController {
     @Autowired
     private RoomService rs;
+
     /**
      * 获取符合查询条件的办公室数据
+     *
      * @param request request中包含3个参数，search（查询内容），dataStart（返回数据的起始位置），dataEnd（返回数据的终止位置）
      * @return
      */
@@ -28,37 +33,16 @@ public class RoomController {
     public DataReturn getSearchList(HttpServletRequest request) {
         // 从request中获取各参数
         String search = request.getParameter("search");
-        String startStr = request.getParameter("dataStart");
-        String endStr = request.getParameter("dataEnd");
-        int start = Integer.parseInt(startStr);
-        int end = Integer.parseInt(endStr);
-        // 拼接查询字符串，limit字符串
-        String searchStr = "".equals(search) ? "" : "and (buildingName like '%" + search + "%' or roomNumber like '%" + search + "%')";
-        String limitStr = "0".equals(startStr) && "0".equals(endStr) ? "" : "limit " + start + "," + end;
+        String start = request.getParameter("dataStart");
+        String count = request.getParameter("dataSize");
+        String dataType = request.getParameter("dataType");
 
-        return rs.getSearchList(searchStr, limitStr);
-    }
-
-    /**
-     * 获取所有未租赁的办公室数据
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getRoomList")
-    public List<Room> getRoomList() {
-        return rs.getRoomList();
-    }
-
-    /**
-     * 获取所有的已租赁的办公室数据
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/getRoomListContinue")
-    public List<Room> getRoomListContinue() {
-        return rs.getRoomListContinue();
+        return rs.getSearchList(search, start, count, dataType);
     }
 
     /**
      * 删除数据
+     *
      * @param room 需要被删除的数据
      * @return 删除结果的状态值
      */
@@ -69,6 +53,7 @@ public class RoomController {
 
     /**
      * 插入记录
+     *
      * @param room 需要被插入的数据
      * @return 插入结果的状态值
      */
@@ -79,6 +64,7 @@ public class RoomController {
 
     /**
      * 更新记录
+     *
      * @param room 需要被更新的数据
      * @return 更新结果的状态值
      */
@@ -89,6 +75,7 @@ public class RoomController {
 
     /**
      * 批量插入记录（上传记录）
+     *
      * @param roomList 需要被插入的数据的集合
      * @return 插入结果的状态值
      */
@@ -96,5 +83,17 @@ public class RoomController {
     public int uploadRoomList(@RequestBody List<Room> roomList) {
         return rs.uploadRoomList(roomList);
     }
+
+    /**
+     * 查询办公楼数据
+     * @param request
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET,value = "/getBuildingList")
+    public List<Building> getBuildingList(HttpServletRequest request){
+        String dataType = request.getParameter("dataType");
+        return rs.getBuildingList(dataType);
+    }
+
 
 }

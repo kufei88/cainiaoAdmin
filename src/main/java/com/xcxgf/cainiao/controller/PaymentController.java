@@ -1,131 +1,218 @@
 package com.xcxgf.cainiao.controller;
 
 
-import com.xcxgf.cainiao.POJO.Hydropower;
+import com.xcxgf.cainiao.POJO.Enumeration;
 import com.xcxgf.cainiao.POJO.PaymentInfo;
+import com.xcxgf.cainiao.POJO.ReturnData;
+import com.xcxgf.cainiao.POJO.SystemInfo;
 import com.xcxgf.cainiao.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * @author 田易
+ */
 @RestController
 @RequestMapping("payment")
 public class PaymentController {
 
     @Autowired
     private PaymentService ps;
-    //更新
-    @PostMapping("/updatePaymentData")
-    public void update(HttpServletRequest request) {
-        ps.update(request);
+
+    /**
+     *查询表格数据
+     * @param request request中包含3个参数，dataStart（返回数据的起始位置），dataEnd（返回数据的终止位置）
+     * @return
+     */
+    @GetMapping("/getSearchList")
+    public ReturnData getSearchList(HttpServletRequest request) {
+        // 从request中获取各参数
+        String startStr = request.getParameter("dataStart");
+        String endStr = request.getParameter("dataEnd");
+        String searchValue = request.getParameter("searchValue");
+        String selectValue = request.getParameter("selectValue");
+        int start = Integer.parseInt(startStr);
+        int end = Integer.parseInt(endStr);
+        // 拼接查询字符串，limit字符串
+        String limit = "0".equals(startStr) && "0".equals(endStr) ? "" : "limit " + start + "," + end;
+
+        return ps.getSearchList(searchValue,selectValue,limit);
     }
-    //增加
+
+    /**
+     * 得到折线图报表数据
+     * @param request
+     * @return
+     */
+    @GetMapping("/getReportList")
+    public ReturnData getReportList(HttpServletRequest request){
+        String reportState = request.getParameter("reportState");
+        ReturnData returnData = new ReturnData();
+        if(reportState.equals(Enumeration.years.getName())){
+            returnData.setTimeList(ps.getYearsList());
+            returnData.setWaterList(ps.getYearsWaterCostList());
+            returnData.setElectricityList(ps.getYearsElectricityCostList());
+        }else if(reportState.equals(Enumeration.quarter.getName())){
+            returnData.setTimeList(ps.getQuarterList());
+            returnData.setWaterList(ps.getQuarterWaterCostList());
+            returnData.setElectricityList(ps.getQuarterElectricityCostList());
+        }else if(reportState.equals(Enumeration.month.getName())){
+            returnData.setTimeList(ps.getMonthList());
+            returnData.setWaterList(ps.getMonthWaterCostList());
+            returnData.setElectricityList(ps.getMonthElectricityCostList());
+        }
+
+        return returnData;
+    }
+
+    /**
+     * 查询公司
+     * @param request
+     * @return
+     */
+    @GetMapping("/getEnterpriseNumber")
+    public String getEnterpriseNumber(HttpServletRequest request){
+        String building = request.getParameter("building");
+        String room = request.getParameter("room");
+        return ps.getEnterpriseNumber(building,room);
+    }
+
+    /**
+     * 查询房间
+     * @param request
+     * @return
+     */
+    @GetMapping("/getRoomList")
+    public List<Long> roomList(HttpServletRequest request){
+        String building = request.getParameter("building");
+        return ps.getRoomList(building);
+    }
+
+    /**
+     * 查询楼栋
+     * @return
+     */
+    @GetMapping("/getBuildingList")
+    public List<String> builingList(){
+       return ps.getBuilingList();
+    }
+
+    /**
+     * 增加paymentInfo表格数据
+     * @param paymentInfo
+     * @return
+     */
     @PostMapping("/insertPaymentData")
-    public void insert(HttpServletRequest request) { ps.insert(request); }
-    //删除
-    @PostMapping("/deletePaymentData")
-    public void delete(HttpServletRequest request) {
-        ps.delete(request);
+    public int insert(@RequestBody PaymentInfo paymentInfo) {
+        float water,electricity;
+        SystemInfo systemInfo= ps.getSystemInfo();
+        water = systemInfo.getWaterUnitPrice();
+        electricity = systemInfo.getElectricityUnitPrice();
+        return ps.insert(paymentInfo,water,electricity);
     }
-    //删除所有数据
-    @PostMapping("/deletePaymentDataAll")
-    public List<PaymentInfo> deleteAll() {
-        ps.deleteAll();
-        return ps.getPaymentList();
+
+    /**
+     * 导入Excel
+     * @param paymentInfo
+     * @return
+     */
+    @PostMapping("/insertPaymentDataExcel")
+    public ReturnData insertExcel(@RequestBody List<PaymentInfo> paymentInfo) {
+        int flag=0,i=0,j=0;
+        int t;
+        float water,electricity;
+        ReturnData returnData = new ReturnData();
+        List<PaymentInfo> addList = new ArrayList<>();
+        List<PaymentInfo> updateList=new ArrayList<>();
+        SystemInfo systemInfo= ps.getSystemInfo();
+        water = systemInfo.getWaterUnitPrice();
+        electricity = systemInfo.getElectricityUnitPrice();
+        if (ps.tableIsNull()>=1){
+
+            for (PaymentInfo pi:paymentInfo)
+            {
+                t = ps.insert(pi,water,electricity);
+                i++;
+                if (t==1){
+                    if (i==paymentInfo.size()){
+                        flag=1;
+                        returnData.setExcelFlag(flag);
+                    }
+                }
+                if(t==0){
+                    j++;
+                    if (i==paymentInfo.size()){
+                        returnData.setErrorCount(j);
+                    }
+                }
+            }
+        }else {
+            ps.batInfoAdd(paymentInfo);
+        }
+
+        return returnData;
     }
-    //查询
+
+    /**
+     * 判断系统设置是否有数据
+     * @return
+     */
+    @GetMapping("/systemInfoIsNull")
+    public int systemInfoIsNull(){
+        return ps.systemInfoIsNull();
+    }
+
+    /**
+     * 新增系统设置单价
+     * @param systemInfo
+     * @return
+     */
+    @PostMapping("/addSystemInfo")
+    public int insertSystemInfo(@RequestBody SystemInfo systemInfo){
+        return ps.insertSystemInfo(systemInfo);
+    }
+
+    /**
+     * 查询系统设置单价
+     * @return
+     */
+    @GetMapping("/getSystemInfoList")
+    public List<SystemInfo> getSystemInfoList(){
+        return ps.getSystemInfoList();
+    }
+
+
+    /**
+     * 更新系统设置单价
+     * @param systemInfo
+     * @return
+     */
+    @PostMapping("/updateSystemInfo")
+    public int updateSystemInfo(@RequestBody SystemInfo systemInfo) {
+        return ps.updateSystemInfo(systemInfo);
+    }
+
+    /**
+     *查询表格数据
+     * @param request request中包含3个参数，dataStart（返回数据的起始位置），dataEnd（返回数据的终止位置）
+     * @return
+     */
     @GetMapping("/getPaymentList")
-    public List<PaymentInfo> getPaymentList(){
-        return ps.getPaymentList();
-    }
+    public ReturnData getPaymentList(HttpServletRequest request) {
+        // 从request中获取各参数
+        String startStr = request.getParameter("dataStart");
+        String endStr = request.getParameter("dataEnd");
+        int start = Integer.parseInt(startStr);
+        int end = Integer.parseInt(endStr);
+        // 拼接查询字符串，limit字符串
+        String limit = "0".equals(startStr) && "0".equals(endStr) ? "" : "limit " + start + "," + end;
 
-    //查询上期
-    @GetMapping("/getPreviousPaymentList")
-    public List<PaymentInfo> getPreviousPaymentList(){
-        return ps.getPreviousPaymentList();
-    }
-
-    //查询水电价格
-    @GetMapping("/getHydropowerPaymentList")
-    public List<Hydropower> getHydropowerPaymentList(){
-        return ps.getHydropowerPaymentList();
-    }
-    //更新水电费
-    @PostMapping("/updateHydropowerPaymentData")
-    public void updateHydropower(HttpServletRequest request) {
-        ps.updateHydropower(request);
-    }
-
-    //查询所有年份
-    @GetMapping("/getYearsList")
-    public List<Long> getYearsList(){
-        return ps.getYearsList();
-    }
-
-    //查询年份水费
-    @GetMapping("/getYearsWaterCostList")
-    public List<Long> getYearsWaterCostList(){
-//        System.out.println("年水"+ps.getYearsWaterCostList());
-
-        return ps.getYearsWaterCostList();
-    }
-
-    //查询年份电费
-    @GetMapping("/getYearsElectricityCostList")
-    public List<Long> getYearsElectricityCostList(){
-//        System.out.println("年电"+ps.getYearsElectricityCostList());
-        return ps.getYearsElectricityCostList();
-    }
-
-    //查询本年月份
-    @GetMapping("/getMonthList")
-    public List<Long> getMonthList(){
-//        System.out.println(ps.getMonthList());
-        return ps.getMonthList();
-    }
-
-
-    //查询本年月份水费
-    @GetMapping("/getMonthWaterCostList")
-    public List<Long> getMonthWaterCostList(){
-//        System.out.println("月水"+ps.getMonthWaterCostList());
-        return ps.getMonthWaterCostList();
-    }
-
-    //查询本年月份电费
-    @GetMapping("/getMonthElectricityCostList")
-    public List<Long> getMonthElectricityCostList(){
-//        System.out.println("月电"+ps.getMonthElectricityCostList());
-        return ps.getMonthElectricityCostList();
-    }
-
-    //查询本年季度
-    @GetMapping("/getQuarterList")
-    public List<Long> getQuarterList(){
-        return ps.getQuarterList();
-    }
-
-    //查询本年季度水费
-    @GetMapping("/getQuarterWaterCostList")
-    public List<Long> getQuarterWaterCostList(){
-//        System.out.println("月水"+ps.getMonthWaterCostList());
-        return ps.getMonthWaterCostList();
-    }
-
-    //查询本年季度电费
-    @GetMapping("/getQuarterElectricityCostList")
-    public List<Long> getQuarterElectricityCostList(){
-//        System.out.println("月电"+ps.getQuarterElectricityCostList());
-        return ps.getQuarterElectricityCostList();
+        return ps.getPaymentList(limit);
     }
 }

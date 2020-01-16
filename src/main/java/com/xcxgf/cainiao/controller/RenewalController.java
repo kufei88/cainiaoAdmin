@@ -1,6 +1,10 @@
 package com.xcxgf.cainiao.controller;
 
+
 import com.xcxgf.cainiao.POJO.Renewal;
+import com.xcxgf.cainiao.POJO.Room;
+import com.xcxgf.cainiao.POJO.fangjian;
+
 import com.xcxgf.cainiao.services.RenewalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +22,7 @@ public class RenewalController {
     @Autowired
     RenewalService renewalService;
 
+
     @RequestMapping(method= RequestMethod.GET,value = "/getRenewalList")
     public List<Renewal> getRenewalList(HttpServletRequest request){return renewalService.getRenewalList(request);}
 
@@ -27,6 +32,19 @@ public class RenewalController {
     @RequestMapping(method =RequestMethod.POST,value = "/insertRenewals")
     public int insertRenewals(@RequestBody Renewal renewal) throws ParseException {
         //System.out.printf(renewal.getLeasePeriod());
-        return renewalService.insertRenewals(renewal);}
+        return renewalService.insertRenewals(renewal);
+    }
+
+    @RequestMapping(method =RequestMethod.POST,value = "/insertRenewals2")
+    public int insertRenewals2(@RequestBody Renewal renewal) {
+        //System.out.printf(renewal.getLeasePeriod());
+        return renewalService.insertRenewals2(renewal);
+    }
+    @RequestMapping(method =RequestMethod.POST,value = "/updateRoom")
+    public int updateRoom(@RequestBody  Room room){
+        return renewalService.updateRoom(room);
+    }
+
 
 }
+

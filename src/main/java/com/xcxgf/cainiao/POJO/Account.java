@@ -5,42 +5,120 @@ import java.util.List;
 
 public class Account {
     private int id;
-    private String companyName;
-    private String contact;
-    private String contactNumber;
-    private String dormitoryNum;
-    private String contractSigning;
-    private String startDate;
-    private String endDate;
-    private String leasePeriod;
-    private String remark;
-    private List<SelectDatas> selectdatas;
-    public int getId(){ return id; }
-    public void setId(int id){this.id=id;}
-    public String getCompanyName(){ return companyName; }
-    public void setCompanyName(String companyName){ this.companyName=companyName; }
-    public String getContact(){return contact;}
-    public void setContact(String contact){this.contact=contact;}
-    public String getContactNumber(){return contactNumber;}
-    public void setContactNumber(String contactNumber){this.contactNumber=contactNumber;}
-    public String getDormitoryNum(){return dormitoryNum;}
-    public void setDormitoryNum(String venueNumber){this.dormitoryNum=venueNumber;}
-    public String getContractSigning(){return contractSigning;}
-    public void setContractSigning(String contractSigning){this.contractSigning=contractSigning;}
-    public String getStartDate(){return startDate;}
-    public void setStartDate(String startDate){this.startDate=startDate;}
-    public String getEndDate() { return endDate; }
-    public void setEndDate(String endDate) { this.endDate = endDate; }
-    public String getLeasePeriod(){return leasePeriod;}
-    public void setLeasePeriod(String leasePeriod){this.leasePeriod=leasePeriod;}
-    public String getRemark(){return remark;}
-    public void setRemark(String remark){this.remark=remark;}
+    private String contractId;
+    private String buildingName;
+    private String owner;
+    private String roomNumber;
+    private int rentPeriod;
+    private String startRentTime;
+    private String endRentTime;
+    private float totalCost;
+    private int totalPeriod;
+    private String insertTime;
+    private String updateTime;
+    private Boolean isDelete;
 
-    public List<SelectDatas> getSelectdatas() {
-        return selectdatas;
+    public String getInsertTime() {
+        return insertTime;
     }
 
-    public void setSelectdatas(List<SelectDatas> selectdatas) {
-        this.selectdatas = selectdatas;
+    public void setInsertTime(String insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public int getRentPeriod() {
+        return rentPeriod;
+    }
+
+    public void setRentPeriod(int rentPeriod) {
+        this.rentPeriod = rentPeriod;
+    }
+
+    public String getStartRentTime() {
+        return startRentTime;
+    }
+
+    public void setStartRentTime(String startRentTime) {
+        this.startRentTime = startRentTime;
+    }
+
+    public String getEndRentTime() {
+        return endRentTime;
+    }
+
+    public void setEndRentTime(String endRentTime) {
+        this.endRentTime = endRentTime;
+    }
+
+    public float getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public int getTotalPeriod() {
+        return totalPeriod;
+    }
+
+    public void setTotalPeriod(int totalPeriod) {
+        this.totalPeriod = totalPeriod;
+    }
+
+    public Boolean getDelete() {
+        return isDelete;
+    }
+
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 }

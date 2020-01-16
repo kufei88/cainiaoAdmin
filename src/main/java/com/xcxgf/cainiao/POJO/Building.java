@@ -1,25 +1,27 @@
 package com.xcxgf.cainiao.POJO;
 
+/**
+ * 楼栋管理的实体类
+ *
+ * @author zyz
+ */
 public class Building {
-    private int id;
-    private String buildingNumber;
+    /**
+     * 楼栋名称
+     */
     private String buildingName;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getBuildingNumber() {
-        return buildingNumber;
-    }
-
-    public void setBuildingNumber(String buildingNumber) {
-        this.buildingNumber = buildingNumber;
-    }
+    /**
+     * 楼栋类型
+     */
+    private String buildingType;
+    /**
+     * 添加时间
+     */
+    private String insertTime;
+    /**
+     * 修改时间
+     */
+    private String updateTime;
 
     public String getBuildingName() {
         return buildingName;
@@ -27,5 +29,29 @@ public class Building {
 
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
+    }
+
+    public String getBuildingType() {
+        return buildingType;
+    }
+
+    public void setBuildingType(String buildingType) {
+        this.buildingType = buildingType;
+    }
+
+    public String getInsertTime() {
+        return insertTime;
+    }
+
+    public void setInsertTime(String insertTime) {
+        this.insertTime = insertTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }
