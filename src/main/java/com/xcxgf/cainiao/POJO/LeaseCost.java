@@ -62,7 +62,6 @@ public class LeaseCost {
      * 缴费终止租期
      */
     private String endPayTime;
-
     /**
      * 第一年缴费租金
      */

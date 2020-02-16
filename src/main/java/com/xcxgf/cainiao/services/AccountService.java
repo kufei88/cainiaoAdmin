@@ -1,18 +1,14 @@
 package com.xcxgf.cainiao.services;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import com.xcxgf.cainiao.POJO.*;
 import com.xcxgf.cainiao.mapper.AccountMapper;
-import com.xcxgf.cainiao.mapper.RenewalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 @Service
 public class AccountService {
@@ -75,6 +71,7 @@ public class AccountService {
         int spgsize=Integer.parseInt(request.getParameter("spgsize"));
         int spg=(spg1-1)*spgsize;
         return accountMapper.getAccountNameList(isDelete,name,spg,spgsize);
+
     }
 
     /**
@@ -89,16 +86,16 @@ public class AccountService {
 
 
     /**
-     * 获取总条数
-     * @return
-     */
-    public int getAccountCount(){return accountMapper.getAccountCount();}
-
-    /**
      * 获取过期合同总条数
      * @return
      */
     public int getDeleteCount(){return accountMapper.getDeleteCount();}
+
+    /**
+     * 获取总条数
+     * @return
+     */
+    public int getAccountCount(){return accountMapper.getAccountCount();}
 
     /**
      * 数据更新
@@ -150,9 +147,7 @@ public class AccountService {
         room.setRoomNumber(account.getRoomNumber());
         room.setOwner(owner);
         room.setBuildingName(buildingName);
-
         accountMapper.updateRoom2(room);
-        //accountMapper.deleteAccount2(contractId);
         return accountMapper.deleteAccount(contractId);
     }
 

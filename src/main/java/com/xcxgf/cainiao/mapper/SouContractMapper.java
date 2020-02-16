@@ -2,11 +2,11 @@ package com.xcxgf.cainiao.mapper;
 
 import com.xcxgf.cainiao.POJO.SouContract;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
-
 public interface SouContractMapper {
     /**
      * 获取合同总条数

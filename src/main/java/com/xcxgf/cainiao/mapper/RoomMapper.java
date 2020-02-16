@@ -82,6 +82,7 @@ public interface RoomMapper {
             "roomType=#{roomType} " +
             "WHERE buildingName=#{buildingName} " +
             "and roomNumber=#{tempRoomNumber}")
+
     public int updateRoomInfo(Room room);
 
     /**
@@ -117,6 +118,7 @@ public interface RoomMapper {
      *             "WHERE roomNumber = #{roomNumber} AND buildingName = #{buildingName}")
      */
     @Select("SELECT COUNT(*) " +
+
             "FROM roominfo  " +
             "WHERE roomNumber = #{roomNumber} AND buildingName = #{buildingName}")
     public int updateSearchSame(Room room);

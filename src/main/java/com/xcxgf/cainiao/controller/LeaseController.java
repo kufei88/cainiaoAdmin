@@ -49,10 +49,12 @@ public class LeaseController {
             isDelete=true;
         }
         return ls.getSearchList(search, start, count,isDelete);
+
     }
 
 
     /**
+<<<<<<< HEAD
      * 删除记录
      *
      * @param leaseContract 需要被删除的数据
@@ -150,6 +152,7 @@ public class LeaseController {
      * 查询某合同的租金单价
      * @param leaseCost
      * @return
+<<<<<<< HEAD
      */
     @RequestMapping(method = RequestMethod.POST,value = "/getPayUnitPrice")
     public String getPayUnitPrice(@RequestBody LeaseCost leaseCost){
@@ -165,4 +168,5 @@ public class LeaseController {
     public Enterprise getOwnerInfo(@RequestBody LeaseContract leaseContract){
         return ls.getOwnerInfo(leaseContract);
     }
+
 }

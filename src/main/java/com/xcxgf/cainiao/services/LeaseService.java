@@ -233,6 +233,7 @@ public class LeaseService {
         int reqCode = 0;
         // 1、查询缴费租期是否大于未缴费租期，是，则返回-1
         // 2、查询是否已有过往记录存在，否，则先更新合同中的【首租租金】
+
         // 3、插入新纪录，并更新合同中的【未缴费租期】，合同的【上一次缴费终止租】
         if (lm.searchTimeRight(leaseCost) != 0) {
             if (lm.searchLeaseCostSame(leaseCost) == 0) {
@@ -301,6 +302,7 @@ public class LeaseService {
     public String getPayUnitPrice(LeaseCost leaseCost) {
         return lm.getPayUnitPrice(leaseCost);
     }
+
 
     /**
      * 查询合同联系人的信息

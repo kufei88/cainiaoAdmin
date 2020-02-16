@@ -27,6 +27,7 @@ public interface LeaseMapper {
             "${limit}")
     public List<LeaseContract> getSearchList(String search, String limit);
 
+
     @Select("select count(*) from sousoucontractinfo where companyName like CONCAT('%',#{name},'%') and isDelete=#{isDelete}")
     public int getContractCount(String name,Boolean isDelete);
 
@@ -54,10 +55,6 @@ public interface LeaseMapper {
     @Update("update leaseContractInfo set isDelete=true,refund=#{refund}" +
             "WHERE id=#{id}")
     public int deleteLeaseInfo(LeaseContract leaseContract);
-//    @Delete("DELETE FROM leaseContractInfo " +
-//            "WHERE buildingName =#{buildingName} " +
-//            "and roomNumber=#{roomNumber}")
-//    public int deleteLeaseInfo(LeaseContract leaseContract);
 
     /**
      * 更新记录（更新房间的业主为空闲）
@@ -76,6 +73,7 @@ public interface LeaseMapper {
      * @param leaseContract 需要被插入的记录对象
      * @return int类型，插入操作影响到的记录条数，0为插入失败，否则插入成功
      */
+
     @Insert("INSERT INTO leaseContractInfo(owner,roomNumber,buildingName,depositOnContracts,rentPeriod,startRentTime,endRentTime,firstYear_unitPrice,firstYear_managePrice,firstYear_energyPrice,secondYear_unitPrice,secondYear_managePrice,secondYear_energyPrice,firstYear_rentCost,secondYear_rentCost,totalRentCost,insertTime,noPayPeriod,lastPayTime) " +
             "VALUES(#{owner},#{roomNumber},#{buildingName},#{depositOnContracts},#{rentPeriod},#{startRentTime},#{endRentTime},#{firstYear_unitPrice},#{firstYear_managePrice},#{firstYear_energyPrice},#{secondYear_unitPrice},#{secondYear_managePrice},#{secondYear_energyPrice},#{firstYear_rentCost},#{secondYear_rentCost},#{totalRentCost},#{insertTime},#{rentPeriod},#{insertTime})")
     public int insertLeaseContractInfo(LeaseContract leaseContract);
@@ -169,6 +167,7 @@ public interface LeaseMapper {
      */
     @Insert("insert into leaseCostInfo(buildingName,roomNumber,owner,unitPrice,period,rentCost,propertyFee,energySharing,totalCost,insertTime,startPayTime,endPayTime,firstYear_rentCost,secondYear_rentCost) " +
             "values(#{buildingName},#{roomNumber},#{owner},#{unitPrice},#{period},#{rentCost},#{propertyFee},#{energySharing},#{totalCost},#{insertTime},#{startPayTime},#{endPayTime},#{firstYear_rentCost},#{secondYear_rentCost})")
+
     public int insertLeaseCostInfo(LeaseCost leaseCost);
 
     /**
@@ -292,7 +291,7 @@ public interface LeaseMapper {
     @Select("select * " +
             "from leaseCostInfo " +
             "where buildingName=#{buildingName} " +
-            "and roomNumber=#{roomNumber}")
+            "and roomNumber=#{roomNumber} and owner=#{owner}")
     public List<LeaseCost> getLeaseCostList(LeaseContract leaseContract);
 
     /**
@@ -375,6 +374,7 @@ public interface LeaseMapper {
      */
     @Select("select * from enterpriseinfo where enterpriseName=#{owner}")
     public Enterprise getOwnerInfo(LeaseContract leaseContract);
+
 
 
 

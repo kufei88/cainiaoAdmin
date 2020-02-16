@@ -46,6 +46,7 @@ public interface AccountMapper {
      * @param name
      * @return
      */
+
     @Select("select count(*) from dormitoryfirstinfo  where isDelete=false and owner like CONCAT('%',#{name},'%')")
     public int getAccountNameCount(String name);
 
@@ -61,6 +62,7 @@ public interface AccountMapper {
      * 获取合同信息总条数
      * @return
      */
+
     @Select("select count(*) from dormitoryfirstinfo where isDelete=false")
     public int getAccountCount();
 

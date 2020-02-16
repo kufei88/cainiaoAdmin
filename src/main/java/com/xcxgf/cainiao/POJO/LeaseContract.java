@@ -8,6 +8,7 @@ package com.xcxgf.cainiao.POJO;
  */
 public class LeaseContract {
     private int id;
+
     /**
      * 业主
      */
@@ -324,4 +325,5 @@ public class LeaseContract {
     public void setDelete(Boolean delete) {
         isDelete = delete;
     }
+
 }

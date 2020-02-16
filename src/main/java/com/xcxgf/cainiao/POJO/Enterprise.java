@@ -101,6 +101,7 @@ public class Enterprise {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+
     }
 
     public String getPosition() {

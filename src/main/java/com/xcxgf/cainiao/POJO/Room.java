@@ -44,6 +44,7 @@ public class Room {
      */
     private String updateTime;
 
+
     /**
      * 备注
      */
@@ -107,6 +108,7 @@ public class Room {
 
     public void setInsertTime(String insertTime) {
         this.insertTime = insertTime;
+
     }
 
     public String getUpdateTime() {
